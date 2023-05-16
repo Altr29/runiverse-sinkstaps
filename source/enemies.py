@@ -8,7 +8,8 @@ import streamlit as st
 def enemies_files(sheet):
     try:
         enemies0 = pd.read_excel('source/Alpha Enemies.xlsx',sheet_name=sheet)
-        enemies0.rename(columns={'                                                                 Monster':'Monster'}, inplace=True)
+        enemies0.rename(columns={'                                                                 Monster':
+                                     'Monster'}, inplace=True)
 
         df = enemies0[enemies0.columns[:-7]].astype({'Quantity Min / Max':'string',
                                                      'Quantity Min / Max.1':'string',

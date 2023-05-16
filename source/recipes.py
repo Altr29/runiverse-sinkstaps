@@ -5,17 +5,54 @@ import plotly.express as px
 import streamlit as st
 # COSTS
 
-
+woods_stones_list = ['Redwood',
+                        'Pine',
+                        'Willow',
+                        'Olive',
+                        'Oak',
+                        'Ash',
+                        'Holly',
+                        'Basalt',
+                        'Limestone',
+                        'Shale',
+                        'Sand',
+                        'Granite',
+                        'Marble',
+                        'Alabaster']
 woods_stones = {
     'Primary':[24,48,72,96],
     'Secondary':[16,32,48,64],
     'Tertiary':[8,16,24,32]
 }
+
+fabrics_metals_list = ['Flax', 'Zinc',
+                        'Silk', 'Tungsten',
+                        'Jute', 'Tin',
+                        'Hemp', 'Copper',
+                        'Cotton', 'Iron',
+                        'Cashmere', 'Aluminum',
+                        'Wool', 'Titanium']
 fabrics_metals = {
     'Primary':[12,24,36,48],
     'Secondary':[8,16,24,32],
     'Tertiary':[4,8,12,16]
 }
+
+gems_els_list = ['Ruby',
+                'Sapphire',
+                'Emerald',
+                'Topaz',
+                'Smoky Quartz',
+                'Amethyst',
+                'Diamond',
+                 'Sulfur',
+                 'Hydrogen',
+                 'Carbon',
+                 'Nitrogen',
+                 'Calcium',
+                 'Silicon',
+                 'Antimony']
+
 gems_els = {
     'Primary':[6,12,18,24],
     'Secondary':[4,8,12,16],
@@ -75,36 +112,20 @@ def recipes_type(recipe_type, init, fin, NAME):
                     'Secondary').replace('3', 'Tertiary').replace(1,'Primary').replace(2, 'Secondary').replace(3,'Tertiary')
 
         for el in els:
-            field = gems_els
+
             if 'Shard' in el:
                 field = shard
             elif 'Ember' in el:
                 field = ember
             elif 'Soul' in soul:
                 field = soul
-            elif el in ['Redwood',
-                        'Pine',
-                        'Willow',
-                        'Olive',
-                        'Oak',
-                        'Ash',
-                        'Holly',
-                        'Basalt',
-                        'Limestone',
-                        'Shale',
-                        'Sand',
-                        'Granite',
-                        'Marble',
-                        'Alabaster']:
+            elif el in woods_stones_list:
                 field = woods_stones
-            elif el in ['Flax', 'Zinc',
-                        'Silk', 'Tungsten',
-                        'Jute', 'Tin',
-                        'Hemp', 'Copper',
-                        'Cotton', 'Iron',
-                        'Cashmere', 'Aluminum',
-                        'Wool', 'Titanium']:
+            elif el in fabrics_metals_list:
                 field = fabrics_metals
+            elif el in gems_els_list:
+                field = gems_els
+
             alpha_recipes_f[el] = np.select(
                 [
                     (alpha_recipes_f['RARITY'] == 'Common') & (alpha_recipes_f['TIER'] == 'I') & (
@@ -260,6 +281,9 @@ def totals(alpha_recipes_f2, els):
     except Exception as e:
         logging.error('Error in totals ', e)
         return None
+
+def time_to_collect(df, epm):
+    pass
 
 def tiers_plots(df, tier, els, NAME):
     try:
