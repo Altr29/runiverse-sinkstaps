@@ -94,25 +94,22 @@ def recipes_type(recipe_type, init, fin, NAME):
                 if 'Unnamed' in alpha_recipes.columns[k] and 'Unnamed' not in alpha_recipes0.columns[k]:
                     cols_names[alpha_recipes0.columns[k]]=alpha_recipes0.columns[k]
                 else:
-                    if 'Unnamed' in alpha_recipes.columns[k] and 'Unnamed' in alpha_recipes0.columns[k]:
-                        cols_names[alpha_recipes0.columns[k]]=k
+                    pass
 
         alpha_recipes0.rename(columns=cols_names, inplace=True)
         alpha_recipes0.drop(index=alpha_recipes0.index[0], axis=0, inplace=True)
-        print('COLS ----> ', alpha_recipes0.columns[:fin])
         cols = alpha_recipes0.columns[:fin]
         alpha_recipes_f = alpha_recipes0[cols]
         els = list(cols)[init:-1]
-        print('ELS ----> ', els)
 
         alpha_recipes_f['TIER'] = alpha_recipes_f['TIER'].replace('1', 'I').replace(1, 'I').replace(
                                                 '2','II').replace('3', 'III').replace(2, 'II').replace(3, 'III')
         for col in els:
-            alpha_recipes_f[col] = alpha_recipes_f[col].replace('-', 'None').replace('1', 'Primary').replace('2',
-                    'Secondary').replace('3', 'Tertiary').replace(1,'Primary').replace(2, 'Secondary').replace(3,'Tertiary')
+            alpha_recipes_f[col] = alpha_recipes_f[col].replace('-', 'None').replace('1',
+                                    'Primary').replace('2', 'Secondary').replace('3', 'Tertiary').replace(1,
+                                                    'Primary').replace(2, 'Secondary').replace(3,'Tertiary')
 
         for el in els:
-
             if 'Shard' in el:
                 field = shard
             elif 'Ember' in el:
@@ -217,26 +214,49 @@ def recipes_type(recipe_type, init, fin, NAME):
                     field['Tertiary'][-1],
                     field['Tertiary'][-1] * 2,
                     int(field['Tertiary'][-1] * 2.25)
-
                 ],
             )
 
         alpha_recipes_f2 = alpha_recipes_f
         return alpha_recipes_f2, els
+
     except Exception as e:
         logging.error('Error here ', e)
         return None, []
 
+def time_to_collect(df,NAME, epm, els, tier, shard_ipm, ember_ipm, soul_ipm):
+    df1 = df[df['TIER'] == tier]
+
+    for el in els:
+        if 'Shard' in el:
+            df1[el + '_time'] = df1[el].apply(lambda x: int(x / shard_ipm))
+        elif 'Ember' in el:
+            df1[el + '_time'] = df1[el].apply(lambda x: int(x / ember_ipm))
+        elif 'Soul' in el:
+                df1[el + '_time'] = df1[el].apply(lambda x: int(x / soul_ipm))
+        else:
+            if el in woods_stones_list:
+                k=5
+            elif el in fabrics_metals_list:
+                k=3
+            elif el in gems_els_list:
+                k = 1
+
+        df1[el+'_time'] = df1[el].apply(lambda x: int((x/epm)/k))
+
+    els1 = [k + '_time' for k in els]
+    print('----> ', df1.columns)
+    fig = px.bar(
+        df1, x=NAME, y=els1,
+        labels={"value": "Minutes"},
+        text_auto=True, title=f"Time to collect - TIER {tier}")
+    fig.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
+    st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
+
 def totals(alpha_recipes_f2, els):
     try:
-        field = {}
-        field['Shard'] = []
-        field['Ember'] = []
-        field['Soul'] = []
-        field['w_s'] = []
-        field['m_f'] = []
-        field['g_e'] = []
-        print('ELS IN TOTALS ----> ', els)
+        field = {'Shard': [], 'Ember': [], 'Soul': [], 'w_s': [], 'm_f': [], 'g_e': []}
         for el in els:
             if 'Shard' in el:
                 field['Shard'].append(el)
@@ -244,30 +264,11 @@ def totals(alpha_recipes_f2, els):
                 field['Ember'].append(el)
             elif 'Soul' in soul:
                 field['Soul'].append(el)
-            elif el in ['Redwood',
-                      'Pine',
-                      'Willow',
-                      'Olive',
-                      'Oak',
-                      'Ash',
-                      'Holly',
-                      'Basalt',
-                      'Limestone',
-                      'Shale',
-                      'Sand',
-                      'Granite',
-                      'Marble',
-                      'Alabaster']:
+            elif el in woods_stones_list:
                 field['w_s'].append(el)
-            elif el in ['Flax',	'Zinc',
-                    'Silk','Tungsten',
-                    'Jute','Tin',
-                    'Hemp','Copper',
-                    'Cotton','Iron',
-                    'Cashmere','Aluminum',
-                    'Wool','Titanium']:
+            elif el in fabrics_metals_list:
                 field['m_f'].append(el)
-            else:
+            elif el in gems_els_list:
                 field['g_e'].append(el)
 
         alpha_recipes_f2['Shard_total'] = alpha_recipes_f2[field['Shard']].sum(axis=1)
@@ -276,14 +277,12 @@ def totals(alpha_recipes_f2, els):
         alpha_recipes_f2['WoodsStones_total'] = alpha_recipes_f2[field['w_s']].sum(axis=1)
         alpha_recipes_f2['MetalsFabrics_total'] = alpha_recipes_f2[field['m_f']].sum(axis=1)
         alpha_recipes_f2['GemsElements_total'] = alpha_recipes_f2[field['g_e']].sum(axis=1)
-
         return alpha_recipes_f2
+
     except Exception as e:
         logging.error('Error in totals ', e)
         return None
 
-def time_to_collect(df, epm):
-    pass
 
 def tiers_plots(df, tier, els, NAME):
     try:
@@ -294,9 +293,9 @@ def tiers_plots(df, tier, els, NAME):
             text_auto=True, title=f"Items needed per recipe - TIER {tier}")
         fig.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
         st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
     except Exception as e:
         logging.error('Error in tier_plots ', e)
-
 
 def gold_cost(df, tier, NAME, title):
     try:
@@ -307,5 +306,6 @@ def gold_cost(df, tier, NAME, title):
             text_auto=True, title=f"Gold Cost - TIER {tier}")
         fig.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
         st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
     except Exception as e:
         logging.error('Error in gold_cost ', e)
