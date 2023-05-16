@@ -44,7 +44,7 @@ resources_plot("Element_amount", df2)
 resources_plot("Fabrics_amount", df2)
 resources_plot("Metals_amount", df2)
 
-
+print('-------------------------------------- Crystals -------------------------------------------------------')
 st.header(f"Recipes")
 recipe = 'AlphaCrystalRecipes'
 st.write(f''':blue[{recipe}]''')
@@ -54,8 +54,7 @@ crystals_t1(df2, 'I', els, "CRYSTAL NAME")
 crystals_t1(df2, 'II', els, "CRYSTAL NAME")
 crystals_t1(df2, 'III', els, "CRYSTAL NAME")
 
-print('------------------------------------------------------------------------------------------------------')
-
+print('------------------------------------- Equiment ---------------------------------------------------------')
 recipe = 'ALPHA Equiment Recipes'
 st.write(f''':blue[{recipe}]''')
 df, els=recipes_type(recipe, 9, -11, 'NAME')
@@ -65,14 +64,8 @@ crystals_t1(df2, 'II', els,"NAME")
 crystals_t1(df2, 'III', els,"NAME")
 
 
-print('------------------------------------------------------------------------------------------------------')
+print('-------------------------------------BUILDINGS TBD-------------------------------------------------------')
 
-recipe = 'ALPHA Equiment Recipes'
-st.write(f''':blue[{recipe}]''')
-df, els=recipes_type(recipe, 9, -11, 'NAME')
-df2 = totals(df, els)
-crystals_t1(df2, 'I', els,"NAME")
-crystals_t1(df2, 'II', els,"NAME")
-crystals_t1(df2, 'III', els,"NAME")
+st.header(f"ENEMIES")
 
 # COSTS
