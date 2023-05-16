@@ -44,18 +44,18 @@ recipe = 'AlphaCrystalRecipes'
 st.write(f''':blue[{recipe}]''')
 df,els=recipes_type(recipe,15, -8, 'CRYSTAL NAME')
 df2 = totals(df, els)
-tiers_plots(df2, 'I', els, "CRYSTAL NAME")
-tiers_plots(df2, 'II', els, "CRYSTAL NAME")
-tiers_plots(df2, 'III', els, "CRYSTAL NAME")
+tiers_plots(df, 'I', els, "CRYSTAL NAME")
+tiers_plots(df, 'II', els, "CRYSTAL NAME")
+tiers_plots(df, 'III', els, "CRYSTAL NAME")
 
 print('------------------------------------- Equiment ---------------------------------------------------------')
 recipe = 'ALPHA Equiment Recipes'
 st.write(f''':blue[{recipe}]''')
 df, els=recipes_type(recipe, 9, -11, 'NAME')
 df2 = totals(df, els)
-tiers_plots(df2, 'I', els,"NAME")
-tiers_plots(df2, 'II', els,"NAME")
-tiers_plots(df2, 'III', els,"NAME")
+tiers_plots(df, 'I', els,"NAME")
+tiers_plots(df, 'II', els,"NAME")
+tiers_plots(df, 'III', els,"NAME")
 
 
 print('-------------------------------------BUILDINGS TBD-------------------------------------------------------')
