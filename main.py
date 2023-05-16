@@ -46,14 +46,33 @@ resources_plot("Metals_amount", df2)
 
 
 st.header(f"Recipes")
-recipe = 'Crystals'
+recipe = 'AlphaCrystalRecipes'
 st.write(f''':blue[{recipe}]''')
+df,els=recipes_type(recipe,15, -8, 'CRYSTAL NAME')
+df2 = totals(df, els)
+crystals_t1(df2, 'I', els, "CRYSTAL NAME")
+crystals_t1(df2, 'II', els, "CRYSTAL NAME")
+crystals_t1(df2, 'III', els, "CRYSTAL NAME")
 
-crystals_t1(source.recipes.alpha_recipes_f2, 'I', source.recipes.els)
-crystals_t1(source.recipes.alpha_recipes_f2, 'II', source.recipes.els)
-crystals_t1(source.recipes.alpha_recipes_f2, 'III', source.recipes.els)
+print('------------------------------------------------------------------------------------------------------')
+
+recipe = 'ALPHA Equiment Recipes'
+st.write(f''':blue[{recipe}]''')
+df, els=recipes_type(recipe, 9, -11, 'NAME')
+df2 = totals(df, els)
+crystals_t1(df2, 'I', els,"NAME")
+crystals_t1(df2, 'II', els,"NAME")
+crystals_t1(df2, 'III', els,"NAME")
 
 
+print('------------------------------------------------------------------------------------------------------')
 
+recipe = 'ALPHA Equiment Recipes'
+st.write(f''':blue[{recipe}]''')
+df, els=recipes_type(recipe, 9, -11, 'NAME')
+df2 = totals(df, els)
+crystals_t1(df2, 'I', els,"NAME")
+crystals_t1(df2, 'II', els,"NAME")
+crystals_t1(df2, 'III', els,"NAME")
 
 # COSTS
