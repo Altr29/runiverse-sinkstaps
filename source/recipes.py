@@ -272,3 +272,16 @@ def tiers_plots(df, tier, els, NAME):
         st.plotly_chart(fig, theme="streamlit", use_container_width=True)
     except Exception as e:
         logging.error('Error in tier_plots ', e)
+
+
+def gold_cost(df, tier, NAME, title):
+    try:
+        df1 = df[df['TIER']==tier]
+        fig = px.bar(
+            df1, x=NAME, y=title,
+            hover_data=['RARITY', 'TIER'],labels={"value": "Items"},
+            text_auto=True, title=f"Gold Cost - TIER {tier}")
+        fig.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
+        st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+    except Exception as e:
+        logging.error('Error in gold_cost ', e)

@@ -2,6 +2,7 @@ import streamlit as st
 
 from source.functions import *
 from source.recipes import *
+from source.enemies import *
 
 
 event = {'SAMPLE_RANGE_NAME':'(Wild)EssenceStrengthsandResources',
@@ -45,8 +46,12 @@ st.write(f''':blue[{recipe}]''')
 df,els=recipes_type(recipe,15, -8, 'CRYSTAL NAME')
 df2 = totals(df, els)
 tiers_plots(df, 'I', els, "CRYSTAL NAME")
+gold_cost(df,'I','CRYSTAL NAME','GOLD COST')
 tiers_plots(df, 'II', els, "CRYSTAL NAME")
+gold_cost(df,'II','CRYSTAL NAME','GOLD COST')
 tiers_plots(df, 'III', els, "CRYSTAL NAME")
+gold_cost(df,'III','CRYSTAL NAME','GOLD COST')
+
 
 print('------------------------------------- Equiment ---------------------------------------------------------')
 recipe = 'ALPHA Equiment Recipes'
@@ -54,12 +59,21 @@ st.write(f''':blue[{recipe}]''')
 df, els=recipes_type(recipe, 9, -11, 'NAME')
 df2 = totals(df, els)
 tiers_plots(df, 'I', els,"NAME")
+gold_cost(df,'I','NAME','Gold Cost')
 tiers_plots(df, 'II', els,"NAME")
+gold_cost(df,'II','NAME','Gold Cost')
 tiers_plots(df, 'III', els,"NAME")
-
+gold_cost(df,'III','NAME','Gold Cost')
 
 print('-------------------------------------BUILDINGS TBD-------------------------------------------------------')
+recipe = 'BUILDINGS'
+st.write(f''':blue[{recipe} TBD]''')
 
+
+
+print('------------------------------- ENEMIES ENEMIES ENEMIES ---------------------------------------------')
 st.header(f"ENEMIES")
+df = enemies_files('Alpha Enemies')
 
+gold_drop(df, 'Monster', 'Gold Drop')
 # COSTS
