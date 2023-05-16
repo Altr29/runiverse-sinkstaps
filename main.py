@@ -1,14 +1,8 @@
-import pandas as pd
 import streamlit as st
-import plotly.graph_objects as go
-import plotly.express as px
-import math
 
-import source.recipes
 from source.functions import *
 from source.recipes import *
 
-import logging
 
 event = {'SAMPLE_RANGE_NAME':'(Wild)EssenceStrengthsandResources',
         'SAMPLE_SPREADSHEET_ID':'1l_V71izAjkLguKZuaj43sGEYR-2bpSLxHFi7ORCcTWo',
@@ -50,18 +44,18 @@ recipe = 'AlphaCrystalRecipes'
 st.write(f''':blue[{recipe}]''')
 df,els=recipes_type(recipe,15, -8, 'CRYSTAL NAME')
 df2 = totals(df, els)
-crystals_t1(df2, 'I', els, "CRYSTAL NAME")
-crystals_t1(df2, 'II', els, "CRYSTAL NAME")
-crystals_t1(df2, 'III', els, "CRYSTAL NAME")
+tiers_plots(df2, 'I', els, "CRYSTAL NAME")
+tiers_plots(df2, 'II', els, "CRYSTAL NAME")
+tiers_plots(df2, 'III', els, "CRYSTAL NAME")
 
 print('------------------------------------- Equiment ---------------------------------------------------------')
 recipe = 'ALPHA Equiment Recipes'
 st.write(f''':blue[{recipe}]''')
 df, els=recipes_type(recipe, 9, -11, 'NAME')
 df2 = totals(df, els)
-crystals_t1(df2, 'I', els,"NAME")
-crystals_t1(df2, 'II', els,"NAME")
-crystals_t1(df2, 'III', els,"NAME")
+tiers_plots(df2, 'I', els,"NAME")
+tiers_plots(df2, 'II', els,"NAME")
+tiers_plots(df2, 'III', els,"NAME")
 
 
 print('-------------------------------------BUILDINGS TBD-------------------------------------------------------')
