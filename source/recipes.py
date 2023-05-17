@@ -274,20 +274,29 @@ def items_summary(df, tier, els, title):
 
     try:
         df1 = df[df['TIER'] == tier]
-        count = {}
+        count_sp = {}
+        count_fis = {}
         for el in els + gc_list:
-            count[el] = df1[el].sum()
+            if 'Shard' in el or 'Soul' in el or 'Ember' in el or el in gc_list:
+                count_sp[el] = df1[el].sum()
+            else:
+                count_fis[el] = df1[el].sum()
 
-        fin_df = pd.DataFrame.from_dict(
-            {'Items': list(count.keys()),
-             'Type': [d_type(i) for i in list(count.keys())],
-             'Amount': list(count.values())
+        spirit_df = pd.DataFrame.from_dict(
+            {'Spiritual Items': list(count_sp.keys()),
+             'Type': [d_type(i) for i in list(count_sp.keys())],
+             'Amount': list(count_sp.values())
+             })
+        fisi_df = pd.DataFrame.from_dict(
+            {'Ground Items': list(count_fis.keys()),
+             'Type': [d_type(i) for i in list(count_fis.keys())],
+             'Amount': list(count_fis.values())
              })
         st.write(f":blue[Summary of elements that {title} Recipe tier {tier} requires.]")
-        st.dataframe(fin_df)
+        st.dataframe(spirit_df)
+        st.dataframe(fisi_df)
 
     except Exception as e:
-        st.write(df)
         logging.error('Error in items_summary ', e)
 
 def gold_cost(df, tier, NAME, title):
