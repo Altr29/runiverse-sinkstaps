@@ -99,14 +99,13 @@ def collect_(df):
                 else:
                     elements[str(i)]+=j
 
-    return elements
-
-def plot_enem_items(elements):
     new = pd.DataFrame.from_dict(
         {'Items': list(elements.keys()),
          'Amount': list(elements.values()),
          'Type': [d_type(i) for i in list(elements.keys())]})
+    return new
 
+def plot_enem_items(new):
     fig = px.bar(new.sort_values('Items'), x='Items', y='Amount',color='Type', text_auto=True, title=f"Spiritual Items Dropped by Enemies")
     fig.update_traces(textfont_size=15, textangle=0, textposition="outside", cliponaxis=False)
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
