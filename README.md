@@ -8,7 +8,7 @@ This is about aggregations per region name and materials family. Each section pr
 ## Output Dashboard
 The final output can be found on:
 
-*  [`streamlit dashboard`](http://44.203.115.2:8501/).
+*  [`streamlit dashboard`](https://mariaob1201-runiverse-sinkstaps-main-ls4sij.streamlit.app/).
 
 
 ## Prerequisities
