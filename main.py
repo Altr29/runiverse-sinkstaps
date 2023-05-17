@@ -119,6 +119,11 @@ st.header(f"2. ENEMIES")
 st.write(f":blue[Spiritual Items dropped by Enemies.] "
          f"Takes the numbers from [Founder Enemies](https://docs.google.com/spreadsheets/d/1BaMpBSAiMdAUsfel7UweenSSbIwrLra1oScWWOsCNDk/edit?usp=sharing).")
 df = enemies_files('Alpha Enemies')
+
+gold_unities={'Elite':df[df['Type']=='Elite']['Gold Drop'].sum(),
+              'Standard':df[df['Type']=='Standard']['Gold Drop'].sum()}
+
+
 gold_drop(df, 'Monster', 'Gold Drop')
 spiritual_elements = collect_(df)
 
@@ -137,17 +142,18 @@ df, els = recipes_type(recipe,15, -8, 'CRYSTAL NAME')
 df2 = totals(df, els)
 tiers_plots(df, 'I', els, "CRYSTAL NAME")
 gold_cost(df,'I','CRYSTAL NAME','GOLD COST')
-items_summary(df, 'I', els, 'Crystals', spiritual_elements)
+
+items_summary(df, 'I', els, 'Crystals', spiritual_elements, gold_unities)
 #time_to_collect(df,'CRYSTAL NAME', epm, els, 'I', shard_ipm, ember_ipm, soul_ipm)
 
 tiers_plots(df, 'II', els, "CRYSTAL NAME")
 gold_cost(df,'II','CRYSTAL NAME','GOLD COST')
-items_summary(df, 'II', els, 'Crystals', spiritual_elements)
+items_summary(df, 'II', els, 'Crystals', spiritual_elements, gold_unities)
 #time_to_collect(df,'CRYSTAL NAME', epm, els, 'II', shard_ipm, ember_ipm, soul_ipm)
 
 tiers_plots(df, 'III', els, "CRYSTAL NAME")
 gold_cost(df,'III','CRYSTAL NAME','GOLD COST')
-items_summary(df, 'III', els, 'Crystals', spiritual_elements)
+items_summary(df, 'III', els, 'Crystals', spiritual_elements, gold_unities)
 #time_to_collect(df,'CRYSTAL NAME', epm, els, 'III', shard_ipm, ember_ipm, soul_ipm)
 
 print('------------------------------------- Equipment ---------------------------------------------------------')
@@ -159,17 +165,17 @@ df2 = totals(df, els)
 
 tiers_plots(df, 'I', els,"NAME")
 gold_cost(df,'I','NAME','Gold Cost')
-items_summary(df, 'I', els, 'Equipment', spiritual_elements)
+items_summary(df, 'I', els, 'Equipment', spiritual_elements, gold_unities)
 #time_to_collect(df,'NAME', epm, els, 'I', shard_ipm, ember_ipm, soul_ipm)
 
 tiers_plots(df, 'II', els,"NAME")
 gold_cost(df,'II','NAME','Gold Cost')
-items_summary(df, 'II', els, 'Equipment', spiritual_elements)
+items_summary(df, 'II', els, 'Equipment', spiritual_elements, gold_unities)
 #time_to_collect(df,'NAME', epm, els, 'II', shard_ipm, ember_ipm, soul_ipm)
 
 tiers_plots(df, 'III', els,"NAME")
 gold_cost(df,'III','NAME','Gold Cost')
-items_summary(df, 'III', els, 'Equipment', spiritual_elements)
+items_summary(df, 'III', els, 'Equipment', spiritual_elements, gold_unities)
 #time_to_collect(df,'NAME', epm, els, 'III', shard_ipm, ember_ipm, soul_ipm)
 
 print('-------------------------------------BUILDINGS TBD-------------------------------------------------------')

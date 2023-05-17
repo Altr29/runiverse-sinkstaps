@@ -267,7 +267,7 @@ def tiers_plots(df, tier, els, NAME):
         logging.error('Error in tier_plots ', e)
 
 
-def items_summary(df, tier, els, title, ememies_items):
+def items_summary(df, tier, els, title, ememies_items,enemies_gold):#, gnodes_items):
     gc_list = ['GOLD COST']
     if 'Equipment' in title:
         gc_list = ['Gold Cost']
@@ -305,14 +305,31 @@ def items_summary(df, tier, els, title, ememies_items):
              'Family': [d_type(i) for i in list(count_fis.keys())],
              'Amount GI': list(count_fis.values())
              })
+        elite_b = -count_gold['GOLD']+enemies_gold['Elite']
+        elite_con = ['NEGATIVE: More gold is required than dropped by enemies' if elite_b<0 else 'POSITIVE: Enough gold required vs dropped by enemies'][0]
+        standard_b = -count_gold['GOLD']+enemies_gold['Standard']
+        standard_con = [
+            'NEGATIVE: More gold is required than dropped by enemies' if standard_b < 0 else 'POSITIVE: Enough gold required vs dropped by enemies'][
+            0]
+        st.write(f":blue[Gold Drop by Enemies - Gold Required by {title} Recipe tier {tier}] Summary Balance: ")
+        st.write(
+                 f" :green[Elite {elite_b} units] {elite_con}")
+        st.write(
+            f" :green[Standard {standard_b} units] {standard_con}"
+                 )
 
-        st.write(f":blue[Summary of Physical Items required by -{title} Recipe tier {tier}-.]")
+        st.write(f" :blue[Summary of Spiritual Items required by -{title} Recipe tier {tier}-.]")
         ememies_items.rename(columns ={'Amount':'InputByEnemies'}, inplace=True)
         spitit_fin = pd.merge(spirit_df,ememies_items[['Items','InputByEnemies']],on=["Items"], how='left')
         spitit_fin['InputByEnemies'] = spitit_fin['InputByEnemies'].replace(np.nan, 0)
         spitit_fin['Item Balance'] = spitit_fin['InputByEnemies']-spitit_fin['RequiredOnRecipe']
         st.write(spitit_fin)
-
+        #st.write(f":blue[Summary of Physical Items required by -{title} Recipe tier {tier}-.]")
+        #ememies_items.rename(columns={'Amount': 'InputByEnemies'}, inplace=True)
+        #spitit_fin = pd.merge(spirit_df, ememies_items[['Items', 'InputByEnemies']], on=["Items"], how='left')
+        #spitit_fin['InputByEnemies'] = spitit_fin['InputByEnemies'].replace(np.nan, 0)
+        #spitit_fin['Item Balance'] = spitit_fin['InputByEnemies'] - spitit_fin['RequiredOnRecipe']
+        #st.write(spitit_fin)
         #st.dataframe(fisi_df)
     except Exception as e:
         logging.error('Error in items_summary ', e)
