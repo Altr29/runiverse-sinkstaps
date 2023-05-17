@@ -47,7 +47,14 @@ agg_d12 = df1.groupby(type, as_index=False).agg(
                 type+' Amount': ['sum']
             })
 st.dataframe(agg_d12)
+woods_vals = {}
+for i in list(df1[type].unique()):
+    woods_vals[i] = df1[df1[type]==i][type+' Amount'].sum()
 
+df_woods_vals = pd.DataFrame.from_dict(
+            {'Items': list(woods_vals.keys()),
+             'GNodesInput': list(woods_vals.values())
+             })
 
 type = "Stone"
 nodes(type, df1)
@@ -61,6 +68,14 @@ agg_d12 = df1.groupby(type, as_index=False).agg(
             })
 st.dataframe(agg_d12)
 
+stone_vals = {}
+for i in list(df1[type].unique()):
+    stone_vals[i] = df1[df1[type]==i][type+' Amount'].sum()
+
+df_stone_vals = pd.DataFrame.from_dict(
+            {'Items': list(stone_vals.keys()),
+             'GNodesInput': list(stone_vals.values())
+             })
 
 type = "Gems"
 nodes(type, df1)
@@ -74,6 +89,14 @@ gems = df1.groupby(type, as_index=False).agg(
             })
 st.dataframe(gems)
 
+gems_vals = {}
+for i in list(df1[type].unique()):
+    gems_vals[i] = df1[df1[type]==i][type+' Amount'].sum()
+
+df_gems_vals = pd.DataFrame.from_dict(
+            {'Items': list(gems_vals.keys()),
+             'GNodesInput': list(gems_vals.values())
+             })
 
 type = "Element"
 nodes(type, df1)
@@ -86,7 +109,14 @@ agg_d12 = df1.groupby(type, as_index=False).agg(
                 type+' Amount': ['sum']
             })
 st.dataframe(agg_d12)
+element_vals = {}
+for i in list(df1[type].unique()):
+    element_vals[i] = df1[df1[type]==i][type+' Amount'].sum()
 
+df_element_vals = pd.DataFrame.from_dict(
+            {'Items': list(element_vals.keys()),
+             'GNodesInput': list(element_vals.values())
+             })
 
 type = "Fabrics"
 nodes(type, df1)
@@ -99,7 +129,14 @@ agg_d12 = df1.groupby(type, as_index=False).agg(
                 type+' Amount': ['sum']
             })
 st.dataframe(agg_d12)
+Fabrics_vals = {}
+for i in list(df1[type].unique()):
+    Fabrics_vals[i] = df1[df1[type]==i][type+' Amount'].sum()
 
+df_Fabrics_vals = pd.DataFrame.from_dict(
+            {'Items': list(Fabrics_vals.keys()),
+             'GNodesInput': list(Fabrics_vals.values())
+             })
 
 type = "Metals"
 nodes(type, df1)
@@ -112,6 +149,20 @@ agg_d12 = df1.groupby(type, as_index=False).agg(
                 type+' Amount': ['sum']
             })
 st.dataframe(agg_d12)
+Metals_vals = {}
+for i in list(df1[type].unique()):
+    Metals_vals[i] = df1[df1[type]==i][type+' Amount'].sum()
+
+df_Metals_vals = pd.DataFrame.from_dict(
+            {'Items': list(Metals_vals.keys()),
+             'GNodesInput': list(Metals_vals.values())
+             })
+
+frames = [df_stone_vals, df_woods_vals,
+          df_Metals_vals, df_Fabrics_vals,
+          df_gems_vals, df_element_vals]
+
+result = pd.concat(frames)
 
 
 print('------------------------------- ENEMIES ENEMIES ENEMIES ---------------------------------------------')
@@ -135,7 +186,7 @@ plot_enem_items(spiritual_elements)
 print('-------------------------------------- Recipes Crystals -----------------------------------------------')
 st.header(f"3. Recipes Costs")
 st.write(f":blue[Recipes costs] "
-         f"Takes the numbers from AlphaCrystalRecipes"
+         f"Takes the numbers from Alpha Crystal Recipes "
          f"[link here](https://docs.google.com/spreadsheets/d/12B1JZbqtY-0UaSpIeCUO28n2R7c17UD3yRieiL4NLRY/edit?usp=sharing).")
 recipe = 'AlphaCrystalRecipes'
 st.write(f''':blue[{recipe[:5].upper()+' '+recipe[5:12]+' '+recipe[12:]}]''')
@@ -144,17 +195,17 @@ df2 = totals(df, els)
 tiers_plots(df, 'I', els, "CRYSTAL NAME")
 gold_cost(df,'I','CRYSTAL NAME','GOLD COST')
 
-items_summary(df, 'I', els, 'Crystals', spiritual_elements, gold_unities)
+items_summary(df, 'I', els, 'Crystals', spiritual_elements, gold_unities, result)
 #time_to_collect(df,'CRYSTAL NAME', epm, els, 'I', shard_ipm, ember_ipm, soul_ipm)
 
 tiers_plots(df, 'II', els, "CRYSTAL NAME")
 gold_cost(df,'II','CRYSTAL NAME','GOLD COST')
-items_summary(df, 'II', els, 'Crystals', spiritual_elements, gold_unities)
+items_summary(df, 'II', els, 'Crystals', spiritual_elements, gold_unities, result)
 #time_to_collect(df,'CRYSTAL NAME', epm, els, 'II', shard_ipm, ember_ipm, soul_ipm)
 
 tiers_plots(df, 'III', els, "CRYSTAL NAME")
 gold_cost(df,'III','CRYSTAL NAME','GOLD COST')
-items_summary(df, 'III', els, 'Crystals', spiritual_elements, gold_unities)
+items_summary(df, 'III', els, 'Crystals', spiritual_elements, gold_unities, result)
 #time_to_collect(df,'CRYSTAL NAME', epm, els, 'III', shard_ipm, ember_ipm, soul_ipm)
 
 print('------------------------------------- Equipment ---------------------------------------------------------')
@@ -166,17 +217,17 @@ df2 = totals(df, els)
 
 tiers_plots(df, 'I', els,"NAME")
 gold_cost(df,'I','NAME','Gold Cost')
-items_summary(df, 'I', els, 'Equipment', spiritual_elements, gold_unities)
+items_summary(df, 'I', els, 'Equipment', spiritual_elements, gold_unities, result)
 #time_to_collect(df,'NAME', epm, els, 'I', shard_ipm, ember_ipm, soul_ipm)
 
 tiers_plots(df, 'II', els,"NAME")
 gold_cost(df,'II','NAME','Gold Cost')
-items_summary(df, 'II', els, 'Equipment', spiritual_elements, gold_unities)
+items_summary(df, 'II', els, 'Equipment', spiritual_elements, gold_unities, result)
 #time_to_collect(df,'NAME', epm, els, 'II', shard_ipm, ember_ipm, soul_ipm)
 
 tiers_plots(df, 'III', els,"NAME")
 gold_cost(df,'III','NAME','Gold Cost')
-items_summary(df, 'III', els, 'Equipment', spiritual_elements, gold_unities)
+items_summary(df, 'III', els, 'Equipment', spiritual_elements, gold_unities, result)
 #time_to_collect(df,'NAME', epm, els, 'III', shard_ipm, ember_ipm, soul_ipm)
 
 print('-------------------------------------BUILDINGS TBD-------------------------------------------------------')
