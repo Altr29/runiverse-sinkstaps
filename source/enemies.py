@@ -169,6 +169,6 @@ def plot_enem_items(elements):
          'Amount': list(elements.values()),
          'Type': [d_type(i) for i in list(elements.keys())]})
 
-    fig = px.bar(new.sort_values('Items'), x='Items', y='Amount',color='Type', text_auto=True, title=f"Items Drop")
+    fig = px.bar(new.sort_values('Items'), x='Items', y='Amount',color='Type', text_auto=True, title=f"Spiritual Items Droped by Enemies")
     fig.update_traces(textfont_size=15, textangle=0, textposition="outside", cliponaxis=False)
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)

@@ -44,14 +44,10 @@ resources_plot("Fabrics_amount", df2)
 resources_plot("Metals_amount", df2)
 
 print('------------------------------- ENEMIES ENEMIES ENEMIES ---------------------------------------------')
-st.header(f"2. ENEMIES")
+st.header(f"2. Spiritual Items droped by ENEMIES")
 df = enemies_files('Alpha Enemies')
-
-
 gold_drop(df, 'Monster', 'Gold Drop')
-
 elements = collect_(df)
-
 plot_enem_items(elements)
 
 
@@ -74,7 +70,7 @@ tiers_plots(df, 'III', els, "CRYSTAL NAME")
 gold_cost(df,'III','CRYSTAL NAME','GOLD COST')
 time_to_collect(df,'CRYSTAL NAME', epm, els, 'III', shard_ipm, ember_ipm, soul_ipm)
 
-print('------------------------------------- Equiment ---------------------------------------------------------')
+print('------------------------------------- Equipment ---------------------------------------------------------')
 recipe = 'ALPHA Equiment Recipes'
 st.write(f''':blue[{recipe}]''')
 df, els=recipes_type(recipe, 9, -11, 'NAME')
