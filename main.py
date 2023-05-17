@@ -235,5 +235,5 @@ recipe = 'BUILDINGS'
 st.write(f''':blue[TBD: {recipe} Recipes]''')
 
 
-st.header(f"2. DYNAMICS - Items used by Recipes")
+#st.header(f"2. DYNAMICS - Items used by Recipes")
 # COSTS
