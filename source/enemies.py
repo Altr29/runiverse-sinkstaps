@@ -65,7 +65,7 @@ def gold_drop(df, NAME, title):
         fig = px.bar(
             df.sort_values(NAME), x=NAME, y=title,
             hover_data=['Type','Area','Sprite'],labels={"Gold Drop": "Gold unities"},color='Type',
-            text_auto=True, title=f"Gold Drop by Enemies")
+            text_auto=True, title=f"Gold Dropped by Enemies")
         fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
         st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
@@ -146,7 +146,7 @@ def similar(a, els):
     return resp
 
 def d_type(el):
-    dt = 'Recipe'
+    dt = 'Recipes: '
     if 'Soul' in el:
         dt = 'Soul'
     elif 'Ember' in el:
@@ -155,10 +155,10 @@ def d_type(el):
         dt = 'Shard'
     else:
         if el in CR or similar(el, CR):
-            dt = 'Crystals Recipes'
+            dt = 'Recipes: Crystals'
 
         if el in ER or similar(el, ER):
-            dt = 'Equipment Recipes'
+            dt = 'Recipes: Equipment'
     return dt
 
 
@@ -169,6 +169,6 @@ def plot_enem_items(elements):
          'Amount': list(elements.values()),
          'Type': [d_type(i) for i in list(elements.keys())]})
 
-    fig = px.bar(new.sort_values('Items'), x='Items', y='Amount',color='Type', text_auto=True, title=f"Spiritual Items Droped by Enemies")
+    fig = px.bar(new.sort_values('Items'), x='Items', y='Amount',color='Type', text_auto=True, title=f"Spiritual Items Dropped by Enemies")
     fig.update_traces(textfont_size=15, textangle=0, textposition="outside", cliponaxis=False)
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)

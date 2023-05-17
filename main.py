@@ -24,7 +24,8 @@ ember_ipm = st.sidebar.slider('Ember - items per minute', min_value=1, max_value
 soul_ipm = st.sidebar.slider('Soul - items per minute', min_value=1, max_value=50, value=5, step=1)
 
 st.header(f"1. Gathering Nodes in the Wild")
-st.write(f":blue[Number of nodes in world, per family type and Sub-Biome.]")
+st.write(f":blue[Number of nodes in world, per family type and Sub-Biome.] "
+         f"Numbers were taken from level design document [(Wild)EssenceStrengthsandResources](https://docs.google.com/spreadsheets/d/1l_V71izAjkLguKZuaj43sGEYR-2bpSLxHFi7ORCcTWo/edit?usp=sharing).")
 
 nodes("Woods", df1)
 nodes("Stone", df1)
@@ -33,7 +34,7 @@ nodes("Element", df1)
 nodes("Fabrics", df1)
 nodes("Metals", df1)
 
-st.write(f":blue[Amount of resources in the wild.]")
+st.write(f":blue[Amount of resources in the wild.] Takes the nodes existence, the Available Extractions on G Node as a global multiplier, and the items proportion (1:3:5, Gems and Elements : Metals and Fabrics: Woods Stones)")
 df2 = resources(df1, multiplier)
 
 resources_plot("Woods_amount", df2)
@@ -44,7 +45,9 @@ resources_plot("Fabrics_amount", df2)
 resources_plot("Metals_amount", df2)
 
 print('------------------------------- ENEMIES ENEMIES ENEMIES ---------------------------------------------')
-st.header(f"2. Spiritual Items droped by ENEMIES")
+st.header(f"2. ENEMIES")
+st.write(f":blue[Spiritual Items dropped by Enemies.] "
+         f"Takes the numbers from [Founder Enemies](https://docs.google.com/spreadsheets/d/1BaMpBSAiMdAUsfel7UweenSSbIwrLra1oScWWOsCNDk/edit?usp=sharing).")
 df = enemies_files('Alpha Enemies')
 gold_drop(df, 'Monster', 'Gold Drop')
 elements = collect_(df)
@@ -54,8 +57,10 @@ plot_enem_items(elements)
 
 print('-------------------------------------- Recipes Crystals -----------------------------------------------')
 st.header(f"3. Recipes Costs")
+st.write(f":blue[Spiritual Items dropped by Enemies] "
+         f"Takes the numbers from [Founder Enemies](https://docs.google.com/spreadsheets/d/12B1JZbqtY-0UaSpIeCUO28n2R7c17UD3yRieiL4NLRY/edit?usp=sharing).")
 recipe = 'AlphaCrystalRecipes'
-st.write(f''':blue[{recipe}]''')
+st.write(f''':blue[{recipe[:5].upper()+' '+recipe[5:12]+' '+recipe[12:]}]''')
 df, els = recipes_type(recipe,15, -8, 'CRYSTAL NAME')
 df2 = totals(df, els)
 tiers_plots(df, 'I', els, "CRYSTAL NAME")

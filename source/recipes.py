@@ -248,6 +248,7 @@ def time_to_collect(df,NAME, epm, els, tier, shard_ipm, ember_ipm, soul_ipm):
         df1, x=NAME, y=els1,
         labels={"value": "Minutes"},
         text_auto=True, title=f"Time to collect - TIER {tier}")
+
     fig.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
@@ -288,7 +289,8 @@ def tiers_plots(df, tier, els, NAME):
         fig = px.bar(
             df1, x=NAME, y=els,
             hover_data=['RARITY', 'TIER'],labels={"value": "Items"},
-            text_auto=True, title=f"Items needed per recipe - TIER {tier}")
+            text_auto=True)
+        fig.update_layout(title=f"Items needed per recipe - TIER {tier}", title_x=0.25)
         fig.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
         st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
@@ -300,7 +302,7 @@ def gold_cost(df, tier, NAME, title):
         df1 = df[df['TIER']==tier]
         fig = px.bar(
             df1, x=NAME, y=title,
-            hover_data=['RARITY', 'TIER'],labels={"value": "Items"},
+            hover_data=['RARITY', 'TIER'],labels={"GOLD COST": "Gold Unities"},
             text_auto=True, title=f"Gold Cost - TIER {tier}")
         fig.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
         st.plotly_chart(fig, theme="streamlit", use_container_width=True)
