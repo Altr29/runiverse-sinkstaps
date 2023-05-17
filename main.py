@@ -4,11 +4,11 @@ from source.functions import *
 from source.recipes import *
 from source.recipes import recipes_type
 from source.enemies import *
-from source.inputs import gems_list, els_list, stones_list, woods_list, fabrics_list, metals_list
+from source.inputs import gems_list, els_list, stones_list, woods_list, fabrics_list, metals_list, event
+import plotly.graph_objects as go
 
-event = {'SAMPLE_RANGE_NAME':'(Wild)EssenceStrengthsandResources',
-        'SAMPLE_SPREADSHEET_ID':'1l_V71izAjkLguKZuaj43sGEYR-2bpSLxHFi7ORCcTWo',
-        'key':'AIzaSyABdVwS2e28_JrMQlwHQxgUlAAkgqbHUqI'}
+
+
 
 SAMPLE_SPREADSHEET_ID_input = event['SAMPLE_SPREADSHEET_ID']
 SAMPLE_RANGE_NAME = event['SAMPLE_RANGE_NAME']
@@ -27,9 +27,6 @@ st.header(f"1. Gathering Nodes in the Wild")
 st.write(f":blue[Number of nodes in world, per family type and Sub-Biome.] "
          f"Numbers were taken from level design document [(Wild)EssenceStrengthsandResources](https://docs.google.com/spreadsheets/d/1l_V71izAjkLguKZuaj43sGEYR-2bpSLxHFi7ORCcTWo/edit?usp=sharing).")
 
-print('---<>>>>>>', df1.columns[0:])
-
-import plotly.graph_objects as go
 
 fig = px.bar(df1.sort_values('Sub-Biome'), x="Sub-Biome", y=['WoodsFrecuency', 'GemsFrecuency',
         'FabricsFrecuency', 'MetalsFrecuency', 'StoneFrecuency', 'ElementFrecuency'],
@@ -118,37 +115,44 @@ df, els = recipes_type(recipe,15, -8, 'CRYSTAL NAME')
 df2 = totals(df, els)
 tiers_plots(df, 'I', els, "CRYSTAL NAME")
 gold_cost(df,'I','CRYSTAL NAME','GOLD COST')
-time_to_collect(df,'CRYSTAL NAME', epm, els, 'I', shard_ipm, ember_ipm, soul_ipm)
+items_summary(df, 'I', els, 'Crystals')
+#time_to_collect(df,'CRYSTAL NAME', epm, els, 'I', shard_ipm, ember_ipm, soul_ipm)
 
 tiers_plots(df, 'II', els, "CRYSTAL NAME")
 gold_cost(df,'II','CRYSTAL NAME','GOLD COST')
-time_to_collect(df,'CRYSTAL NAME', epm, els, 'II', shard_ipm, ember_ipm, soul_ipm)
+items_summary(df, 'II', els, 'Crystals')
+#time_to_collect(df,'CRYSTAL NAME', epm, els, 'II', shard_ipm, ember_ipm, soul_ipm)
 
 tiers_plots(df, 'III', els, "CRYSTAL NAME")
 gold_cost(df,'III','CRYSTAL NAME','GOLD COST')
-time_to_collect(df,'CRYSTAL NAME', epm, els, 'III', shard_ipm, ember_ipm, soul_ipm)
+items_summary(df, 'III', els, 'Crystals')
+#time_to_collect(df,'CRYSTAL NAME', epm, els, 'III', shard_ipm, ember_ipm, soul_ipm)
 
 print('------------------------------------- Equipment ---------------------------------------------------------')
 recipe = 'ALPHA Equiment Recipes'
 st.write(f''':blue[{recipe}]''')
 df, els=recipes_type(recipe, 9, -11, 'NAME')
+
 df2 = totals(df, els)
 
 tiers_plots(df, 'I', els,"NAME")
 gold_cost(df,'I','NAME','Gold Cost')
-time_to_collect(df,'NAME', epm, els, 'I', shard_ipm, ember_ipm, soul_ipm)
+items_summary(df, 'I', els, 'Equipment')
+#time_to_collect(df,'NAME', epm, els, 'I', shard_ipm, ember_ipm, soul_ipm)
 
 tiers_plots(df, 'II', els,"NAME")
 gold_cost(df,'II','NAME','Gold Cost')
-time_to_collect(df,'NAME', epm, els, 'II', shard_ipm, ember_ipm, soul_ipm)
+items_summary(df, 'II', els, 'Equipment')
+#time_to_collect(df,'NAME', epm, els, 'II', shard_ipm, ember_ipm, soul_ipm)
 
 tiers_plots(df, 'III', els,"NAME")
 gold_cost(df,'III','NAME','Gold Cost')
-time_to_collect(df,'NAME', epm, els, 'III', shard_ipm, ember_ipm, soul_ipm)
+items_summary(df, 'III', els, 'Equipment')
+#time_to_collect(df,'NAME', epm, els, 'III', shard_ipm, ember_ipm, soul_ipm)
 
 print('-------------------------------------BUILDINGS TBD-------------------------------------------------------')
 recipe = 'BUILDINGS'
-st.write(f''':blue[{recipe} TBD]''')
+st.write(f''':blue[TBD: {recipe} Recipes]''')
 
 
 st.header(f"2. DYNAMICS - Items used by Recipes")

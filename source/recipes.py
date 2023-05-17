@@ -3,7 +3,7 @@ import numpy as np
 import logging
 import plotly.express as px
 import streamlit as st
-from source.inputs import gems_list, els_list, stones_list, woods_list, fabrics_list, metals_list
+from source.inputs import gems_list, els_list, stones_list, woods_list, fabrics_list, metals_list, d_type
 
 woods_stones = {
     'Primary':[24,48,72,96],
@@ -45,8 +45,8 @@ costs = {'PhysicalMaterials':[woods_stones, fabrics_metals, gems_els],
 
 def recipes_type(recipe_type, init, fin, NAME):
     try:
-        alpha_recipes = pd.read_excel('source/ALPHA Recipes (2).xlsx',sheet_name=recipe_type, header = 1)
-        alpha_recipes0 = pd.read_excel('source/ALPHA Recipes (2).xlsx',sheet_name=recipe_type, header = 0)
+        alpha_recipes = pd.read_excel('source/ALPHA Recipes (1).xlsx',sheet_name=recipe_type, header = 1)
+        alpha_recipes0 = pd.read_excel('source/ALPHA Recipes (1).xlsx',sheet_name=recipe_type, header = 0)
         alpha_recipes0 = alpha_recipes0[alpha_recipes0[NAME].str.contains('item|Item') == False]
         alpha_recipes0.rename(columns={'TIER ':'TIER'}, inplace=True)
         cols_names = {}
@@ -71,7 +71,6 @@ def recipes_type(recipe_type, init, fin, NAME):
             alpha_recipes_f[col] = alpha_recipes_f[col].replace('-', 'None').replace('1',
                                     'Primary').replace('2', 'Secondary').replace('3', 'Tertiary').replace(1,
                                                     'Primary').replace(2, 'Secondary').replace(3,'Tertiary')
-
         for el in els:
             if 'Shard' in el:
                 field = shard
@@ -183,7 +182,9 @@ def recipes_type(recipe_type, init, fin, NAME):
         return alpha_recipes_f2, els
 
     except Exception as e:
-        logging.error('Error here ', e)
+        logging.error('Error here >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
+                      '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
+                      '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ', e)
         return None, []
 
 def time_to_collect(df,NAME, epm, els, tier, shard_ipm, ember_ipm, soul_ipm):
@@ -248,17 +249,46 @@ def totals(alpha_recipes_f2, els):
 
 def tiers_plots(df, tier, els, NAME):
     try:
+        cuts = 10
+        if 'III' in tier:
+            cuts = 25
+
         df1 = df[df['TIER']==tier]
         fig = px.bar(
             df1, x=NAME, y=els,
             hover_data=['RARITY', 'TIER'],labels={"value": "Items"},
             text_auto=True)
         fig.update_layout(title=f"Items needed per recipe - TIER {tier}", title_x=0.25)
+        fig.update_yaxes(tick0=0, dtick=cuts)
         fig.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
         st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
     except Exception as e:
         logging.error('Error in tier_plots ', e)
+
+
+def items_summary(df, tier, els, title):
+    gc_list = ['GOLD COST']
+    if 'Equipment' in title:
+        gc_list = ['Gold Cost']
+
+    try:
+        df1 = df[df['TIER'] == tier]
+        count = {}
+        for el in els + gc_list:
+            count[el] = df1[el].sum()
+
+        fin_df = pd.DataFrame.from_dict(
+            {'Items': list(count.keys()),
+             'Type': [d_type(i) for i in list(count.keys())],
+             'Amount': list(count.values())
+             })
+        st.write(f":blue[Summary of elements that {title} Recipe tier {tier} requires.]")
+        st.dataframe(fin_df)
+
+    except Exception as e:
+        st.write(df)
+        logging.error('Error in items_summary ', e)
 
 def gold_cost(df, tier, NAME, title):
     try:

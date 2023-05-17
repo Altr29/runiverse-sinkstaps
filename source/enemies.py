@@ -4,38 +4,9 @@ import logging
 import plotly.express as px
 import streamlit as st
 from difflib import SequenceMatcher
+from source.inputs import d_type
 
 
-CR = ['Call of the Ancient Flame',
-                'Drawing of Chaos',
-                'The Nature of Growth',
-                'Juvenile Festivities',
-                'Price of Inadequacy',
-                'A Giving Nature',
-                'Reckless Abandon',
-                'Condensed Volatility',
-                'Memory of the Peaks',
-                'Deeper than Sound',
-                'Contemplation of Destiny',
-                "The Workers' Rest"]
-ER = ["Pilgrim's Staff",
-                "Nature's Gift",
-                "Ol' Trusty",
-                "Butcher's Friend",
-                "Joybringer",
-                "Devouring Scythe",
-                "Witch's Hat",
-                "Comfy Hood",
-                "Circlet of the Bold",
-                "Corsair Bandana",
-                "Tactician's Helm",
-                "Nightseeker",
-                "Witch's Robes",
-                "Comfy Robes",
-                "Bold Straps",
-                "Corsair Apparel",
-                "Tactician's Armor",
-                "Nightwalker"]
 
 def enemies_files(sheet):
     try:
@@ -129,39 +100,6 @@ def collect_(df):
                     elements[str(i)]+=j
 
     return elements
-
-def similar(a, els):
-    """
-    :param a: variable to compare
-    :param b: variable to compare with a
-    :return: a probability value of similitude
-    """
-    resp = False
-    for el in els:
-        if SequenceMatcher(None, a, el).ratio()>.9:
-            resp = True
-            break
-        else:
-            pass
-    return resp
-
-def d_type(el):
-    dt = 'Recipes: '
-    if 'Soul' in el:
-        dt = 'Soul'
-    elif 'Ember' in el:
-        dt = 'Ember'
-    elif 'Shard' in el:
-        dt = 'Shard'
-    else:
-        if el in CR or similar(el, CR):
-            dt = 'Recipes: Crystals'
-
-        if el in ER or similar(el, ER):
-            dt = 'Recipes: Equipment'
-    return dt
-
-
 
 def plot_enem_items(elements):
     new = pd.DataFrame.from_dict(
