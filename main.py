@@ -39,7 +39,8 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 type = "Woods"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
-st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} times the available extractions per GN elements per extraction, that is:")
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: "
+         f"- Frequency * spawned * available extractions per GN (control).")
 agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
@@ -51,7 +52,8 @@ st.dataframe(agg_d12)
 type = "Stone"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
-st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} times the available extractions per GN elements per extraction, that is:")
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: "
+         f"- Frequency * spawned * available extractions per GN (control).")
 agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
@@ -63,19 +65,21 @@ st.dataframe(agg_d12)
 type = "Gems"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
-st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} times the available extractions per GN elements per extraction, that is:")
-agg_d12 = df1.groupby(type, as_index=False).agg(
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: "
+         f"- Frequency * spawned * available extractions per GN (control).")
+gems = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
                 type+' Amount': ['sum']
             })
-st.dataframe(agg_d12)
+st.dataframe(gems)
 
 
 type = "Element"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
-st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} times the available extractions per GN elements per extraction, that is:")
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: "
+         f"- Frequency * spawned * available extractions per GN (control).")
 agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
@@ -87,7 +91,8 @@ st.dataframe(agg_d12)
 type = "Fabrics"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
-st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} times the available extractions per GN elements per extraction, that is:")
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: "
+         f"- Frequency * spawned * available extractions per GN (control).")
 agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
@@ -99,7 +104,8 @@ st.dataframe(agg_d12)
 type = "Metals"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
-st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} times the available extractions per GN elements per extraction, that is:")
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: "
+         f"- Frequency * spawned * available extractions per GN (control).")
 agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
@@ -116,8 +122,9 @@ df = enemies_files('Alpha Enemies')
 gold_drop(df, 'Monster', 'Gold Drop')
 elements = collect_(df)
 
+#st.dataframe(elements)
+
 print('Elements in Enemies')
-#items_summary(df, 'ALL', elements.keys(), '')
 plot_enem_items(elements)
 
 
