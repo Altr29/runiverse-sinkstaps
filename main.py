@@ -39,7 +39,7 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 type = "Woods"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
-st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} element per extraction, that is:")
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} times the available extractions per GN elements per extraction, that is:")
 agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
@@ -51,7 +51,7 @@ st.dataframe(agg_d12)
 type = "Stone"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
-st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} element per extraction, that is:")
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} times the available extractions per GN elements per extraction, that is:")
 agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
@@ -63,7 +63,7 @@ st.dataframe(agg_d12)
 type = "Gems"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
-st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} element per extraction, that is:")
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} times the available extractions per GN elements per extraction, that is:")
 agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
@@ -75,7 +75,7 @@ st.dataframe(agg_d12)
 type = "Element"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
-st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} element per extraction, that is:")
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} times the available extractions per GN elements per extraction, that is:")
 agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
@@ -87,7 +87,7 @@ st.dataframe(agg_d12)
 type = "Fabrics"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
-st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} element per extraction, that is:")
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} times the available extractions per GN elements per extraction, that is:")
 agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
@@ -99,7 +99,7 @@ st.dataframe(agg_d12)
 type = "Metals"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
-st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} element per extraction, that is:")
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} times the available extractions per GN elements per extraction, that is:")
 agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
@@ -107,16 +107,6 @@ agg_d12 = df1.groupby(type, as_index=False).agg(
             })
 st.dataframe(agg_d12)
 
-
-#st.write(f":blue[Amount of resources in the wild.] Takes the nodes existence, the Available Extractions on G Node as a global multiplier, and the items proportion (1:3:5, Gems and Elements : Metals and Fabrics: Woods Stones)")
-#df2 = resources(df1, multiplier)
-
-#resources_plot("Woods_amount", df2)
-#resources_plot("Stone_amount", df2)
-#resources_plot("Gems_amount", df2)
-#resources_plot("Element_amount", df2)
-#resources_plot("Fabrics_amount", df2)
-#resources_plot("Metals_amount", df2)
 
 print('------------------------------- ENEMIES ENEMIES ENEMIES ---------------------------------------------')
 st.header(f"2. ENEMIES")
