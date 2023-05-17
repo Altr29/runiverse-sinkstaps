@@ -106,7 +106,6 @@ def is_similar(my_string, test_string):
         if(my_string[i] == test_string[i]):
             count = count+1
     similarity_percentage = count/len(my_string)
-    print("Similarity Precentage: ", similarity_percentage)
     if similarity_percentage > 0.5:
         return True
     else:
