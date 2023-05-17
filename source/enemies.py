@@ -107,8 +107,10 @@ def is_similar(my_string, test_string):
             count = count+1
     similarity_percentage = count/len(my_string)
     print("Similarity Precentage: ", similarity_percentage)
-    return ( similarity_percentage > 0.5 )
-
+    if similarity_percentage > 0.5:
+        return True
+    else:
+        return False
 def d_type(el):
     dt = 'Recipe'
     if el in woods_stones_list:
@@ -148,7 +150,7 @@ def d_type(el):
                 'Deeper than Sound',
                 'Contemplation of Destiny',
                 "The Workers' Rest"]):
-        dt = 'CrystalsRecipes'
+        dt = 'Crystals Recipes'
 
     elif el in ["Pilgrim's Staff",
                 "Nature's Gift",
@@ -168,7 +170,7 @@ def d_type(el):
                 "Corsair Apparel",
                 "Tactician's Armor",
                 "Nightwalker"]:
-        dt = 'EquipmentRecipes'
+        dt = 'Equipment Recipes'
 
     elif is_similar(el, ["Pilgrim's Staff",
                 "Nature's Gift",
@@ -188,7 +190,7 @@ def d_type(el):
                 "Corsair Apparel",
                 "Tactician's Armor",
                 "Nightwalker"]):
-        dt = 'EquipmentRecipes'
+        dt = 'Equipment Recipes'
 
     return dt
 
