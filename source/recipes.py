@@ -278,23 +278,31 @@ def items_summary(df, tier, els, title):
         count_fis = {}
         for el in els + gc_list:
             if 'Shard' in el or 'Soul' in el or 'Ember' in el or el in gc_list:
-                count_sp[el] = df1[el].sum()
+                if df1[el].sum()>0:
+                    count_sp[el] = df1[el].sum()
+                else:
+                    pass
             else:
-                count_fis[el] = df1[el].sum()
+                if df1[el].sum()>0:
+                    count_fis[el] = df1[el].sum()
+                else:
+                    pass
 
         spirit_df = pd.DataFrame.from_dict(
             {'Spiritual Items': list(count_sp.keys()),
              'Type': [d_type(i) for i in list(count_sp.keys())],
-             'Amount': list(count_sp.values())
+             'Amount SI': list(count_sp.values())
              })
+
         fisi_df = pd.DataFrame.from_dict(
             {'Ground Items': list(count_fis.keys()),
              'Family': [d_type(i) for i in list(count_fis.keys())],
-             'Amount': list(count_fis.values())
+             'Amount GI': list(count_fis.values())
              })
+
         st.write(f":blue[Summary of elements that {title} Recipe tier {tier} requires.]")
-        st.dataframe(spirit_df[spirit_df['Amount']>0])
-        st.dataframe(fisi_df[fisi_df['Amount']>0])
+        df_fin = spirit_df.join(fisi_df)
+        st.dataframe(df_fin)
 
     except Exception as e:
         logging.error('Error in items_summary ', e)
