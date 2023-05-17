@@ -4,6 +4,7 @@ import logging
 import plotly.express as px
 import streamlit as st
 from source.recipes import woods_stones_list, fabrics_metals_list, gems_els_list
+import math
 
 def enemies_files(sheet):
     try:
@@ -98,6 +99,16 @@ def collect_(df):
 
     return elements
 
+def is_similar(my_string, test_string):
+    min_len = min(len(my_string), len(test_string))
+    count = 0
+    for i in range(0, min_len):
+        if(my_string[i] == test_string[i]):
+            count = count+1
+    similarity_percentage = count/len(my_string)
+    print("Similarity Precentage: ", similarity_percentage)
+    return ( similarity_percentage > 0.5 )
+
 def d_type(el):
     dt = 'Recipe'
     if el in woods_stones_list:
@@ -125,6 +136,20 @@ def d_type(el):
                 'Contemplation of Destiny',
                 "The Workers' Rest"]:
         dt = 'CrystalsRecipes'
+    elif is_similar(el, ['Call of the Ancient Flame',
+                'Drawing of Chaos',
+                'The Nature of Growth',
+                'Juvenile Festivity',
+                'Price of Inadequacy',
+                'A Giving Nature',
+                'Reckless Abandon',
+                'Condensed Volatility',
+                'Memory of the Peaks',
+                'Deeper than Sound',
+                'Contemplation of Destiny',
+                "The Workers' Rest"]):
+        dt = 'CrystalsRecipes'
+
     elif el in ["Pilgrim's Staff",
                 "Nature's Gift",
                 "Ol' Trusty",
@@ -145,7 +170,30 @@ def d_type(el):
                 "Nightwalker"]:
         dt = 'EquipmentRecipes'
 
+    elif is_similar(el, ["Pilgrim's Staff",
+                "Nature's Gift",
+                "Ol' Trusty",
+                "Butcher's Friend",
+                "Joybringer",
+                "Devouring Scythe",
+                "Witch Hat",
+                "Comfy Hood",
+                "Circlet of the Bold",
+                "Corsair Bandana",
+                "Tactician's Helm",
+                "Nightseeker",
+                "Witch's Robes",
+                "Comfy Robes",
+                "Bold Straps",
+                "Corsair Apparel",
+                "Tactician's Armor",
+                "Nightwalker"]):
+        dt = 'EquipmentRecipes'
+
     return dt
+
+
+
 def plot_enem_items(elements):
     print('---->>>>>>>>1>> ', elements)
     print('---->>>>>>>>2>> ', elements.values())
@@ -155,6 +203,6 @@ def plot_enem_items(elements):
          'Amount': list(elements.values()),
          'Type': [d_type(i) for i in list(elements.keys())]})
 
-    fig = px.bar(new, x='Items', y='Amount',color='Type', text_auto=True, title=f"Items Drop")
+    fig = px.bar(new.sort_values('Items'), x='Items', y='Amount',color='Type', text_auto=True, title=f"Items Drop")
     fig.update_traces(textfont_size=15, textangle=0, textposition="outside", cliponaxis=False)
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
