@@ -289,12 +289,12 @@ def items_summary(df, tier, els, title):
              })
         fisi_df = pd.DataFrame.from_dict(
             {'Ground Items': list(count_fis.keys()),
-             'Type': [d_type(i) for i in list(count_fis.keys())],
+             'Family': [d_type(i) for i in list(count_fis.keys())],
              'Amount': list(count_fis.values())
              })
         st.write(f":blue[Summary of elements that {title} Recipe tier {tier} requires.]")
-        st.dataframe(spirit_df)
-        st.dataframe(fisi_df)
+        st.dataframe(spirit_df[spirit_df['Amount']>0])
+        st.dataframe(fisi_df[fisi_df['Amount']>0])
 
     except Exception as e:
         logging.error('Error in items_summary ', e)
