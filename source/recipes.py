@@ -244,7 +244,6 @@ def time_to_collect(df,NAME, epm, els, tier, shard_ipm, ember_ipm, soul_ipm):
         df1[el+'_time'] = df1[el].apply(lambda x: int((x/epm)/k))
 
     els1 = [k + '_time' for k in els]
-    print('----> ', df1.columns)
     fig = px.bar(
         df1, x=NAME, y=els1,
         labels={"value": "Minutes"},

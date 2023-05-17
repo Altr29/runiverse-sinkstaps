@@ -42,7 +42,7 @@ def read_wild_depositchances(SAMPLE_SPREADSHEET_ID, SAMPLE_RANGE_NAME):
 
 
     except Exception as e:
-        print('Error reading deposit chances ', e)
+        logging.error('Error reading deposit chances ', e)
         df = None
     return df
 
