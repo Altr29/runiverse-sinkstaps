@@ -51,12 +51,8 @@ df = enemies_files('Alpha Enemies')
 gold_drop(df, 'Monster', 'Gold Drop')
 
 elements = collect_(df)
-new = pd.DataFrame.from_dict({'Items': list(elements.keys()),
-                              'Amount': list(elements.values())})
 
-fig = px.bar(new, x='Items', y='Amount', text_auto=True, title=f"Items Drop")
-fig.update_traces(textfont_size=15, textangle=0, textposition="outside", cliponaxis=False)
-st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+plot_enem_items(elements)
 
 
 

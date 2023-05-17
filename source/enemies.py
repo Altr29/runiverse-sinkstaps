@@ -3,7 +3,7 @@ import numpy as np
 import logging
 import plotly.express as px
 import streamlit as st
-
+from source.recipes import woods_stones_list, fabrics_metals_list, gems_els_list
 
 def enemies_files(sheet):
     try:
@@ -97,3 +97,64 @@ def collect_(df):
                     elements[str(i)]+=j
 
     return elements
+
+def d_type(el):
+    dt = 'Recipe'
+    if el in woods_stones_list:
+        dt = 'WoodsStones'
+    elif el in gems_els_list:
+        dt = 'GemsEls'
+    elif el in fabrics_metals_list:
+        dt = 'FabricsMetals'
+    elif 'Soul' in el:
+        dt = 'Soul'
+    elif 'Ember' in el:
+        dt = 'Ember'
+    elif 'Shard' in el:
+        dt = 'Shard'
+    elif el in ['Call of the Ancient Flame',
+                'Drawing of Chaos',
+                'The Nature of Growth',
+                'Juvenile Festivity',
+                'Price of Inadequacy',
+                'A Giving Nature',
+                'Reckless Abandon',
+                'Condensed Volatility',
+                'Memory of the Peaks',
+                'Deeper than Sound',
+                'Contemplation of Destiny',
+                "The Workers' Rest"]:
+        dt = 'CrystalsRecipes'
+    elif el in ["Pilgrim's Staff",
+                "Nature's Gift",
+                "Ol' Trusty",
+                "Butcher's Friend",
+                "Joybringer",
+                "Devouring Scythe",
+                "Witch Hat",
+                "Comfy Hood",
+                "Circlet of the Bold",
+                "Corsair Bandana",
+                "Tactician's Helm",
+                "Nightseeker",
+                "Witch's Robes",
+                "Comfy Robes",
+                "Bold Straps",
+                "Corsair Apparel",
+                "Tactician's Armor",
+                "Nightwalker"]:
+        dt = 'EquipmentRecipes'
+
+    return dt
+def plot_enem_items(elements):
+    print('---->>>>>>>>1>> ', elements)
+    print('---->>>>>>>>2>> ', elements.values())
+
+    new = pd.DataFrame.from_dict(
+        {'Items': list(elements.keys()),
+         'Amount': list(elements.values()),
+         'Type': [d_type(i) for i in list(elements.keys())]})
+
+    fig = px.bar(new, x='Items', y='Amount',color='Type', text_auto=True, title=f"Items Drop")
+    fig.update_traces(textfont_size=15, textangle=0, textposition="outside", cliponaxis=False)
+    st.plotly_chart(fig, theme="streamlit", use_container_width=True)
