@@ -313,10 +313,14 @@ def items_summary(df, tier, els, title, ememies_items,enemies_gold, gnodes_items
             0]
         st.write(f":blue[1) Gold Drop by Enemies - Gold Required by {title} Recipe tier {tier}] Summary Balance: ")
         st.write(
-                 f" :green[Elite {elite_b} units] {elite_con}")
+                 f" :green[Elite: {elite_b} units] {elite_con}")
         st.write(
-            f" :green[Standard {standard_b} units] {standard_con}"
+            f" :green[Standard: {standard_b} units] {standard_con}"
                  )
+        st.write(
+            f" :green[Elite+Standard: {enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD']} units] "
+            f"{'POSITIVE' if enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD']>0 else 'Negative'}"
+        )
 
         st.write(f" :blue[2) Summary of Spiritual Items required by -{title} Recipe tier {tier}-.]")
         ememies_items.rename(columns ={'Amount':'InputByEnemies'}, inplace=True)

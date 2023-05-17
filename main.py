@@ -168,17 +168,19 @@ result = pd.concat(frames)
 print('------------------------------- ENEMIES ENEMIES ENEMIES ---------------------------------------------')
 st.header(f"2. ENEMIES")
 st.write(f":blue[Spiritual Items dropped by Enemies.] "
-         f"Takes the numbers from "
-         f"[Founder Enemies](https://docs.google.com/spreadsheets/d/1BaMpBSAiMdAUsfel7UweenSSbIwrLra1oScWWOsCNDk/edit?usp=sharing).")
+         f"Takes the numbers from Founder Enemies "
+         f"[link here](https://docs.google.com/spreadsheets/d/1BaMpBSAiMdAUsfel7UweenSSbIwrLra1oScWWOsCNDk/edit?usp=sharing).")
 df = enemies_files('Alpha Enemies')
 
 gold_unities={'Elite':df[df['Type']=='Elite']['Gold Drop'].sum(),
               'Standard':df[df['Type']=='Standard']['Gold Drop'].sum()}
 
+st.write(f"Gold dropped by enemies in Elite : {gold_unities['Elite']}, Standard : {+gold_unities['Standard']}, Elite+Standard: {gold_unities['Elite']+gold_unities['Standard']}")
 gold_drop(df, 'Monster', 'Gold Drop')
+
+
 spiritual_elements = collect_(df)
 
-print('Elements in Enemies')
 plot_enem_items(spiritual_elements)
 
 
