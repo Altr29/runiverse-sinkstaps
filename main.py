@@ -39,6 +39,7 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 type = "Woods"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} element per extraction, that is:")
 agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
@@ -50,6 +51,7 @@ st.dataframe(agg_d12)
 type = "Stone"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} element per extraction, that is:")
 agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
@@ -61,6 +63,7 @@ st.dataframe(agg_d12)
 type = "Gems"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} element per extraction, that is:")
 agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
@@ -72,6 +75,7 @@ st.dataframe(agg_d12)
 type = "Element"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} element per extraction, that is:")
 agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
@@ -83,6 +87,7 @@ st.dataframe(agg_d12)
 type = "Fabrics"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} element per extraction, that is:")
 agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
@@ -94,6 +99,7 @@ st.dataframe(agg_d12)
 type = "Metals"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
+st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} element per extraction, that is:")
 agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],

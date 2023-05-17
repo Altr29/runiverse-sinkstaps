@@ -69,15 +69,3 @@ def element_multiplier(el: object) -> object:
             val = 3
     return val
 
-def resources(df, multiplier):
-    for el in family:
-        t = element_multiplier(el)
-        df[el+'_amount']=df[el+ "Frecuency"].apply(lambda x: t*x*multiplier)
-    return df
-
-def resources_plot(el, df1):
-    fig = px.bar(
-        df1.sort_values('Sub-Biome'), x="Sub-Biome", y=el, color=el[:-7], text_auto='.2s',
-        title=f"{el[:-7]} Resources")
-    fig.update_traces(textfont_size=15, textangle=0, textposition="inside", cliponaxis=False)
-    st.plotly_chart(fig, theme="streamlit", use_container_width=True)
