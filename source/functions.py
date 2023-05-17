@@ -4,6 +4,9 @@ import logging
 import plotly.express as px
 import streamlit as st
 
+
+family = ['Woods','Stone','Gems','Element','Fabrics','Metals']
+
 def reading_sheets(SAMPLE_SPREADSHEET_ID,SAMPLE_RANGE_NAME):
     try:
         url = f'https://docs.google.com/spreadsheets/d/{SAMPLE_SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet={SAMPLE_RANGE_NAME}'
@@ -55,7 +58,6 @@ def nodes(el, df1):
     fig.update_traces(textfont_size=15, textangle=0, textposition="inside", cliponaxis=False)
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
-family = ['Woods','Stone','Gems','Element','Fabrics','Metals']
 
 def element_multiplier(el: object) -> object:
     val = 5

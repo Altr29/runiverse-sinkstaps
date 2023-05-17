@@ -3,55 +3,19 @@ import numpy as np
 import logging
 import plotly.express as px
 import streamlit as st
-# COSTS
+from source.inputs import gems_list, els_list, stones_list, woods_list, fabrics_list, metals_list
 
-woods_stones_list = ['Redwood',
-                        'Pine',
-                        'Willow',
-                        'Olive',
-                        'Oak',
-                        'Ash',
-                        'Holly',
-                        'Basalt',
-                        'Limestone',
-                        'Shale',
-                        'Sand',
-                        'Granite',
-                        'Marble',
-                        'Alabaster']
 woods_stones = {
     'Primary':[24,48,72,96],
     'Secondary':[16,32,48,64],
     'Tertiary':[8,16,24,32]
 }
 
-fabrics_metals_list = ['Flax', 'Zinc',
-                        'Silk', 'Tungsten',
-                        'Jute', 'Tin',
-                        'Hemp', 'Copper',
-                        'Cotton', 'Iron',
-                        'Cashmere', 'Aluminum',
-                        'Wool', 'Titanium']
 fabrics_metals = {
     'Primary':[12,24,36,48],
     'Secondary':[8,16,24,32],
     'Tertiary':[4,8,12,16]
 }
-
-gems_els_list = ['Ruby',
-                'Sapphire',
-                'Emerald',
-                'Topaz',
-                'Smoky Quartz',
-                'Amethyst',
-                'Diamond',
-                 'Sulfur',
-                 'Hydrogen',
-                 'Carbon',
-                 'Nitrogen',
-                 'Calcium',
-                 'Silicon',
-                 'Antimony']
 
 gems_els = {
     'Primary':[6,12,18,24],
@@ -77,7 +41,6 @@ soul = {
 
 costs = {'PhysicalMaterials':[woods_stones, fabrics_metals, gems_els],
          'SpiritualMaterials':[shard, ember, soul]}
-
 
 
 def recipes_type(recipe_type, init, fin, NAME):
@@ -116,11 +79,11 @@ def recipes_type(recipe_type, init, fin, NAME):
                 field = ember
             elif 'Soul' in soul:
                 field = soul
-            elif el in woods_stones_list:
+            elif el in woods_list+stones_list:
                 field = woods_stones
-            elif el in fabrics_metals_list:
+            elif el in fabrics_list+metals_list:
                 field = fabrics_metals
-            elif el in gems_els_list:
+            elif el in gems_list+els_list:
                 field = gems_els
 
             alpha_recipes_f[el] = np.select(
@@ -234,11 +197,11 @@ def time_to_collect(df,NAME, epm, els, tier, shard_ipm, ember_ipm, soul_ipm):
         elif 'Soul' in el:
                 df1[el + '_time'] = df1[el].apply(lambda x: int(x / soul_ipm))
         else:
-            if el in woods_stones_list:
+            if el in woods_list+stones_list:
                 k=5
-            elif el in fabrics_metals_list:
+            elif el in fabrics_list+metals_list:
                 k=3
-            elif el in gems_els_list:
+            elif el in gems_list+els_list:
                 k = 1
 
         df1[el+'_time'] = df1[el].apply(lambda x: int((x/epm)/k))
@@ -263,11 +226,11 @@ def totals(alpha_recipes_f2, els):
                 field['Ember'].append(el)
             elif 'Soul' in soul:
                 field['Soul'].append(el)
-            elif el in woods_stones_list:
+            elif el in woods_list+stones_list:
                 field['w_s'].append(el)
-            elif el in fabrics_metals_list:
+            elif el in fabrics_list+metals_list:
                 field['m_f'].append(el)
-            elif el in gems_els_list:
+            elif el in gems_list+els_list:
                 field['g_e'].append(el)
 
         alpha_recipes_f2['Shard_total'] = alpha_recipes_f2[field['Shard']].sum(axis=1)

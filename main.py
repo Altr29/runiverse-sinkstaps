@@ -4,7 +4,7 @@ from source.functions import *
 from source.recipes import *
 from source.recipes import recipes_type
 from source.enemies import *
-
+from source.inputs import gems_list, els_list, stones_list, woods_list, fabrics_list, metals_list
 
 event = {'SAMPLE_RANGE_NAME':'(Wild)EssenceStrengthsandResources',
         'SAMPLE_SPREADSHEET_ID':'1l_V71izAjkLguKZuaj43sGEYR-2bpSLxHFi7ORCcTWo',
@@ -27,12 +27,56 @@ st.header(f"1. Gathering Nodes in the Wild")
 st.write(f":blue[Number of nodes in world, per family type and Sub-Biome.] "
          f"Numbers were taken from level design document [(Wild)EssenceStrengthsandResources](https://docs.google.com/spreadsheets/d/1l_V71izAjkLguKZuaj43sGEYR-2bpSLxHFi7ORCcTWo/edit?usp=sharing).")
 
-nodes("Woods", df1)
-nodes("Stone", df1)
-nodes("Gems", df1)
-nodes("Element", df1)
-nodes("Fabrics", df1)
-nodes("Metals", df1)
+
+
+type = "Woods"
+nodes(type, df1)
+agg_d12 = df1.groupby(type, as_index=False).agg(
+            {
+                type+'Frecuency': ['sum']
+            })
+st.dataframe(agg_d12)
+
+type = "Stone"
+nodes(type, df1)
+agg_d12 = df1.groupby(type, as_index=False).agg(
+            {
+                type+'Frecuency': ['sum']
+            })
+st.dataframe(agg_d12)
+
+type = "Gems"
+nodes(type, df1)
+agg_d12 = df1.groupby(type, as_index=False).agg(
+            {
+                type+'Frecuency': ['sum']
+            })
+st.dataframe(agg_d12)
+
+type = "Element"
+nodes(type, df1)
+agg_d12 = df1.groupby(type, as_index=False).agg(
+            {
+                type+'Frecuency': ['sum']
+            })
+st.dataframe(agg_d12)
+
+type = "Fabrics"
+nodes(type, df1)
+agg_d12 = df1.groupby(type, as_index=False).agg(
+            {
+                type+'Frecuency': ['sum']
+            })
+st.dataframe(agg_d12)
+
+type = "Metals"
+nodes(type, df1)
+agg_d12 = df1.groupby(type, as_index=False).agg(
+            {
+                type+'Frecuency': ['sum']
+            })
+st.dataframe(agg_d12)
+
 
 st.write(f":blue[Amount of resources in the wild.] Takes the nodes existence, the Available Extractions on G Node as a global multiplier, and the items proportion (1:3:5, Gems and Elements : Metals and Fabrics: Woods Stones)")
 df2 = resources(df1, multiplier)
