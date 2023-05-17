@@ -29,11 +29,12 @@ st.write(f":blue[Number of nodes in world, per family type and Sub-Biome.] "
 
 print('---<>>>>>>', df1.columns[0:])
 
+import plotly.graph_objects as go
 
 fig = px.bar(df1.sort_values('Sub-Biome'), x="Sub-Biome", y=['WoodsFrecuency', 'GemsFrecuency',
         'FabricsFrecuency', 'MetalsFrecuency', 'StoneFrecuency', 'ElementFrecuency'],
         title=f"Gathering Nodes in the Wild per Item Family and Sub Biome Location")
-fig.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
+fig.update_yaxes(tick0=0, dtick=5)
 st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 

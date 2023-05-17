@@ -55,6 +55,7 @@ def nodes(el, df1):
         df1.sort_values('Sub-Biome'), x="Sub-Biome", y=el + "Frecuency", color=el, text_auto='.2s',
         labels={el + "Frecuency": el + " nodes"},
         title=f"{el}")
+    fig.update_yaxes(tick0=0, dtick=1)
     fig.update_traces(textfont_size=15, textangle=0, textposition="inside", cliponaxis=False)
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
