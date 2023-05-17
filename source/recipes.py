@@ -216,7 +216,6 @@ def recipes_type(recipe_type, init, fin, NAME):
                     int(field['Tertiary'][-1] * 2.25)
                 ],
             )
-
         alpha_recipes_f2 = alpha_recipes_f
         return alpha_recipes_f2, els
 

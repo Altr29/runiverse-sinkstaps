@@ -9,6 +9,7 @@ from source.enemies import *
 event = {'SAMPLE_RANGE_NAME':'(Wild)EssenceStrengthsandResources',
         'SAMPLE_SPREADSHEET_ID':'1l_V71izAjkLguKZuaj43sGEYR-2bpSLxHFi7ORCcTWo',
         'key':'AIzaSyABdVwS2e28_JrMQlwHQxgUlAAkgqbHUqI'}
+
 SAMPLE_SPREADSHEET_ID_input = event['SAMPLE_SPREADSHEET_ID']
 SAMPLE_RANGE_NAME = event['SAMPLE_RANGE_NAME']
 
@@ -46,7 +47,17 @@ print('------------------------------- ENEMIES ENEMIES ENEMIES -----------------
 st.header(f"2. ENEMIES")
 df = enemies_files('Alpha Enemies')
 
+
 gold_drop(df, 'Monster', 'Gold Drop')
+
+elements = collect_(df)
+new = pd.DataFrame.from_dict({'Items': list(elements.keys()),
+                              'Amount': list(elements.values())})
+
+fig = px.bar(new, x='Items', y='Amount', text_auto=True, title=f"Items Drop")
+fig.update_traces(textfont_size=15, textangle=0, textposition="outside", cliponaxis=False)
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
 
 
 print('-------------------------------------- Recipes Crystals -----------------------------------------------')
@@ -90,5 +101,5 @@ recipe = 'BUILDINGS'
 st.write(f''':blue[{recipe} TBD]''')
 
 
-
+st.header(f"2. DYNAMICS - Items used by Recipes")
 # COSTS

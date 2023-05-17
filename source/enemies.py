@@ -23,7 +23,6 @@ def enemies_files(sheet):
                    'Quantity Min / Max.4','Gold Drop']:
           df[el] = df[el].replace(np.nan, '0').replace('-', '0')
           df[el] = df[el].apply(lambda x: int(str(x)[8:10]) if len(str(x))>8 else int(x))
-
         return df
 
     except Exception as e:
@@ -33,9 +32,68 @@ def gold_drop(df, NAME, title):
     try:
         fig = px.bar(
             df.sort_values(NAME), x=NAME, y=title,
-            hover_data=['Type','Area','Sprite'],labels={"value": "Items"},
+            hover_data=['Type','Area','Sprite'],labels={"Gold Drop": "Gold unities"},color='Type',
             text_auto=True, title=f"Gold Drop by Enemies")
-        fig.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
+        fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
         st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
     except Exception as e:
         logging.error('Error in gold_drop ', e)
+
+def collect_(df):
+    monsters = {}
+    for i, j in df.iterrows():
+        if '-' in df.loc[i,'Material Drop 1']:
+            monsters[df.loc[i,'Monster']]={
+                                     df.loc[i,'Material Drop 2']: df.loc[i,'Quantity Min / Max.1'],
+                                     df.loc[i,'Material Drop 3 ']: df.loc[i,'Quantity Min / Max.2'],
+                                     df.loc[i,'Recipe Drop']: df.loc[i,'Quantity Min / Max.3'],
+                                     df.loc[i,'Crystal Recipe Drop']: df.loc[i,'Quantity Min / Max.4']}
+        elif '-' in df.loc[i,'Material Drop 2']:
+            monsters[df.loc[i,'Monster']]={
+                                     df.loc[i,'Material Drop 1']: df.loc[i,'Quantity Min / Max'],
+                                     df.loc[i,'Material Drop 3 ']: df.loc[i,'Quantity Min / Max.2'],
+                                     df.loc[i,'Recipe Drop']: df.loc[i,'Quantity Min / Max.3'],
+                                     df.loc[i,'Crystal Recipe Drop']: df.loc[i,'Quantity Min / Max.4']}
+        elif '-' in df.loc[i,'Material Drop 3 ']:
+            monsters[df.loc[i,'Monster']]={
+                                     df.loc[i,'Material Drop 1']: df.loc[i,'Quantity Min / Max'],
+                                     df.loc[i,'Material Drop 2']: df.loc[i,'Quantity Min / Max.1'],
+                                     df.loc[i,'Recipe Drop']: df.loc[i,'Quantity Min / Max.3'],
+                                     df.loc[i,'Crystal Recipe Drop']: df.loc[i,'Quantity Min / Max.4']}
+        elif '-' in df.loc[i,'Recipe Drop']:
+            monsters[df.loc[i,'Monster']]={
+                                     df.loc[i,'Material Drop 1']: df.loc[i,'Quantity Min / Max'],
+                                     df.loc[i,'Material Drop 2']: df.loc[i,'Quantity Min / Max.1'],
+                                     df.loc[i,'Material Drop 3 ']: df.loc[i,'Quantity Min / Max.2'],
+                                     df.loc[i,'Crystal Recipe Drop']: df.loc[i,'Quantity Min / Max.4']}
+        elif '-' in df.loc[i,'Crystal Recipe Drop']:
+            monsters[df.loc[i,'Monster']]={
+                                     df.loc[i,'Material Drop 1']: df.loc[i,'Quantity Min / Max'],
+                                     df.loc[i,'Material Drop 2']: df.loc[i,'Quantity Min / Max.1'],
+                                     df.loc[i,'Material Drop 3 ']: df.loc[i,'Quantity Min / Max.2'],
+                                     df.loc[i,'Recipe Drop']: df.loc[i, 'Quantity Min / Max.3']}
+        else:
+            monsters[df.loc[i, 'Monster']] = {
+                df.loc[i, 'Material Drop 1']: df.loc[i, 'Quantity Min / Max'],
+                df.loc[i, 'Material Drop 2']: df.loc[i, 'Quantity Min / Max.1'],
+                df.loc[i, 'Material Drop 3 ']: df.loc[i, 'Quantity Min / Max.2'],
+                df.loc[i, 'Recipe Drop']: df.loc[i, 'Quantity Min / Max.3'],
+                df.loc[i, 'Crystal Recipe Drop']: df.loc[i, 'Quantity Min / Max.4']}
+
+    elements = {}
+    for key, value in monsters.items():
+        #print('--------- Enemy ', key)
+        for i,j in value.items():
+            i=i.replace('(Rare)','')
+            if i=='-':
+                pass
+            else:
+                if j=='-':
+                    j=0
+                if i not in elements.keys():
+                    elements[str(i)]=j
+                else:
+                    elements[str(i)]+=j
+
+    return elements
