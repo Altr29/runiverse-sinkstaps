@@ -330,7 +330,7 @@ def items_summary(df, tier, els, title, ememies_items,enemies_gold, gnodes_items
         fisi_df_fin['GNodesInput'] = fisi_df_fin['GNodesInput'].replace(np.nan, 0)
         fisi_df_fin['Item Balance'] = fisi_df_fin['GNodesInput'] - fisi_df_fin['RequiredOnRecipe']
         fisi_df_fin['Intra pct'] = fisi_df_fin['RequiredOnRecipe']/fisi_df_fin['GNodesInput']
-        fisi_df_fin['Intra pct'] = fisi_df_fin['Intra pct'] .apply(lambda x: str(x/100)+' %')
+        fisi_df_fin['Intra pct'] = fisi_df_fin['Intra pct'] .apply(lambda x: str("{:.2f}".format(x*100))+' %')
         st.write(fisi_df_fin)
 
     except Exception as e:
