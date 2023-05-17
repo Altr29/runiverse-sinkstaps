@@ -27,6 +27,14 @@ st.header(f"1. Gathering Nodes in the Wild")
 st.write(f":blue[Number of nodes in world, per family type and Sub-Biome.] "
          f"Numbers were taken from level design document [(Wild)EssenceStrengthsandResources](https://docs.google.com/spreadsheets/d/1l_V71izAjkLguKZuaj43sGEYR-2bpSLxHFi7ORCcTWo/edit?usp=sharing).")
 
+print('---<>>>>>>', df1.columns[0:])
+
+
+fig = px.bar(df1.sort_values('Sub-Biome'), x="Sub-Biome", y=['WoodsFrecuency', 'GemsFrecuency',
+        'FabricsFrecuency', 'MetalsFrecuency', 'StoneFrecuency', 'ElementFrecuency'],
+        title=f"Gathering Nodes in the Wild per Item Family and Sub Biome Location")
+fig.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 
 type = "Woods"
