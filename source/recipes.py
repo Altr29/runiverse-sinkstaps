@@ -274,6 +274,9 @@ def items_summary(df, tier, els, title):
 
     try:
         df1 = df[df['TIER'] == tier]
+        if 'ALL' in tier:
+            df1=df
+
         count_sp = {}
         count_fis = {}
         for el in els + gc_list:
