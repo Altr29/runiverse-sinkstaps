@@ -32,7 +32,7 @@ def enemies_files(sheet):
 def gold_drop(df, NAME, title):
     try:
         fig = px.bar(
-            df, x=NAME, y=title,
+            df.sort_values(NAME), x=NAME, y=title,
             hover_data=['Type','Area','Sprite'],labels={"value": "Items"},
             text_auto=True, title=f"Gold Drop by Enemies")
         fig.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
