@@ -311,7 +311,7 @@ def items_summary(df, tier, els, title, ememies_items,enemies_gold, gnodes_items
         standard_con = [
             'NEGATIVE: More gold is required than dropped by enemies' if standard_b < 0 else 'POSITIVE: Enough gold required vs dropped by enemies'][
             0]
-        st.write(f":blue[1) Gold Drop by Enemies - Gold Required by {title} Recipe tier {tier}] Summary Balance: ")
+        st.write(f":blue[1) Gold: Drop by Enemies - Required by {title} Recipe tier {tier} ({count_gold['GOLD']} Units):] ")
         st.write(
                  f" :green[Elite: {elite_b} units] {elite_con}")
         st.write(
@@ -327,15 +327,15 @@ def items_summary(df, tier, els, title, ememies_items,enemies_gold, gnodes_items
         spitit_fin = pd.merge(spirit_df,ememies_items[['Items','InputByEnemies']],on=["Items"], how='left')
         spitit_fin['InputByEnemies'] = spitit_fin['InputByEnemies'].replace(np.nan, 0)
         spitit_fin['Item Balance'] = spitit_fin['InputByEnemies']-spitit_fin['RequiredOnRecipe']
-        st.write(spitit_fin)
+        st.write(spitit_fin[['Items','Type','InputByEnemies','RequiredOnRecipe','Item Balance']])
 
         st.write(f":blue[3) Summary of Physical Items required by -{title} Recipe tier {tier}-.]")
         fisi_df_fin = pd.merge(fisi_df, gnodes_items[['Items', 'GNodesInput']], on=["Items"], how='left')
         fisi_df_fin['GNodesInput'] = fisi_df_fin['GNodesInput'].replace(np.nan, 0)
         fisi_df_fin['Item Balance'] = fisi_df_fin['GNodesInput'] - fisi_df_fin['RequiredOnRecipe']
         fisi_df_fin['Intra pct'] = fisi_df_fin['RequiredOnRecipe']/fisi_df_fin['GNodesInput']
-        fisi_df_fin['Intra pct'] = fisi_df_fin['Intra pct'] .apply(lambda x: str("{:.2f}".format(x*100))+' %')
-        st.write(fisi_df_fin)
+        fisi_df_fin['Pct'] = fisi_df_fin['Intra pct'] .apply(lambda x: str("{:.2f}".format(x*100))+' %')
+        st.write(fisi_df_fin[['Items', 'Family', 'GNodesInput', 'RequiredOnRecipe','Pct', 'Item Balance']])
 
     except Exception as e:
         logging.error('Error in items_summary ', e)
