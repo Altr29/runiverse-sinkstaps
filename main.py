@@ -14,10 +14,12 @@ import plotly.graph_objects as go
 SAMPLE_SPREADSHEET_ID_input = event['SAMPLE_SPREADSHEET_ID']
 SAMPLE_RANGE_NAME = event['SAMPLE_RANGE_NAME']
 
-df1 = read_wild_depositchances(event['SAMPLE_SPREADSHEET_ID'], event['SAMPLE_RANGE_NAME'])
+
 
 #CONTROLS
 st.sidebar.markdown("## Controls")
+alpha_reg = st.checkbox('ALPHA')
+
 multiplier = st.sidebar.slider('Available Extractions on G Node', min_value=1, max_value=100, value=30, step=5)
 #epm = st.sidebar.slider('Extractions per minute', min_value=1, max_value=50, value=5, step=1)
 gems_nu = st.sidebar.slider('Gems G Nodes used', min_value=1, max_value=50, value=4, step=1)
@@ -30,6 +32,14 @@ ston_nu = st.sidebar.slider('Stones G Nodes used', min_value=1, max_value=50, va
 #soul_ipm = st.sidebar.slider('Soul - items per minute', min_value=1, max_value=50, value=5, step=1)
 
 st.header(f"1. Gathering Nodes in the Wild")
+
+wdc = read_wild_depositchances(event['SAMPLE_SPREADSHEET_ID'], event['SAMPLE_RANGE_NAME'])
+if alpha_reg:
+    reg = ['Southern Grasslands','Mountains','Thorn','Northern Grasslands','Toadstools',"Frogmaster's Marsh"]
+    df1 = wdc[wdc['Land Type'].isin(reg)]
+else:
+    df1 = wdc
+
 st.write(f":blue[Number of nodes in world, per family type and Sub-Biome.] "
          f"Numbers were taken from level design document [(Wild)EssenceStrengthsandResources](https://docs.google.com/spreadsheets/d/1l_V71izAjkLguKZuaj43sGEYR-2bpSLxHFi7ORCcTWo/edit?usp=sharing).")
 
@@ -184,7 +194,7 @@ alpha_wild_areas = {'The Hedge Maze':3,
                     'The Mush':7,
                     'Dead Lake Island':2}
 
-alpha_reg = st.checkbox('ALPHA Wild Areas')
+
 
 df_e = enemies_files('Founder Enemies')
 df = enemies_multipliers(df_e, alpha_wild_areas)
