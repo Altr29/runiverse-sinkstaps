@@ -80,19 +80,19 @@ ERecipes = ["Pilgrim's Staff",
 
 def similar(a, els):
     """
+    :param els:
     :param a: variable to compare
     :param b: variable to compare with a
     :return: a probability value of similitude
     """
     resp = False
     for el in els:
-        if SequenceMatcher(None, a, el).ratio()>.9:
+        if SequenceMatcher(None, a, el).ratio()>.7:
             resp = True
             break
         else:
             pass
     return resp
-
 
 def d_type(el):
     dt = 'Recipes: '

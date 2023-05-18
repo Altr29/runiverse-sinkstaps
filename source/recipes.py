@@ -305,12 +305,15 @@ def items_summary(df, tier, els, title, ememies_items,enemies_gold, gnodes_items
              'Family': [d_type(i) for i in list(count_fis.keys())],
              'RequiredOnRecipe': list(count_fis.values())
              })
+
         elite_b = -count_gold['GOLD']+enemies_gold['Elite']
         elite_con = ['NEGATIVE: More gold is required than dropped by enemies' if elite_b<0 else 'POSITIVE: Enough gold required vs dropped by enemies'][0]
         standard_b = -count_gold['GOLD']+enemies_gold['Standard']
         standard_con = [
             'NEGATIVE: More gold is required than dropped by enemies' if standard_b < 0 else 'POSITIVE: Enough gold required vs dropped by enemies'][
             0]
+
+
         st.write(f":blue[1) Gold: Drop by Enemies - Required by {title} Recipe tier {tier} ({count_gold['GOLD']} Units):] ")
         st.write(
                  f" :green[Elite: {elite_b} units] {elite_con}")
@@ -322,12 +325,14 @@ def items_summary(df, tier, els, title, ememies_items,enemies_gold, gnodes_items
             f"{'POSITIVE' if enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD']>0 else 'Negative'}"
         )
 
+
         st.write(f" :blue[2) Summary of Spiritual Items required by -{title} Recipe tier {tier}-.]")
         ememies_items.rename(columns ={'Amount':'InputByEnemies'}, inplace=True)
         spitit_fin = pd.merge(spirit_df,ememies_items[['Items','InputByEnemies']],on=["Items"], how='left')
         spitit_fin['InputByEnemies'] = spitit_fin['InputByEnemies'].replace(np.nan, 0)
         spitit_fin['Item Balance'] = spitit_fin['InputByEnemies']-spitit_fin['RequiredOnRecipe']
         st.write(spitit_fin[['Items','Type','InputByEnemies','RequiredOnRecipe','Item Balance']])
+
 
         st.write(f":blue[3) Summary of Physical Items required by -{title} Recipe tier {tier}-.]")
         fisi_df_fin = pd.merge(fisi_df, gnodes_items[['Items', 'GNodesInput']], on=["Items"], how='left')

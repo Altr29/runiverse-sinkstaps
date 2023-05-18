@@ -20,7 +20,12 @@ df1 = read_wild_depositchances(event['SAMPLE_SPREADSHEET_ID'], event['SAMPLE_RAN
 st.sidebar.markdown("## Controls")
 multiplier = st.sidebar.slider('Available Extractions on G Node', min_value=1, max_value=50, value=13, step=1)
 #epm = st.sidebar.slider('Extractions per minute', min_value=1, max_value=50, value=5, step=1)
-#shard_ipm = st.sidebar.slider('Shard - items per minute', min_value=1, max_value=50, value=5, step=1)
+gems_nu = st.sidebar.slider('Gems G Nodes used', min_value=1, max_value=50, value=2, step=1)
+els_nu = st.sidebar.slider('Elements G Nodes used', min_value=1, max_value=50, value=2, step=1)
+met_nu = st.sidebar.slider('Metals G Nodes used', min_value=1, max_value=50, value=2, step=1)
+fab_nu = st.sidebar.slider('Fabrics G Nodes used', min_value=1, max_value=50, value=2, step=1)
+woods_nu = st.sidebar.slider('Woods G Nodes used', min_value=1, max_value=50, value=2, step=1)
+ston_nu = st.sidebar.slider('Stones G Nodes used', min_value=1, max_value=50, value=2, step=1)
 #ember_ipm = st.sidebar.slider('Ember - items per minute', min_value=1, max_value=50, value=5, step=1)
 #soul_ipm = st.sidebar.slider('Soul - items per minute', min_value=1, max_value=50, value=5, step=1)
 
@@ -53,7 +58,7 @@ for i in list(df1[type].unique()):
 
 df_woods_vals = pd.DataFrame.from_dict(
             {'Items': list(woods_vals.keys()),
-             'GNodesInput': list(woods_vals.values())
+             'GNodesInput': [element_multiplier(type)*multiplier*woods_nu]*len(list(woods_vals.keys()))
              })
 
 type = "Stone"
@@ -74,7 +79,7 @@ for i in list(df1[type].unique()):
 
 df_stone_vals = pd.DataFrame.from_dict(
             {'Items': list(stone_vals.keys()),
-             'GNodesInput': list(stone_vals.values())
+             'GNodesInput': [element_multiplier(type)*multiplier*ston_nu]*len(list(woods_vals.keys()))
              })
 
 type = "Gems"
@@ -95,7 +100,7 @@ for i in list(df1[type].unique()):
 
 df_gems_vals = pd.DataFrame.from_dict(
             {'Items': list(gems_vals.keys()),
-             'GNodesInput': list(gems_vals.values())
+             'GNodesInput': [element_multiplier(type)*multiplier*gems_nu]*len(list(woods_vals.keys()))
              })
 
 type = "Element"
@@ -115,7 +120,7 @@ for i in list(df1[type].unique()):
 
 df_element_vals = pd.DataFrame.from_dict(
             {'Items': list(element_vals.keys()),
-             'GNodesInput': list(element_vals.values())
+             'GNodesInput': [element_multiplier(type)*multiplier*els_nu]*len(list(woods_vals.keys()))
              })
 
 type = "Fabrics"
@@ -135,7 +140,7 @@ for i in list(df1[type].unique()):
 
 df_Fabrics_vals = pd.DataFrame.from_dict(
             {'Items': list(Fabrics_vals.keys()),
-             'GNodesInput': list(Fabrics_vals.values())
+             'GNodesInput': [element_multiplier(type)*multiplier*fab_nu]*len(list(woods_vals.keys()))
              })
 
 type = "Metals"
@@ -155,7 +160,7 @@ for i in list(df1[type].unique()):
 
 df_Metals_vals = pd.DataFrame.from_dict(
             {'Items': list(Metals_vals.keys()),
-             'GNodesInput': list(Metals_vals.values())
+             'GNodesInput': [element_multiplier(type)*multiplier*met_nu]*len(list(woods_vals.keys()))
              })
 
 frames = [df_stone_vals, df_woods_vals,
@@ -172,14 +177,16 @@ st.write(f":blue[Spiritual Items dropped by Enemies.] "
          f"[link here](https://docs.google.com/spreadsheets/d/1BaMpBSAiMdAUsfel7UweenSSbIwrLra1oScWWOsCNDk/edit?usp=sharing).")
 df = enemies_files('Alpha Enemies')
 
+
+
 gold_unities={'Elite':df[df['Type']=='Elite']['Gold Drop'].sum(),
               'Standard':df[df['Type']=='Standard']['Gold Drop'].sum()}
 
 st.write(f"Gold dropped by enemies in Elite : {gold_unities['Elite']}, Standard : {+gold_unities['Standard']}, Elite+Standard: {gold_unities['Elite']+gold_unities['Standard']}")
 gold_drop(df, 'Monster', 'Gold Drop')
 
-
 spiritual_elements = collect_(df)
+
 
 plot_enem_items(spiritual_elements)
 
@@ -194,21 +201,24 @@ recipe = 'AlphaCrystalRecipes'
 st.write(f''':blue[{recipe[:5].upper()+' '+recipe[5:12]+' '+recipe[12:]}]''')
 df, els = recipes_type(recipe,15, -8, 'CRYSTAL NAME')
 df2 = totals(df, els)
+
 tiers_plots(df, 'I', els, "CRYSTAL NAME")
 gold_cost(df,'I','CRYSTAL NAME','GOLD COST')
-
 items_summary(df, 'I', els, 'Crystals', spiritual_elements, gold_unities, result)
 #time_to_collect(df,'CRYSTAL NAME', epm, els, 'I', shard_ipm, ember_ipm, soul_ipm)
+
 
 tiers_plots(df, 'II', els, "CRYSTAL NAME")
 gold_cost(df,'II','CRYSTAL NAME','GOLD COST')
 items_summary(df, 'II', els, 'Crystals', spiritual_elements, gold_unities, result)
 #time_to_collect(df,'CRYSTAL NAME', epm, els, 'II', shard_ipm, ember_ipm, soul_ipm)
 
+
 tiers_plots(df, 'III', els, "CRYSTAL NAME")
 gold_cost(df,'III','CRYSTAL NAME','GOLD COST')
 items_summary(df, 'III', els, 'Crystals', spiritual_elements, gold_unities, result)
 #time_to_collect(df,'CRYSTAL NAME', epm, els, 'III', shard_ipm, ember_ipm, soul_ipm)
+
 
 print('------------------------------------- Equipment ---------------------------------------------------------')
 recipe = 'ALPHA Equiment Recipes'
@@ -222,15 +232,18 @@ gold_cost(df,'I','NAME','Gold Cost')
 items_summary(df, 'I', els, 'Equipment', spiritual_elements, gold_unities, result)
 #time_to_collect(df,'NAME', epm, els, 'I', shard_ipm, ember_ipm, soul_ipm)
 
+
 tiers_plots(df, 'II', els,"NAME")
 gold_cost(df,'II','NAME','Gold Cost')
 items_summary(df, 'II', els, 'Equipment', spiritual_elements, gold_unities, result)
 #time_to_collect(df,'NAME', epm, els, 'II', shard_ipm, ember_ipm, soul_ipm)
 
+
 tiers_plots(df, 'III', els,"NAME")
 gold_cost(df,'III','NAME','Gold Cost')
 items_summary(df, 'III', els, 'Equipment', spiritual_elements, gold_unities, result)
 #time_to_collect(df,'NAME', epm, els, 'III', shard_ipm, ember_ipm, soul_ipm)
+
 
 print('-------------------------------------BUILDINGS TBD-------------------------------------------------------')
 recipe = 'BUILDINGS'

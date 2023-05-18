@@ -7,7 +7,6 @@ from difflib import SequenceMatcher
 from source.inputs import d_type
 
 
-
 def enemies_files(sheet):
     try:
         enemies0 = pd.read_excel('source/Alpha Enemies.xlsx',sheet_name=sheet)
@@ -19,7 +18,6 @@ def enemies_files(sheet):
                                                      'Quantity Min / Max.2':'string',
                                                      'Quantity Min / Max.3':'string',
                                                      'Quantity Min / Max.4':'string'})
-
         df=df[df['Monster'].str.contains('Area') == False]
 
         for el in ['Quantity Min / Max','Quantity Min / Max.1','Quantity Min / Max.2','Quantity Min / Max.3',
@@ -86,7 +84,6 @@ def collect_(df):
 
     elements = {}
     for key, value in monsters.items():
-        #print('--------- Enemy ', key)
         for i,j in value.items():
             i=i.replace('(Rare)','')
             if i=='-':
