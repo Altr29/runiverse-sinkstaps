@@ -177,12 +177,17 @@ st.write(f":blue[Spiritual Items dropped by Enemies.] "
          f"[link here](https://docs.google.com/spreadsheets/d/1BaMpBSAiMdAUsfel7UweenSSbIwrLra1oScWWOsCNDk/edit?usp=sharing).")
 df_e = enemies_files('Alpha Enemies')
 
-alpha_wild_areas = ['The Hedge Maze', 'Raptor Peak', 'The Spore Fens', 'The Spore Fens / The Mush']
+alpha_wild_areas = {'The Hedge Maze':3,
+                    'Raptor Peak':3,
+                    'The Spore Fens':3,
+                    'The Spore Fens / The Mush':3}
+
 alpha_reg = st.checkbox('ALPHA Wild Areas')
 
 df=df_e
 if alpha_reg:
-    df = df_e[df_e['Area'].isin(alpha_wild_areas)]
+    df = df_e[df_e['Area'].isin(alpha_wild_areas.keys())]
+
 
 gold_unities={'Elite':df[df['Type']=='Elite']['Gold Drop'].sum(),
               'Standard':df[df['Type']=='Standard']['Gold Drop'].sum()}
