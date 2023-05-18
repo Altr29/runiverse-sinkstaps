@@ -45,8 +45,8 @@ costs = {'PhysicalMaterials':[woods_stones, fabrics_metals, gems_els],
 
 def recipes_type(recipe_type, init, fin, NAME):
     try:
-        alpha_recipes = pd.read_excel('source/ALPHA Recipes (1).xlsx',sheet_name=recipe_type, header = 1)
-        alpha_recipes0 = pd.read_excel('source/ALPHA Recipes (1).xlsx',sheet_name=recipe_type, header = 0)
+        alpha_recipes = pd.read_excel('source/ALPHA Recipes (2).xlsx',sheet_name=recipe_type, header = 1)
+        alpha_recipes0 = pd.read_excel('source/ALPHA Recipes (2).xlsx',sheet_name=recipe_type, header = 0)
         alpha_recipes0 = alpha_recipes0[alpha_recipes0[NAME].str.contains('item|Item') == False]
         alpha_recipes0.rename(columns={'TIER ':'TIER'}, inplace=True)
         cols_names = {}
