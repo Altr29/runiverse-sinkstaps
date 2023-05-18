@@ -18,7 +18,7 @@ SAMPLE_RANGE_NAME = event['SAMPLE_RANGE_NAME']
 
 #CONTROLS
 st.sidebar.markdown("## Controls")
-alpha_reg = st.checkbox('ALPHA')
+
 
 multiplier = st.sidebar.slider('Available Extractions on G Node', min_value=1, max_value=100, value=30, step=5)
 #epm = st.sidebar.slider('Extractions per minute', min_value=1, max_value=50, value=5, step=1)
@@ -30,6 +30,19 @@ woods_nu = st.sidebar.slider('Woods G Nodes used', min_value=1, max_value=50, va
 ston_nu = st.sidebar.slider('Stones G Nodes used', min_value=1, max_value=50, value=2, step=1)
 #ember_ipm = st.sidebar.slider('Ember - items per minute', min_value=1, max_value=50, value=5, step=1)
 #soul_ipm = st.sidebar.slider('Soul - items per minute', min_value=1, max_value=50, value=5, step=1)
+alpha_reg = st.checkbox('ALPHA Version')
+
+st.header(f":blue[Recipes System as the mechanics to combat inflation on the Runiverse.]")
+
+st.write(f"This dashboard pretends to illustrate how the recipes mechanism serves a sink for in our game economy. ")
+st.write(f"A tap is point of creation of a resource: for {'ALPHA Version of' if alpha_reg else 'Final Version of'} Runiverse we have a) {'Gathering Nodes' if alpha_reg else 'Plots'} that input physical elements into the world"
+         f"and 2) Enemies drops spiritual and Gold.")
+st.write(f"Sink: recipes requires a combination of gold and physical and spiritual materials."
+         f"The output here is to show if the conditions on both taps are enough to cover recipes requirements.")
+
+st.write(f"This dashboard was developed mainly for ALPHA conditions in Gathering Nodes and Recipes, for Enemies Founders and ALPHA are the same.")
+
+
 
 st.header(f"1. Gathering Nodes in the Wild")
 
@@ -44,7 +57,8 @@ else:
     df1 = wdc
 
 st.write(f":blue[Number of nodes in world, per family type and Sub-Biome.] "
-         f"Numbers were taken from level design document [(Wild)EssenceStrengthsandResources](https://docs.google.com/spreadsheets/d/1l_V71izAjkLguKZuaj43sGEYR-2bpSLxHFi7ORCcTWo/edit?usp=sharing).")
+         f"Numbers were taken from level design document [ALPHA](https://miro.com/app/board/uXjVMIR--ak=/) "
+         f"Beta [(Wild)EssenceStrengthsandResources](https://docs.google.com/spreadsheets/d/1l_V71izAjkLguKZuaj43sGEYR-2bpSLxHFi7ORCcTWo/edit?usp=sharing).")
 
 
 fig = px.bar(df1.sort_values('Sub-Biome'), x="Sub-Biome", y=['WoodsFrecuency', 'GemsFrecuency',
