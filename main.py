@@ -35,7 +35,7 @@ st.write(f":green[A tap] is point of creation of a resource: for {'ALPHA Version
 st.write(f":green[Sinks:] recipes requires a combination of gold and physical and spiritual materials."
          f"The output here is to show if the conditions on both taps are enough to cover recipes requirements.")
 
-st.write(f"For ALPHA version please check *ALPHA Version* button. (In other case general conditions for Gathering Nodes will be show, even if they are not ready.)")
+st.write(f"For ALPHA please check *ALPHA Version* button above. (In other case general conditions for Gathering Nodes will be used, even if recipes are ALPHA recipes.)")
 
 
 
@@ -44,8 +44,8 @@ st.header(f"1. Gathering Nodes in the Wild")
 df1 = read_wild_depositchances(alpha_reg, event)
 
 st.write(f":blue[Number of nodes in world, per family type and Sub-Biome.] "
-         f"Numbers were taken from level design document [ALPHA](https://miro.com/app/board/uXjVMIR--ak=/) "
-         f"Beta [(Wild)EssenceStrengthsandResources](https://docs.google.com/spreadsheets/d/1l_V71izAjkLguKZuaj43sGEYR-2bpSLxHFi7ORCcTWo/edit?usp=sharing).")
+         f"ALPHA Numbers were taken from level design document [ALPHA](https://miro.com/app/board/uXjVMIR--ak=/) "
+         f"Game Release Version numbers come from [(Wild)EssenceStrengthsandResources](https://docs.google.com/spreadsheets/d/1l_V71izAjkLguKZuaj43sGEYR-2bpSLxHFi7ORCcTWo/edit?usp=sharing).")
 
 
 fig = px.bar(df1.sort_values('Sub-Biome'), x="Sub-Biome", y=['WoodsFrecuency', 'GemsFrecuency',
