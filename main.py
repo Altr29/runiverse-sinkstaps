@@ -175,34 +175,34 @@ st.header(f"2. ENEMIES")
 st.write(f":blue[Spiritual Items dropped by Enemies.] "
          f"Takes the numbers from Founder Enemies "
          f"[link here](https://docs.google.com/spreadsheets/d/1BaMpBSAiMdAUsfel7UweenSSbIwrLra1oScWWOsCNDk/edit?usp=sharing).")
-df_e = enemies_files('Founder Enemies')
+
 
 alpha_wild_areas = {'The Hedge Maze':3,
                     'Raptor Peak':3,
                     'The Spore Fens':3,
-                    'The Spore Fens / The Mush':3,
                     'The Golden Canyon':5,
                     'The Mush':7,
-                    'The Spore Fens / Dead Lake Island':6,
                     'Dead Lake Island':2}
 
 alpha_reg = st.checkbox('ALPHA Wild Areas')
 
-
+df_e = enemies_files('Founder Enemies')
+df = enemies_multipliers(df_e, alpha_wild_areas)
 if alpha_reg:
-    df_e = df_e[df_e['Area'].isin(alpha_wild_areas.keys())]
+    df_e_f = df_e[df_e['Area'].isin(alpha_wild_areas.keys())]
+    df = enemies_multipliers(df_e_f, alpha_wild_areas)
     dict_ = pd.DataFrame.from_dict(
             {'Areas': list(alpha_wild_areas.keys()),
              'Enemies': list(alpha_wild_areas.values())
              })
     st.dataframe(dict_)
 
-df=enemies_multipliers(df_e, alpha_wild_areas)
+
 
 gold_unities={'Elite':df[df['Type']=='Elite']['Gold Drop'].sum(),
               'Standard':df[df['Type']=='Standard']['Gold Drop'].sum()}
 
-st.write(f"Gold dropped by enemies in Elite : {gold_unities['Elite']}, Standard : {+gold_unities['Standard']}, Elite+Standard: {gold_unities['Elite']+gold_unities['Standard']}")
+st.write(f"Gold dropped by enemies in Elite : {gold_unities['Elite']}, Standard : {gold_unities['Standard']}, Elite+Standard: {gold_unities['Elite']+gold_unities['Standard']}")
 gold_drop(df, 'Monster', 'Gold Drop')
 
 spiritual_elements = collect_(df)
