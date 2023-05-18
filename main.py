@@ -35,8 +35,8 @@ st.header(f"1. Gathering Nodes in the Wild")
 
 wdc = read_wild_depositchances(event['SAMPLE_SPREADSHEET_ID'], event['SAMPLE_RANGE_NAME'])
 if alpha_reg:
-    reg = ['Southern Grasslands','Mountains','Thorn','Northern Grasslands','Toadstools',"Frogmaster's Marsh"]
-    df1 = wdc[wdc['Land Type'].isin(reg)]
+    df1 = wdc[wdc['Sub-Biome'].isin(['Southern Grasslands','Mountains','Thorn',
+                                     'Northern Grasslands','Toadstools',"Frogmaster's Marsh"])]
 else:
     df1 = wdc
 
