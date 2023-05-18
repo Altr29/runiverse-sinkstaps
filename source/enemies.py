@@ -8,12 +8,15 @@ from source.inputs import d_type
 
 
 def enemies_files(sheet):
+    enemies0 = pd.read_excel('source/Alpha Enemies.xlsx', sheet_name=sheet)
+    #st.write(enemies0.columns)
+    #print('Monsters ----> ', enemies0.columns)
+
     try:
-        enemies0 = pd.read_excel('source/Alpha Enemies.xlsx',sheet_name=sheet)
         enemies0.rename(columns={'                                                                 Monster':
                                      'Monster'}, inplace=True)
 
-        df = enemies0[enemies0.columns[:-7]].astype({'Quantity Min / Max':'string',
+        df = enemies0[enemies0.columns].astype({'Quantity Min / Max':'string',
                                                      'Quantity Min / Max.1':'string',
                                                      'Quantity Min / Max.2':'string',
                                                      'Quantity Min / Max.3':'string',
