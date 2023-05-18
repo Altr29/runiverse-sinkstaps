@@ -180,7 +180,11 @@ df_e = enemies_files('Alpha Enemies')
 alpha_wild_areas = {'The Hedge Maze':3,
                     'Raptor Peak':3,
                     'The Spore Fens':3,
-                    'The Spore Fens / The Mush':3}
+                    'The Spore Fens / The Mush':3,
+                    'The Golden Canyon':5,
+                    'The Spore Fens / Dead Lake Island':6,
+                    'Dead Lake Island':2
+                    }
 
 alpha_reg = st.checkbox('ALPHA Wild Areas')
 
