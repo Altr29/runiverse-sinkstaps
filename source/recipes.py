@@ -182,40 +182,41 @@ def recipes_type(recipe_type, init, fin, NAME):
         return alpha_recipes_f2, els
 
     except Exception as e:
-        logging.error('Error here >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-                      '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-                      '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ', e)
+        logging.error('Error recipes_type>>> ', e)
         return None, []
 
 def time_to_collect(df,NAME, epm, els, tier, shard_ipm, ember_ipm, soul_ipm):
     df1 = df[df['TIER'] == tier]
+    try:
+        for el in els:
+            if 'Shard' in el:
+                df1[el + '_time'] = df1[el].apply(lambda x: int(x / shard_ipm))
+            elif 'Ember' in el:
+                df1[el + '_time'] = df1[el].apply(lambda x: int(x / ember_ipm))
+            elif 'Soul' in el:
+                    df1[el + '_time'] = df1[el].apply(lambda x: int(x / soul_ipm))
+            else:
+                if el in woods_list+stones_list:
+                    k=5
+                elif el in fabrics_list+metals_list:
+                    k=3
+                elif el in gems_list+els_list:
+                    k = 1
 
-    for el in els:
-        if 'Shard' in el:
-            df1[el + '_time'] = df1[el].apply(lambda x: int(x / shard_ipm))
-        elif 'Ember' in el:
-            df1[el + '_time'] = df1[el].apply(lambda x: int(x / ember_ipm))
-        elif 'Soul' in el:
-                df1[el + '_time'] = df1[el].apply(lambda x: int(x / soul_ipm))
-        else:
-            if el in woods_list+stones_list:
-                k=5
-            elif el in fabrics_list+metals_list:
-                k=3
-            elif el in gems_list+els_list:
-                k = 1
+            df1[el+'_time'] = df1[el].apply(lambda x: int((x/epm)/k))
 
-        df1[el+'_time'] = df1[el].apply(lambda x: int((x/epm)/k))
+        els1 = [k + '_time' for k in els]
+        fig = px.bar(
+            df1, x=NAME, y=els1,
+            labels={"value": "Minutes"},
+            text_auto=True, title=f"Time to collect - TIER {tier}")
 
-    els1 = [k + '_time' for k in els]
-    fig = px.bar(
-        df1, x=NAME, y=els1,
-        labels={"value": "Minutes"},
-        text_auto=True, title=f"Time to collect - TIER {tier}")
+        fig.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
+        st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
-    fig.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
-    st.plotly_chart(fig, theme="streamlit", use_container_width=True)
-
+    except Exception as e:
+        logging.error('Error time_to_collect >>> ', e)
+        return None
 
 def totals(alpha_recipes_f2, els):
     try:

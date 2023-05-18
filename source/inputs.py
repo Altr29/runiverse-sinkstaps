@@ -1,4 +1,5 @@
 from difflib import SequenceMatcher
+import logging
 
 woods_list = ['Redwood',
                         'Pine',
@@ -80,40 +81,48 @@ ERecipes = ["Pilgrim's Staff",
 
 def similar(a, els):
     """
-    :param els:
     :param a: variable to compare
-    :param b: variable to compare with a
-    :return: a probability value of similitude
+    :param els: list of values to match with
+    :return: probability value of similitude
     """
-    resp = False
-    for el in els:
-        if SequenceMatcher(None, a, el).ratio()>.7:
-            resp = True
-            break
-        else:
-            pass
-    return resp
+    try:
+        umbral = .7
+        resp = False
+        for el in els:
+            if SequenceMatcher(None, a, el).ratio() > umbral:
+                resp = True
+                break
+            else:
+                pass
+        return resp
+    except Exception as e:
+        logging.error('Error in similar ----> ', e)
+        return False
 
 def d_type(el):
-    dt = 'Recipes: '
-    if 'Soul' in el:
-        dt = 'Soul'
-    elif 'Ember' in el:
-        dt = 'Ember'
-    elif 'Shard' in el:
-        dt = 'Shard'
-    elif el in woods_list+stones_list:
-        dt = 'WoodsStones'
-    elif el in gems_list+els_list:
-        dt = 'GemsEls'
-    elif el in metals_list+fabrics_list:
-        dt = 'MetalsFabrics'
-    elif 'GOLD' in el or 'Gold' in el:
-        dt = ''
-    else:
-        if el in CrystalsRecipes or similar(el, CrystalsRecipes):
-            dt = 'Recipes: Crystals'
+    try:
+        dt = 'Recipes: '
+        if 'Soul' in el:
+            dt = 'Soul'
+        elif 'Ember' in el:
+            dt = 'Ember'
+        elif 'Shard' in el:
+            dt = 'Shard'
+        elif el in woods_list+stones_list:
+            dt = 'WoodsStones'
+        elif el in gems_list+els_list:
+            dt = 'GemsEls'
+        elif el in metals_list+fabrics_list:
+            dt = 'MetalsFabrics'
+        elif 'GOLD' in el or 'Gold' in el:
+            dt = ''
+        else:
+            if el in CrystalsRecipes or similar(el, CrystalsRecipes):
+                dt = 'Recipes: Crystals'
 
-        if el in ERecipes or similar(el, ERecipes):
-            dt = 'Recipes: Equipment'
-    return dt
+            if el in ERecipes or similar(el, ERecipes):
+                dt = 'Recipes: Equipment'
+        return dt
+    except Exception as e:
+        logging.error('Error in d_type ----> ', e)
+        return None

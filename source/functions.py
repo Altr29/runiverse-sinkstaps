@@ -51,21 +51,28 @@ def read_wild_depositchances(SAMPLE_SPREADSHEET_ID, SAMPLE_RANGE_NAME):
 
 
 def nodes(el, df1):
-    fig = px.bar(
-        df1.sort_values('Sub-Biome'), x="Sub-Biome", y=el + "Frecuency", color=el, text_auto='.2s',
-        labels={el + "Frecuency": el + " nodes"},
-        title=f"{el}")
-    fig.update_yaxes(tick0=0, dtick=1)
-    fig.update_traces(textfont_size=15, textangle=0, textposition="inside", cliponaxis=False)
-    st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+    try:
+        fig = px.bar(
+            df1.sort_values('Sub-Biome'), x="Sub-Biome", y=el + "Frecuency", color=el, text_auto='.2s',
+            labels={el + "Frecuency": el + " nodes"},
+            title=f"{el}")
+        fig.update_yaxes(tick0=0, dtick=1)
+        fig.update_traces(textfont_size=15, textangle=0, textposition="inside", cliponaxis=False)
+        st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
+    except Exception as e:
+        logging.error('Error nodes ', e)
 
 def element_multiplier(el: object) -> object:
-    val = 5
-    if 'Gems' in el or 'Elemen' in el:
-        val = 1
-    else:
-        if 'Met' in el or 'Fabri' in el:
-            val = 3
-    return val
+    try:
+        val = 5
+        if 'Gems' in el or 'Elemen' in el:
+            val = 1
+        else:
+            if 'Met' in el or 'Fabri' in el:
+                val = 3
+        return val
+
+    except Exception as e:
+        logging.error('Error element_multiplier >> ', e)
 

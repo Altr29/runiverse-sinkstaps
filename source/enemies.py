@@ -42,67 +42,75 @@ def gold_drop(df, NAME, title):
         logging.error('Error in gold_drop ', e)
 
 def collect_(df):
-    monsters = {}
-    for i, j in df.iterrows():
-        if '-' in df.loc[i,'Material Drop 1']:
-            monsters[df.loc[i,'Monster']]={
-                                     df.loc[i,'Material Drop 2']: df.loc[i,'Quantity Min / Max.1'],
-                                     df.loc[i,'Material Drop 3 ']: df.loc[i,'Quantity Min / Max.2'],
-                                     df.loc[i,'Recipe Drop']: df.loc[i,'Quantity Min / Max.3'],
-                                     df.loc[i,'Crystal Recipe Drop']: df.loc[i,'Quantity Min / Max.4']}
-        elif '-' in df.loc[i,'Material Drop 2']:
-            monsters[df.loc[i,'Monster']]={
-                                     df.loc[i,'Material Drop 1']: df.loc[i,'Quantity Min / Max'],
-                                     df.loc[i,'Material Drop 3 ']: df.loc[i,'Quantity Min / Max.2'],
-                                     df.loc[i,'Recipe Drop']: df.loc[i,'Quantity Min / Max.3'],
-                                     df.loc[i,'Crystal Recipe Drop']: df.loc[i,'Quantity Min / Max.4']}
-        elif '-' in df.loc[i,'Material Drop 3 ']:
-            monsters[df.loc[i,'Monster']]={
-                                     df.loc[i,'Material Drop 1']: df.loc[i,'Quantity Min / Max'],
-                                     df.loc[i,'Material Drop 2']: df.loc[i,'Quantity Min / Max.1'],
-                                     df.loc[i,'Recipe Drop']: df.loc[i,'Quantity Min / Max.3'],
-                                     df.loc[i,'Crystal Recipe Drop']: df.loc[i,'Quantity Min / Max.4']}
-        elif '-' in df.loc[i,'Recipe Drop']:
-            monsters[df.loc[i,'Monster']]={
-                                     df.loc[i,'Material Drop 1']: df.loc[i,'Quantity Min / Max'],
-                                     df.loc[i,'Material Drop 2']: df.loc[i,'Quantity Min / Max.1'],
-                                     df.loc[i,'Material Drop 3 ']: df.loc[i,'Quantity Min / Max.2'],
-                                     df.loc[i,'Crystal Recipe Drop']: df.loc[i,'Quantity Min / Max.4']}
-        elif '-' in df.loc[i,'Crystal Recipe Drop']:
-            monsters[df.loc[i,'Monster']]={
-                                     df.loc[i,'Material Drop 1']: df.loc[i,'Quantity Min / Max'],
-                                     df.loc[i,'Material Drop 2']: df.loc[i,'Quantity Min / Max.1'],
-                                     df.loc[i,'Material Drop 3 ']: df.loc[i,'Quantity Min / Max.2'],
-                                     df.loc[i,'Recipe Drop']: df.loc[i, 'Quantity Min / Max.3']}
-        else:
-            monsters[df.loc[i, 'Monster']] = {
-                df.loc[i, 'Material Drop 1']: df.loc[i, 'Quantity Min / Max'],
-                df.loc[i, 'Material Drop 2']: df.loc[i, 'Quantity Min / Max.1'],
-                df.loc[i, 'Material Drop 3 ']: df.loc[i, 'Quantity Min / Max.2'],
-                df.loc[i, 'Recipe Drop']: df.loc[i, 'Quantity Min / Max.3'],
-                df.loc[i, 'Crystal Recipe Drop']: df.loc[i, 'Quantity Min / Max.4']}
-
-    elements = {}
-    for key, value in monsters.items():
-        for i,j in value.items():
-            i=i.replace('(Rare)','')
-            if i=='-':
-                pass
+    try:
+        monsters = {}
+        for i, j in df.iterrows():
+            if '-' in df.loc[i,'Material Drop 1']:
+                monsters[df.loc[i,'Monster']]={
+                                         df.loc[i,'Material Drop 2']: df.loc[i,'Quantity Min / Max.1'],
+                                         df.loc[i,'Material Drop 3 ']: df.loc[i,'Quantity Min / Max.2'],
+                                         df.loc[i,'Recipe Drop']: df.loc[i,'Quantity Min / Max.3'],
+                                         df.loc[i,'Crystal Recipe Drop']: df.loc[i,'Quantity Min / Max.4']}
+            elif '-' in df.loc[i,'Material Drop 2']:
+                monsters[df.loc[i,'Monster']]={
+                                         df.loc[i,'Material Drop 1']: df.loc[i,'Quantity Min / Max'],
+                                         df.loc[i,'Material Drop 3 ']: df.loc[i,'Quantity Min / Max.2'],
+                                         df.loc[i,'Recipe Drop']: df.loc[i,'Quantity Min / Max.3'],
+                                         df.loc[i,'Crystal Recipe Drop']: df.loc[i,'Quantity Min / Max.4']}
+            elif '-' in df.loc[i,'Material Drop 3 ']:
+                monsters[df.loc[i,'Monster']]={
+                                         df.loc[i,'Material Drop 1']: df.loc[i,'Quantity Min / Max'],
+                                         df.loc[i,'Material Drop 2']: df.loc[i,'Quantity Min / Max.1'],
+                                         df.loc[i,'Recipe Drop']: df.loc[i,'Quantity Min / Max.3'],
+                                         df.loc[i,'Crystal Recipe Drop']: df.loc[i,'Quantity Min / Max.4']}
+            elif '-' in df.loc[i,'Recipe Drop']:
+                monsters[df.loc[i,'Monster']]={
+                                         df.loc[i,'Material Drop 1']: df.loc[i,'Quantity Min / Max'],
+                                         df.loc[i,'Material Drop 2']: df.loc[i,'Quantity Min / Max.1'],
+                                         df.loc[i,'Material Drop 3 ']: df.loc[i,'Quantity Min / Max.2'],
+                                         df.loc[i,'Crystal Recipe Drop']: df.loc[i,'Quantity Min / Max.4']}
+            elif '-' in df.loc[i,'Crystal Recipe Drop']:
+                monsters[df.loc[i,'Monster']]={
+                                         df.loc[i,'Material Drop 1']: df.loc[i,'Quantity Min / Max'],
+                                         df.loc[i,'Material Drop 2']: df.loc[i,'Quantity Min / Max.1'],
+                                         df.loc[i,'Material Drop 3 ']: df.loc[i,'Quantity Min / Max.2'],
+                                         df.loc[i,'Recipe Drop']: df.loc[i, 'Quantity Min / Max.3']}
             else:
-                if j=='-':
-                    j=0
-                if i not in elements.keys():
-                    elements[str(i)]=j
-                else:
-                    elements[str(i)]+=j
+                monsters[df.loc[i, 'Monster']] = {
+                    df.loc[i, 'Material Drop 1']: df.loc[i, 'Quantity Min / Max'],
+                    df.loc[i, 'Material Drop 2']: df.loc[i, 'Quantity Min / Max.1'],
+                    df.loc[i, 'Material Drop 3 ']: df.loc[i, 'Quantity Min / Max.2'],
+                    df.loc[i, 'Recipe Drop']: df.loc[i, 'Quantity Min / Max.3'],
+                    df.loc[i, 'Crystal Recipe Drop']: df.loc[i, 'Quantity Min / Max.4']}
 
-    new = pd.DataFrame.from_dict(
-        {'Items': list(elements.keys()),
-         'Amount': list(elements.values()),
-         'Type': [d_type(i) for i in list(elements.keys())]})
-    return new
+        elements = {}
+        for key, value in monsters.items():
+            for i,j in value.items():
+                i=i.replace('(Rare)','')
+                if i=='-':
+                    pass
+                else:
+                    if j=='-':
+                        j=0
+                    if i not in elements.keys():
+                        elements[str(i)]=j
+                    else:
+                        elements[str(i)]+=j
+
+        new = pd.DataFrame.from_dict(
+            {'Items': list(elements.keys()),
+             'Amount': list(elements.values()),
+             'Type': [d_type(i) for i in list(elements.keys())]})
+        return new
+
+    except Exception as e:
+        logging.error('Error in _collection >>> ', e)
+        return None
 
 def plot_enem_items(new):
-    fig = px.bar(new.sort_values('Items'), x='Items', y='Amount',color='Type', text_auto=True, title=f"Spiritual Items Dropped by Enemies")
-    fig.update_traces(textfont_size=15, textangle=0, textposition="outside", cliponaxis=False)
-    st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+    try:
+        fig = px.bar(new.sort_values('Items'), x='Items', y='Amount',color='Type', text_auto=True, title=f"Spiritual Items Dropped by Enemies")
+        fig.update_traces(textfont_size=15, textangle=0, textposition="outside", cliponaxis=False)
+        st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+    except Exception as e:
+        logging.error('Error in plot_enem_items >>> ', e)
