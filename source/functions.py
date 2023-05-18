@@ -7,12 +7,20 @@ import streamlit as st
 
 family = ['Woods','Stone','Gems','Element','Fabrics','Metals']
 
-def reading_sheets(SAMPLE_SPREADSHEET_ID,SAMPLE_RANGE_NAME):
+def reading_sheets(alpha,event):
     try:
-        url = f'https://docs.google.com/spreadsheets/d/{SAMPLE_SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet={SAMPLE_RANGE_NAME}'
-        return pd.read_csv(url)
+        if alpha:
+            print('------------------------ READING FROM ALPHA')
+            df = pd.read_excel('source/ALPHA wild resources.xlsx', sheet_name='Sheet2')
+        else:
+            SAMPLE_SPREADSHEET_ID=event['SAMPLE_SPREADSHEET_ID']
+            SAMPLE_RANGE_NAME=event['SAMPLE_RANGE_NAME']
+            url = f'https://docs.google.com/spreadsheets/d/{SAMPLE_SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet={SAMPLE_RANGE_NAME}'
+            df = pd.read_csv(url)
+        return df
 
     except Exception as e:
+        return None
         logging.error('Exception ', e)
 
 def read_wild_depositchances(SAMPLE_SPREADSHEET_ID, SAMPLE_RANGE_NAME):

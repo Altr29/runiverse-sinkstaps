@@ -9,16 +9,12 @@ from source.inputs import gems_list, els_list, stones_list, woods_list, fabrics_
 import plotly.graph_objects as go
 
 
-
-
 SAMPLE_SPREADSHEET_ID_input = event['SAMPLE_SPREADSHEET_ID']
 SAMPLE_RANGE_NAME = event['SAMPLE_RANGE_NAME']
 
 
-
 #CONTROLS
 st.sidebar.markdown("## Controls")
-
 
 multiplier = st.sidebar.slider('Available Extractions on G Node', min_value=1, max_value=100, value=30, step=5)
 #epm = st.sidebar.slider('Extractions per minute', min_value=1, max_value=50, value=5, step=1)
@@ -28,33 +24,24 @@ met_nu = st.sidebar.slider('Metals G Nodes used', min_value=1, max_value=50, val
 fab_nu = st.sidebar.slider('Fabrics G Nodes used', min_value=1, max_value=50, value=2, step=1)
 woods_nu = st.sidebar.slider('Woods G Nodes used', min_value=1, max_value=50, value=2, step=1)
 ston_nu = st.sidebar.slider('Stones G Nodes used', min_value=1, max_value=50, value=2, step=1)
-#ember_ipm = st.sidebar.slider('Ember - items per minute', min_value=1, max_value=50, value=5, step=1)
-#soul_ipm = st.sidebar.slider('Soul - items per minute', min_value=1, max_value=50, value=5, step=1)
-alpha_reg = st.checkbox('ALPHA Version')
 
+
+alpha_reg = st.checkbox('ALPHA Version')
 st.header(f":blue[INTRODUCTION: Recipes System as the mechanics to combat inflation on the Runiverse.]")
 
 st.write(f"This dashboard pretends to illustrate how the recipes mechanism serves a sink for in our game economy. ")
-st.write(f"A tap is point of creation of a resource: for {'ALPHA Version of' if alpha_reg else 'Final Version of'} Runiverse we have a) {'Gathering Nodes' if alpha_reg else 'Plots'} that input physical elements into the world"
+st.write(f":green[A tap] is point of creation of a resource: for {'ALPHA Version of' if alpha_reg else 'Final Version of'} Runiverse we have a) {'Gathering Nodes' if alpha_reg else 'Plots'} that input physical elements into the world"
          f"and 2) Enemies drops spiritual and Gold.")
-st.write(f"Sink: recipes requires a combination of gold and physical and spiritual materials."
+st.write(f":green[Sinks:] recipes requires a combination of gold and physical and spiritual materials."
          f"The output here is to show if the conditions on both taps are enough to cover recipes requirements.")
 
-st.write(f"This dashboard was developed mainly for ALPHA conditions in Gathering Nodes and Recipes, for Enemies Founders and ALPHA are the same.")
+st.write(f"For ALPHA version please check *ALPHA Version* button. (In other case general conditions for Gathering Nodes will be show, even if they are not ready.)")
 
 
 
 st.header(f"1. Gathering Nodes in the Wild")
 
-wdc = read_wild_depositchances(event['SAMPLE_SPREADSHEET_ID'], event['SAMPLE_RANGE_NAME'])
-if alpha_reg:
-    df1 = wdc[wdc['Land Type'].isin(['Southern Grasslands','Mountains','Thorn','Northern Grasslands',
-                                     'Misty Grasslands','']) |
-              wdc['Sub-Biome'].isin(
-                  ['Toadstools',"Frogmaster's Marsh"])
-              ]
-else:
-    df1 = wdc
+df1 = read_wild_depositchances(alpha_reg, event)
 
 st.write(f":blue[Number of nodes in world, per family type and Sub-Biome.] "
          f"Numbers were taken from level design document [ALPHA](https://miro.com/app/board/uXjVMIR--ak=/) "
