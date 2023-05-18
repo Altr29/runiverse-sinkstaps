@@ -32,7 +32,7 @@ ston_nu = st.sidebar.slider('Stones G Nodes used', min_value=1, max_value=50, va
 #soul_ipm = st.sidebar.slider('Soul - items per minute', min_value=1, max_value=50, value=5, step=1)
 alpha_reg = st.checkbox('ALPHA Version')
 
-st.header(f":blue[Recipes System as the mechanics to combat inflation on the Runiverse.]")
+st.header(f":blue[INTRODUCTION: Recipes System as the mechanics to combat inflation on the Runiverse.]")
 
 st.write(f"This dashboard pretends to illustrate how the recipes mechanism serves a sink for in our game economy. ")
 st.write(f"A tap is point of creation of a resource: for {'ALPHA Version of' if alpha_reg else 'Final Version of'} Runiverse we have a) {'Gathering Nodes' if alpha_reg else 'Plots'} that input physical elements into the world"
