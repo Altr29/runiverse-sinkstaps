@@ -182,16 +182,18 @@ alpha_wild_areas = {'The Hedge Maze':3,
                     'The Spore Fens':3,
                     'The Spore Fens / The Mush':3,
                     'The Golden Canyon':5,
+                    'The Mush':7,
                     'The Spore Fens / Dead Lake Island':6,
                     'Dead Lake Island':2
                     }
 
 alpha_reg = st.checkbox('ALPHA Wild Areas')
 
-df=df_e
-if alpha_reg:
-    df = df_e[df_e['Area'].isin(alpha_wild_areas.keys())]
 
+if alpha_reg:
+    df_e = df_e[df_e['Area'].isin(alpha_wild_areas.keys())]
+
+df=enemies_multipliers(df_e, alpha_wild_areas)
 
 gold_unities={'Elite':df[df['Type']=='Elite']['Gold Drop'].sum(),
               'Standard':df[df['Type']=='Standard']['Gold Drop'].sum()}

@@ -29,6 +29,20 @@ def enemies_files(sheet):
     except Exception as e:
         logging.error('Error in enemies_files ', e)
 
+def enemies_multipliers(df, multipliers):
+
+    df['Quantity Min / Max'] = df['Area'].apply(lambda x: int(multipliers[x]) if x in multipliers.keys() else 1
+                                                )*df['Quantity Min / Max'].apply(lambda x: x)
+    df['Quantity Min / Max.1'] = df['Area'].apply(lambda x: int(multipliers[x]) if x in multipliers.keys() else 1
+                                                  )*df['Quantity Min / Max.1'].apply(lambda x: x)
+    df['Quantity Min / Max.2'] = df['Area'].apply(lambda x: int(multipliers[x]) if x in multipliers.keys() else 1
+                                                  )*df['Quantity Min / Max.2'].apply(lambda x: x)
+    df['Quantity Min / Max.3'] = df['Area'].apply(lambda x: int(multipliers[x]) if x in multipliers.keys() else 1
+                                                  )*df['Quantity Min / Max.3'].apply(lambda x: x)
+    df['Gold Drop'] = df['Area'].apply(lambda x: int(multipliers[x]) if x in multipliers.keys() else 1
+                                       )*df['Gold Drop'].apply(lambda x: x)
+    return df
+
 def gold_drop(df, NAME, title):
     try:
         fig = px.bar(
