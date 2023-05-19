@@ -5,7 +5,7 @@ import plotly.express as px
 import streamlit as st
 
 
-family = ['Woods','Stone','Gems','Element','Fabrics','Metals']
+
 
 def reading_sheets(alpha,event):
     try:

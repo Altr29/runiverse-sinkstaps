@@ -126,7 +126,8 @@ def collect_(df):
 
 def plot_enem_items(new):
     try:
-        fig = px.bar(new.sort_values('Items'), x='Items', y='Amount',color='Type', text_auto=True, title=f"Spiritual Items Dropped by Enemies")
+        fig = px.bar(new.sort_values('Items'), x='Items', y='Amount',color='Type', text_auto=True,
+                     title=f"Spiritual Items Dropped by Enemies")
         fig.update_traces(textfont_size=15, textangle=0, textposition="outside", cliponaxis=False)
         st.plotly_chart(fig, theme="streamlit", use_container_width=True)
     except Exception as e:

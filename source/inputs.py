@@ -1,6 +1,8 @@
 from difflib import SequenceMatcher
 import logging
 
+family = ['Woods','Stone','Gems','Element','Fabrics','Metals']
+
 woods_list = ['Redwood',
                         'Pine',
                         'Willow',
@@ -123,6 +125,7 @@ def d_type(el):
             if el in ERecipes or similar(el, ERecipes):
                 dt = 'Recipes: Equipment'
         return dt
+
     except Exception as e:
         logging.error('Error in d_type ----> ', e)
         return None
