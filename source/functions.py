@@ -11,7 +11,7 @@ def reading_sheets(alpha,event):
     try:
         if alpha:
             print('------------------------ READING FROM ALPHA')
-            df = pd.read_excel('source/ALPHA wild resources (1).xlsx', sheet_name='Sheet2')
+            df = pd.read_excel('source/ALPHA wild resources (2).xlsx', sheet_name='Sheet2')
         else:
             SAMPLE_SPREADSHEET_ID=event['SAMPLE_SPREADSHEET_ID']
             SAMPLE_RANGE_NAME=event['SAMPLE_RANGE_NAME']

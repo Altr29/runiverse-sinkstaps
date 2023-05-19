@@ -103,19 +103,25 @@ def similar(a, els):
 
 def d_type(el):
     try:
-        dt = 'Recipes: '
+        dt = 'Recipes: Unknown'
         if 'Soul' in el:
             dt = 'Soul'
         elif 'Ember' in el:
             dt = 'Ember'
         elif 'Shard' in el:
             dt = 'Shard'
-        elif el in woods_list+stones_list:
-            dt = 'WoodsStones'
-        elif el in gems_list+els_list:
-            dt = 'GemsEls'
-        elif el in metals_list+fabrics_list:
-            dt = 'MetalsFabrics'
+        elif el in woods_list:
+            dt = 'Woods'
+        elif el in stones_list:
+            dt = 'Stones'
+        elif el in gems_list:
+            dt = 'Gems'
+        elif el in els_list:
+            dt = 'Elements'
+        elif el in metals_list:
+            dt = 'Metals'
+        elif el in fabrics_list:
+            dt = 'Fabrics'
         elif 'GOLD' in el or 'Gold' in el:
             dt = ''
         else:
