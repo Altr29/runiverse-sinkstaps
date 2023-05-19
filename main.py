@@ -72,7 +72,7 @@ _summ(df1, type, multiplier)
 
 df_woods_vals = pd.DataFrame.from_dict(
             {'Items': [i for i in list(df1[type].unique())],
-             'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else gems_nu * element_multiplier(type) * multiplier
+             'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else woods_nu* multiplier
                              for i in list(df1[type].unique())]
              })
 
@@ -83,7 +83,7 @@ _summ(df1, type, multiplier)
 
 df_stone_vals = pd.DataFrame.from_dict(
             {'Items': [i for i in list(df1[type].unique())],
-             'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else gems_nu * element_multiplier(type) * multiplier
+             'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else ston_nu * multiplier
                              for i in list(df1[type].unique())]
              })
 
@@ -94,7 +94,7 @@ nodes(type, df1,alpha_reg)
 _summ(df1, type, multiplier)
 df_gems_vals = pd.DataFrame.from_dict(
             {'Items': [i for i in list(df1[type].unique())],
-             'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else gems_nu * element_multiplier(type) * multiplier
+             'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else gems_nu* multiplier
                              for i in list(df1[type].unique())]
              })
 
@@ -106,7 +106,7 @@ nodes(type, df1,alpha_reg)
 _summ(df1, type, multiplier)
 df_element_vals = pd.DataFrame.from_dict(
             {'Items': [i for i in list(df1[type].unique())],
-             'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else gems_nu * element_multiplier(type) * multiplier
+             'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else els_nu * multiplier
                              for i in list(df1[type].unique())]
              })
 
@@ -118,7 +118,7 @@ nodes(type, df1,alpha_reg)
 _summ(df1, type, multiplier)
 df_Fabrics_vals = pd.DataFrame.from_dict(
             {'Items': [i for i in list(df1[type].unique())],
-             'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else gems_nu * element_multiplier(type) * multiplier
+             'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else fab_nu * multiplier
                              for i in list(df1[type].unique())]
              })
 
@@ -130,7 +130,7 @@ nodes(type, df1,alpha_reg)
 _summ(df1, type, multiplier)
 df_Metals_vals = pd.DataFrame.from_dict(
             {'Items': [i for i in list(df1[type].unique())],
-             'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else gems_nu * element_multiplier(type) * multiplier
+             'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else met_nu * multiplier
                              for i in list(df1[type].unique())]
              })
 

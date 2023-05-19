@@ -4,6 +4,7 @@ import logging
 import plotly.express as px
 import streamlit as st
 from source.inputs import gems_list, els_list, stones_list, woods_list, fabrics_list, metals_list, d_type
+from source.functions import element_multiplier
 
 woods_stones = {
     'Primary':[24,48,72,96],
@@ -291,7 +292,7 @@ def items_summary(df, tier, els, title, ememies_items,enemies_gold, gnodes_items
                 count_gold['GOLD'] = df1[el].sum()
             else:
                 if df1[el].sum()>0:
-                    count_fis[el] = df1[el].sum()
+                    count_fis[el] = int(df1[el].sum()/element_multiplier(el))
                 else:
                     pass
 
@@ -304,7 +305,7 @@ def items_summary(df, tier, els, title, ememies_items,enemies_gold, gnodes_items
         fisi_df = pd.DataFrame.from_dict(
             {'Items': list(count_fis.keys()),
              'Family': [d_type(i) for i in list(count_fis.keys())],
-             'RequiredOnRecipe': list(count_fis.values())
+             'ExtRequiredOnRecipe': list(count_fis.values())
              })
 
         elite_b = -count_gold['GOLD']+enemies_gold['Elite']
@@ -338,10 +339,10 @@ def items_summary(df, tier, els, title, ememies_items,enemies_gold, gnodes_items
         st.write(f":blue[3) Summary of Physical Items required by -{title} Recipe tier {tier}-.]")
         fisi_df_fin = pd.merge(fisi_df, gnodes_items[['Items', 'GNodesInput']], on=["Items"], how='left')
         fisi_df_fin['GNodesInput'] = fisi_df_fin['GNodesInput'].replace(np.nan, 0)
-        fisi_df_fin['Item Balance'] = fisi_df_fin['GNodesInput'] - fisi_df_fin['RequiredOnRecipe']
-        fisi_df_fin['Intra pct'] = fisi_df_fin['RequiredOnRecipe']/fisi_df_fin['GNodesInput']
+        fisi_df_fin['Item Balance'] = fisi_df_fin['GNodesInput'] - fisi_df_fin['ExtRequiredOnRecipe']
+        fisi_df_fin['Intra pct'] = fisi_df_fin['ExtRequiredOnRecipe']/fisi_df_fin['GNodesInput']
         fisi_df_fin['Pct'] = fisi_df_fin['Intra pct'] .apply(lambda x: str("{:.2f}".format(x*100))+' %')
-        st.write(fisi_df_fin[['Items', 'Family', 'GNodesInput', 'RequiredOnRecipe','Pct', 'Item Balance']])
+        st.write(fisi_df_fin[['Items', 'Family', 'GNodesInput', 'ExtRequiredOnRecipe','Pct', 'Item Balance']])
 
     except Exception as e:
         logging.error('Error in items_summary ', e)
