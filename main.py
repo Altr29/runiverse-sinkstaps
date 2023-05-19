@@ -16,7 +16,7 @@ SAMPLE_RANGE_NAME = event['SAMPLE_RANGE_NAME']
 #CONTROLS
 st.sidebar.markdown("## Controls")
 
-multiplier = st.sidebar.slider('Available Extractions on G Node', min_value=1, max_value=100, value=30, step=5)
+multiplier = st.sidebar.slider('Available Extractions on G Node', min_value=1, max_value=60, value=30, step=1)
 #epm = st.sidebar.slider('Extractions per minute', min_value=1, max_value=50, value=5, step=1)
 gems_nu = st.sidebar.slider('Gems G Nodes used', min_value=1, max_value=50, value=4, step=1)
 els_nu = st.sidebar.slider('Elements G Nodes used', min_value=1, max_value=50, value=3, step=1)
@@ -35,7 +35,7 @@ st.write(f":green[A tap] is point of creation of a resource: for {'ALPHA Version
 st.write(f":green[Sinks:] recipes requires a combination of gold and physical and spiritual materials."
          f"The output here is to show if the conditions on both taps are enough to cover recipes requirements.")
 
-st.write(f"For ALPHA please check *ALPHA Version* button above. (In other case general conditions for Gathering Nodes will be used, even if recipes are ALPHA recipes.)")
+st.write(f"For ALPHA please check *ALPHA Version* button above. (In other case general conditions for Gathering Nodes will be used for recipes are ALPHA recipes.)")
 
 
 
@@ -44,8 +44,7 @@ st.header(f"1. Gathering Nodes in the Wild")
 df1 = read_wild_depositchances(alpha_reg, event)
 
 st.write(f":blue[Number of nodes in world, per family type and Sub-Biome.] "
-         f"ALPHA Numbers were taken from level design document [ALPHA](https://miro.com/app/board/uXjVMIR--ak=/) "
-         f"Game Release Version numbers come from [(Wild)EssenceStrengthsandResources](https://docs.google.com/spreadsheets/d/1l_V71izAjkLguKZuaj43sGEYR-2bpSLxHFi7ORCcTWo/edit?usp=sharing).")
+         f"{'ALPHA Numbers were taken from level design document [ALPHA](https://miro.com/app/board/uXjVMIR--ak=/)' if alpha_reg else 'Game Release Version numbers come from [(Wild)EssenceStrengthsandResources](https://docs.google.com/spreadsheets/d/1l_V71izAjkLguKZuaj43sGEYR-2bpSLxHFi7ORCcTWo/edit?usp=sharing).'}")
 
 
 fig = px.bar(df1.sort_values('Sub-Biome'), x="Sub-Biome", y=['WoodsFrecuency', 'GemsFrecuency',
@@ -232,7 +231,7 @@ st.write(f":blue[Recipes costs] "
          f"Takes the numbers from Alpha Crystal Recipes "
          f"[link here](https://docs.google.com/spreadsheets/d/12B1JZbqtY-0UaSpIeCUO28n2R7c17UD3yRieiL4NLRY/edit?usp=sharing).")
 recipe = 'AlphaCrystalRecipes'
-st.write(f''':blue[{recipe[:5].upper()+' '+recipe[5:12]+' '+recipe[12:]}]''')
+st.write(f''':crystal_ball: :crystal_ball: :blue[{recipe[:5].upper()+' '+recipe[5:12]+' '+recipe[12:]}] :crystal_ball: :crystal_ball:''')
 df, els = recipes_type(recipe,15, -8, 'CRYSTAL NAME')
 df2 = totals(df, els)
 
@@ -256,7 +255,7 @@ items_summary(df, 'III', els, 'Crystals', spiritual_elements, gold_unities, resu
 
 print('------------------------------------- Equipment ---------------------------------------------------------')
 recipe = 'ALPHA Equiment Recipes'
-st.write(f''':blue[{recipe}]''')
+st.write(f''':gear: :gear: :blue[{recipe}] :gear: :gear:''')
 df, els=recipes_type(recipe, 9, -11, 'NAME')
 
 df2 = totals(df, els)
