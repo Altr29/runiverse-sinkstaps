@@ -29,7 +29,7 @@ ston_nu = st.sidebar.slider('Stones G Nodes used', min_value=0, max_value=12, va
 alpha_reg = st.checkbox('ALPHA Version')
 st.header(f":blue[INTRODUCTION: Recipes System as the mechanism to combat inflation in the Runiverse.]")
 
-st.write(f"This dashboard illustrates how the recipes mechanism serves a sink for Runiverse taps (gathering nodes and enemies that drops physical, spiritual and gold). ")
+st.write(f"This dashboard illustrates how the recipes mechanism serves as a sink for Runiverse taps (gathering nodes and enemies that drops physical, spiritual and gold). ")
 st.write(f":green[Taps] we have for resources creation: on {'ALPHA Version of' if alpha_reg else 'Final Version of'} Runiverse we have a) {'Gathering Nodes' if alpha_reg else 'Plots'} that input physical elements into the world"
          f"and 2) Enemies drops spiritual and Gold.")
 st.write(f":green[Sinks:] recipes requires a combination of gold and physical and spiritual materials.")
