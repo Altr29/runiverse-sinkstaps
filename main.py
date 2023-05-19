@@ -27,10 +27,10 @@ ston_nu = st.sidebar.slider('Stones G Nodes used', min_value=1, max_value=50, va
 
 
 alpha_reg = st.checkbox('ALPHA Version')
-st.header(f":blue[INTRODUCTION: Recipes System as the mechanics to combat inflation on the Runiverse.]")
+st.header(f":blue[INTRODUCTION: Recipes System as the mechanism to combat inflation in the Runiverse.]")
 
-st.write(f"This dashboard illustrates how the recipes mechanism serves a sink for Runiverse taps such as gathering nodes and enemies resources drops. ")
-st.write(f":green[A tap] is point of creation of a resource: for {'ALPHA Version of' if alpha_reg else 'Final Version of'} Runiverse we have a) {'Gathering Nodes' if alpha_reg else 'Plots'} that input physical elements into the world"
+st.write(f"This dashboard illustrates how the recipes mechanism serves a sink for Runiverse taps (gathering nodes and enemies that drops physical, spiritual and gold). ")
+st.write(f":green[Taps] we have for resources creation: on {'ALPHA Version of' if alpha_reg else 'Final Version of'} Runiverse we have a) {'Gathering Nodes' if alpha_reg else 'Plots'} that input physical elements into the world"
          f"and 2) Enemies drops spiritual and Gold.")
 st.write(f":green[Sinks:] recipes requires a combination of gold and physical and spiritual materials.")
 st.write(f":green[Output:] We show a balance between recipes requirements and resources obtained by gathering nodes usage and encountered enemies. Numbers are shown for ONE player analysis.")
@@ -229,24 +229,25 @@ st.write(f":blue[Recipes costs] "
 recipe = 'AlphaCrystalRecipes'
 st.header(f"{recipe[:5].upper()+' '+recipe[5:12]+' '+recipe[12:]}")
 
-st.write(f''':crystal_ball: :crystal_ball: :crystal_ball: :crystal_ball:''')
+
 
 
 df, els = recipes_type(recipe,15, -8, 'CRYSTAL NAME')
 df2 = totals(df, els)
 
+st.write(f''':level_slider:''')
 tiers_plots(df, 'I', els, "CRYSTAL NAME")
 gold_cost(df,'I','CRYSTAL NAME','GOLD COST')
 items_summary(df, 'I', els, 'Crystals', spiritual_elements, gold_unities, result)
 #time_to_collect(df,'CRYSTAL NAME', epm, els, 'I', shard_ipm, ember_ipm, soul_ipm)
 
-
+st.write(f''':level_slider: :level_slider:''')
 tiers_plots(df, 'II', els, "CRYSTAL NAME")
 gold_cost(df,'II','CRYSTAL NAME','GOLD COST')
 items_summary(df, 'II', els, 'Crystals', spiritual_elements, gold_unities, result)
 #time_to_collect(df,'CRYSTAL NAME', epm, els, 'II', shard_ipm, ember_ipm, soul_ipm)
 
-
+st.write(f''':level_slider: :level_slider: :level_slider:''')
 tiers_plots(df, 'III', els, "CRYSTAL NAME")
 gold_cost(df,'III','CRYSTAL NAME','GOLD COST')
 items_summary(df, 'III', els, 'Crystals', spiritual_elements, gold_unities, result)
@@ -262,19 +263,19 @@ st.write(f''':gear: :gear: :gear: :gear:''')
 df, els=recipes_type(recipe, 9, -11, 'NAME')
 
 df2 = totals(df, els)
-
+st.write(f''':level_slider:''')
 tiers_plots(df, 'I', els,"NAME")
 gold_cost(df,'I','NAME','Gold Cost')
 items_summary(df, 'I', els, 'Equipment', spiritual_elements, gold_unities, result)
 #time_to_collect(df,'NAME', epm, els, 'I', shard_ipm, ember_ipm, soul_ipm)
 
-
+st.write(f''':level_slider: :level_slider:''')
 tiers_plots(df, 'II', els,"NAME")
 gold_cost(df,'II','NAME','Gold Cost')
 items_summary(df, 'II', els, 'Equipment', spiritual_elements, gold_unities, result)
 #time_to_collect(df,'NAME', epm, els, 'II', shard_ipm, ember_ipm, soul_ipm)
 
-
+st.write(f''':level_slider: :level_slider: :level_slider:''')
 tiers_plots(df, 'III', els,"NAME")
 gold_cost(df,'III','NAME','Gold Cost')
 items_summary(df, 'III', els, 'Equipment', spiritual_elements, gold_unities, result)
@@ -282,9 +283,7 @@ items_summary(df, 'III', els, 'Equipment', spiritual_elements, gold_unities, res
 
 
 print('-------------------------------------BUILDINGS TBD-------------------------------------------------------')
-recipe = 'BUILDINGS'
-st.write(f''':blue[TBD: {recipe} Recipes]''')
+#recipe = 'BUILDINGS'
+#st.write(f''':blue[TBD: {recipe} Recipes]''')
 
 
-#st.header(f"2. DYNAMICS - Items used by Recipes")
-# COSTS
