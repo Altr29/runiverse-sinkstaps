@@ -38,8 +38,7 @@ st.write(f":green[Sinks:] recipes requires a combination of gold and physical an
 st.write(f"For ALPHA please check *ALPHA Version* button above. (In other case general conditions for Gathering Nodes will be used for recipes are ALPHA recipes.)")
 
 
-
-st.header(f"1. Gathering Nodes in the Wild")
+st.markdown(f"<h1 style='text-align: center; color: red;'>1. Gathering Nodes in the Wild</h1>", unsafe_allow_html=True)
 
 df1 = read_wild_depositchances(alpha_reg, event)
 
@@ -184,9 +183,9 @@ result = pd.concat(frames)
 
 
 print('------------------------------- ENEMIES ENEMIES ENEMIES ---------------------------------------------')
-st.header(f"2. ENEMIES")
-st.write(f":blue[Spiritual Items dropped by Enemies.] "
-         f"Takes the numbers from Founder Enemies "
+st.markdown(f"<h1 style='text-align: center; color: red;'>2. Enemies</h1>", unsafe_allow_html=True)
+st.write(f":blue[Spiritual Items and Gold are dropped by Enemies.] "
+         f"For this section, we take the numbers from Founder Enemies "
          f"[link here](https://docs.google.com/spreadsheets/d/1BaMpBSAiMdAUsfel7UweenSSbIwrLra1oScWWOsCNDk/edit?usp=sharing).")
 
 
@@ -196,7 +195,6 @@ alpha_wild_areas = {'The Hedge Maze':3,
                     'The Golden Canyon':5,
                     'The Mush':7,
                     'Dead Lake Island':2}
-
 
 
 df_e = enemies_files('Founder Enemies')
@@ -211,27 +209,29 @@ if alpha_reg:
     st.dataframe(dict_)
 
 
-
 gold_unities={'Elite':df[df['Type']=='Elite']['Gold Drop'].sum(),
               'Standard':df[df['Type']=='Standard']['Gold Drop'].sum()}
 
-st.write(f"Gold dropped by enemies in Elite : {gold_unities['Elite']}, Standard : {gold_unities['Standard']}, Elite+Standard: {gold_unities['Elite']+gold_unities['Standard']}")
 gold_drop(df, 'Monster', 'Gold Drop')
+st.write(f"SUMMARY: Gold dropped by enemies in Elite mode: {gold_unities['Elite']}, Standard mode: {gold_unities['Standard']}, Elite+Standard: {gold_unities['Elite']+gold_unities['Standard']}")
 
 spiritual_elements = collect_(df)
-
-
 plot_enem_items(spiritual_elements)
 
 
-
 print('-------------------------------------- Recipes Crystals -----------------------------------------------')
-st.header(f"3. Recipes Costs")
+st.markdown(f"<h1 style='text-align: center; color: red;'>3. Recipes Costs</h1>", unsafe_allow_html=True)
+
 st.write(f":blue[Recipes costs] "
          f"Takes the numbers from Alpha Crystal Recipes "
          f"[link here](https://docs.google.com/spreadsheets/d/12B1JZbqtY-0UaSpIeCUO28n2R7c17UD3yRieiL4NLRY/edit?usp=sharing).")
+
 recipe = 'AlphaCrystalRecipes'
-st.write(f''':crystal_ball: :crystal_ball: :blue[{recipe[:5].upper()+' '+recipe[5:12]+' '+recipe[12:]}] :crystal_ball: :crystal_ball:''')
+st.header(f"{recipe[:5].upper()+' '+recipe[5:12]+' '+recipe[12:]}")
+
+st.write(f''':crystal_ball: :crystal_ball: :crystal_ball: :crystal_ball:''')
+
+
 df, els = recipes_type(recipe,15, -8, 'CRYSTAL NAME')
 df2 = totals(df, els)
 
@@ -255,7 +255,10 @@ items_summary(df, 'III', els, 'Crystals', spiritual_elements, gold_unities, resu
 
 print('------------------------------------- Equipment ---------------------------------------------------------')
 recipe = 'ALPHA Equiment Recipes'
-st.write(f''':gear: :gear: :blue[{recipe}] :gear: :gear:''')
+st.header(f"{recipe}")
+
+st.write(f''':gear: :gear: :gear: :gear:''')
+
 df, els=recipes_type(recipe, 9, -11, 'NAME')
 
 df2 = totals(df, els)
