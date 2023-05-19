@@ -29,13 +29,13 @@ ston_nu = st.sidebar.slider('Stones G Nodes used', min_value=1, max_value=50, va
 alpha_reg = st.checkbox('ALPHA Version')
 st.header(f":blue[INTRODUCTION: Recipes System as the mechanics to combat inflation on the Runiverse.]")
 
-st.write(f"This dashboard pretends to illustrate how the recipes mechanism serves a sink for in our game economy. ")
+st.write(f"This dashboard illustrates how the recipes mechanism serves a sink for Runiverse taps such as gathering nodes and enemies resources drops. ")
 st.write(f":green[A tap] is point of creation of a resource: for {'ALPHA Version of' if alpha_reg else 'Final Version of'} Runiverse we have a) {'Gathering Nodes' if alpha_reg else 'Plots'} that input physical elements into the world"
          f"and 2) Enemies drops spiritual and Gold.")
-st.write(f":green[Sinks:] recipes requires a combination of gold and physical and spiritual materials."
-         f"The output here is to show if the conditions on both taps are enough to cover recipes requirements.")
+st.write(f":green[Sinks:] recipes requires a combination of gold and physical and spiritual materials.")
+st.write(f":green[Output:] We show a balance between recipes requirements and resources obtained by gathering nodes usage and encountered enemies. Numbers are shown for ONE player analysis.")
 
-st.write(f"For ALPHA please check *ALPHA Version* button above. (In other case general conditions for Gathering Nodes will be used for recipes are ALPHA recipes.)")
+st.write(f"Please check *ALPHA Version* button above. (In other case general conditions for Gathering Nodes will be used for recipes are ALPHA recipes.)")
 
 
 st.markdown(f"<h1 style='text-align: center; color: red;'>1. Gathering Nodes in the Wild</h1>", unsafe_allow_html=True)
