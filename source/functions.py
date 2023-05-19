@@ -64,7 +64,7 @@ def nodes(el, df1, alpha):
             fig = px.bar(
                 df1.sort_values('Sub-Biome'), x=el, y=el + "Frecuency", color='Sub-Biome', text_auto='.2s',
                 labels={el + "Frecuency": el + " nodes"},
-                title=f"{el}")
+                title=f"{el} Gathering Nodes")
         else:
             fig = px.bar(
                 df1.sort_values('Sub-Biome'), x="Sub-Biome", y=el + "Frecuency", color=el, text_auto='.2s',
