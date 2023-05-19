@@ -55,7 +55,7 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 
 type = "Woods"
-nodes(type, df1)
+nodes(type, df1,alpha_reg)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier*element_multiplier(type))
 st.write(
     f'Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: '
@@ -75,7 +75,7 @@ df_woods_vals = pd.DataFrame.from_dict(
 
 
 type = "Stone"
-nodes(type, df1)
+nodes(type, df1,alpha_reg)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier*element_multiplier(type))
 st.write(
     f'Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: '
@@ -96,7 +96,7 @@ df_stone_vals = pd.DataFrame.from_dict(
 
 
 type = "Gems"
-nodes(type, df1)
+nodes(type, df1,alpha_reg)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier*element_multiplier(type))
 st.write(
     f'Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: '
@@ -118,7 +118,7 @@ df_gems_vals = pd.DataFrame.from_dict(
 
 
 type = "Element"
-nodes(type, df1)
+nodes(type, df1,alpha_reg)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier*element_multiplier(type))
 st.write(
     f'Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: '
@@ -140,7 +140,7 @@ df_element_vals = pd.DataFrame.from_dict(
 
 
 type = "Fabrics"
-nodes(type, df1)
+nodes(type, df1,alpha_reg)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier*element_multiplier(type))
 st.write(
     f'Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: '
@@ -162,7 +162,7 @@ df_Fabrics_vals = pd.DataFrame.from_dict(
 
 
 type = "Metals"
-nodes(type, df1)
+nodes(type, df1,alpha_reg)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier*element_multiplier(type))
 st.write(
     f'Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: '

@@ -58,12 +58,18 @@ def read_wild_depositchances(SAMPLE_SPREADSHEET_ID, SAMPLE_RANGE_NAME):
     return df
 
 
-def nodes(el, df1):
+def nodes(el, df1, alpha):
     try:
-        fig = px.bar(
-            df1.sort_values('Sub-Biome'), x="Sub-Biome", y=el + "Frecuency", color=el, text_auto='.2s',
-            labels={el + "Frecuency": el + " nodes"},
-            title=f"{el}")
+        if alpha:
+            fig = px.bar(
+                df1.sort_values('Sub-Biome'), x=el, y=el + "Frecuency", color='Sub-Biome', text_auto='.2s',
+                labels={el + "Frecuency": el + " nodes"},
+                title=f"{el}")
+        else:
+            fig = px.bar(
+                df1.sort_values('Sub-Biome'), x="Sub-Biome", y=el + "Frecuency", color=el, text_auto='.2s',
+                labels={el + "Frecuency": el + " nodes"},
+                title=f"{el}")
         fig.update_yaxes(tick0=0, dtick=1)
         fig.update_traces(textfont_size=15, textangle=0, textposition="inside", cliponaxis=False)
         st.plotly_chart(fig, theme="streamlit", use_container_width=True)
