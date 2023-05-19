@@ -309,22 +309,24 @@ def items_summary(df, tier, els, title, ememies_items,enemies_gold, gnodes_items
              })
 
         elite_b = -count_gold['GOLD']+enemies_gold['Elite']
-        elite_con = ['NEGATIVE: More gold is required than dropped by enemies' if elite_b<0 else 'POSITIVE: Enough gold required vs dropped by enemies'][0]
         standard_b = -count_gold['GOLD']+enemies_gold['Standard']
-        standard_con = [
-            'NEGATIVE: More gold is required than dropped by enemies' if standard_b < 0 else 'POSITIVE: Enough gold required vs dropped by enemies'][
-            0]
 
+        def _msj(condition):
+            con = [
+            '(More gold is required than dropped by enemies)' if condition < 0 else
+            '(Enough gold required vs dropped by enemies)'][
+            0]
+            return con
 
         st.write(f":blue[1) Gold: Drop by Enemies - Required by {title} Recipe tier {tier} ({count_gold['GOLD']} Units):] ")
         st.write(
-                 f" :green[Elite: {elite_b} units] {elite_con}")
+                 f" :green[Elite]: {elite_b} units {_msj(elite_b)}")
         st.write(
-            f" :green[Standard: {standard_b} units] {standard_con}"
+            f" :green[Standard]: {standard_b} units {_msj(standard_b)}"
                  )
         st.write(
-            f" :green[Elite+Standard: {enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD']} units] "
-            f"{'POSITIVE' if enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD']>0 else 'Negative'}"
+            f" :green[Elite+Standard]: {enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD']} units "
+            f"{_msj(enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD'])}"
         )
 
 

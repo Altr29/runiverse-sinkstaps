@@ -29,13 +29,17 @@ ston_nu = st.sidebar.slider('Stones G Nodes used', min_value=0, max_value=12, va
 alpha_reg = st.checkbox('ALPHA Version')
 st.header(f":blue[INTRODUCTION: Recipes System as the mechanism to combat inflation in the Runiverse.]")
 
-st.write(f"This dashboard illustrates how the recipes mechanism serves as a sink for Runiverse taps (gathering nodes and enemies that drops physical, spiritual and gold). ")
-st.write(f":green[Taps] we have for resources creation: on {'ALPHA Version of' if alpha_reg else 'Final Version of'} Runiverse we have a) {'Gathering Nodes' if alpha_reg else 'Plots'} that input physical elements into the world"
+st.write(f"This dashboard illustrates how the recipes mechanism serves as a sink for Runiverse taps "
+         f"(gathering nodes and enemies that drops physical, spiritual and gold). ")
+st.write(f":green[Taps] we have for resources creation: on {'ALPHA Version of' if alpha_reg else 'Final Version of'} "
+         f"Runiverse we have a) {'Gathering Nodes' if alpha_reg else 'Plots'} that input physical elements into the world"
          f"and 2) Enemies drops spiritual and Gold.")
 st.write(f":green[Sinks:] recipes requires a combination of gold and physical and spiritual materials.")
-st.write(f":green[Output:] We show a balance between recipes requirements and resources obtained by gathering nodes usage and encountered enemies. Numbers are shown for ONE player analysis.")
+st.write(f":green[Output:] We show a balance between recipes requirements and resources obtained by gathering nodes usage "
+         f"and encountered enemies. Numbers are shown for ONE player analysis.")
 
-st.write(f"Please check *ALPHA Version* button above. (In other case general conditions for Gathering Nodes will be used for recipes are ALPHA recipes.)")
+st.write(f"Please check *ALPHA Version* button above. (In other case general conditions for Gathering Nodes "
+         f"will be used for recipes are ALPHA recipes.)")
 
 
 st.markdown(f"<h1 style='text-align: center; color: red;'>1. Gathering Nodes in the Wild</h1>", unsafe_allow_html=True)
@@ -56,8 +60,8 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 def _summ(df1, type, multiplier):
     df1[type + ' Amount'] = df1[type + 'Frecuency'].apply(lambda x: x * multiplier * element_multiplier(type))
     st.write(
-        f'Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: '
-        f': Frequency * available extractions per GN (control) * spawned.')
+        f'Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. '
+        f'The amount of resources follows the formula: Frequency * available extractions per GN (control) * spawned.')
     agg_d12 = df1.groupby(type, as_index=False).agg(
         {
             type + 'Frecuency': ['sum'],
@@ -174,7 +178,10 @@ gold_unities={'Elite':df[df['Type']=='Elite']['Gold Drop'].sum(),
               'Standard':df[df['Type']=='Standard']['Gold Drop'].sum()}
 
 gold_drop(df, 'Monster', 'Gold Drop')
-st.write(f"SUMMARY: Gold dropped by enemies in Elite mode: {gold_unities['Elite']}, Standard mode: {gold_unities['Standard']}, Elite+Standard: {gold_unities['Elite']+gold_unities['Standard']}")
+st.write(
+    f"SUMMARY: Gold dropped by enemies in Elite mode: {gold_unities['Elite']}, "
+    f"Standard mode: {gold_unities['Standard']}, "
+    f"Elite+Standard: {gold_unities['Elite'] + gold_unities['Standard']}")
 
 spiritual_elements = collect_(df)
 plot_enem_items(spiritual_elements)
