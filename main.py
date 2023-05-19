@@ -18,12 +18,12 @@ st.sidebar.markdown("## Controls")
 
 multiplier = st.sidebar.slider('Available Extractions on G Node', min_value=1, max_value=60, value=30, step=1)
 #epm = st.sidebar.slider('Extractions per minute', min_value=1, max_value=50, value=5, step=1)
-gems_nu = st.sidebar.slider('Gems G Nodes used', min_value=1, max_value=50, value=4, step=1)
-els_nu = st.sidebar.slider('Elements G Nodes used', min_value=1, max_value=50, value=3, step=1)
-met_nu = st.sidebar.slider('Metals G Nodes used', min_value=1, max_value=50, value=2, step=1)
-fab_nu = st.sidebar.slider('Fabrics G Nodes used', min_value=1, max_value=50, value=2, step=1)
-woods_nu = st.sidebar.slider('Woods G Nodes used', min_value=1, max_value=50, value=2, step=1)
-ston_nu = st.sidebar.slider('Stones G Nodes used', min_value=1, max_value=50, value=2, step=1)
+gems_nu = st.sidebar.slider('Gems G Nodes used', min_value=0, max_value=12, value=3, step=1)
+els_nu = st.sidebar.slider('Elements G Nodes used', min_value=0, max_value=12, value=1, step=1)
+met_nu = st.sidebar.slider('Metals G Nodes used', min_value=0, max_value=12, value=2, step=1)
+fab_nu = st.sidebar.slider('Fabrics G Nodes used', min_value=0, max_value=12, value=2, step=1)
+woods_nu = st.sidebar.slider('Woods G Nodes used', min_value=0, max_value=12, value=2, step=1)
+ston_nu = st.sidebar.slider('Stones G Nodes used', min_value=0, max_value=12, value=2, step=1)
 
 
 alpha_reg = st.checkbox('ALPHA Version')
@@ -56,7 +56,7 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 type = "Woods"
 nodes(type, df1)
-df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
+df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier*element_multiplier(type))
 st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: "
          f"- Frequency * spawned * available extractions per GN (control).")
 agg_d12 = df1.groupby(type, as_index=False).agg(
@@ -74,7 +74,7 @@ df_woods_vals = pd.DataFrame.from_dict(
 
 type = "Stone"
 nodes(type, df1)
-df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
+df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier*element_multiplier(type))
 st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: "
          f"- Frequency * spawned * available extractions per GN (control).")
 agg_d12 = df1.groupby(type, as_index=False).agg(
@@ -93,7 +93,7 @@ df_stone_vals = pd.DataFrame.from_dict(
 
 type = "Gems"
 nodes(type, df1)
-df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
+df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier*element_multiplier(type))
 st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: "
          f"- Frequency * spawned * available extractions per GN (control).")
 agg_d12 = df1.groupby(type, as_index=False).agg(
@@ -113,7 +113,7 @@ df_gems_vals = pd.DataFrame.from_dict(
 
 type = "Element"
 nodes(type, df1)
-df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
+df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier*element_multiplier(type))
 st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: "
          f"- Frequency * spawned * available extractions per GN (control).")
 agg_d12 = df1.groupby(type, as_index=False).agg(
@@ -133,7 +133,7 @@ df_element_vals = pd.DataFrame.from_dict(
 
 type = "Fabrics"
 nodes(type, df1)
-df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
+df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier*element_multiplier(type))
 st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: "
          f"- Frequency * spawned * available extractions per GN (control).")
 agg_d12 = df1.groupby(type, as_index=False).agg(
@@ -153,7 +153,7 @@ df_Fabrics_vals = pd.DataFrame.from_dict(
 
 type = "Metals"
 nodes(type, df1)
-df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
+df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier*element_multiplier(type))
 st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: "
          f"- Frequency * spawned * available extractions per GN (control).")
 agg_d12 = df1.groupby(type, as_index=False).agg(
