@@ -338,7 +338,7 @@ def items_summary(df, tier, els, title, ememies_items,enemies_gold, gnodes_items
         st.write(spitit_fin[['Items','Type','InputByEnemies','RequiredOnRecipe','Item Balance']])
 
 
-        st.write(f":blue[3) Summary of Physical Items required by -{title} Recipe tier {tier}- **Measured by Number of Extractions**.]")
+        st.write(f":blue[3) Summary of Physical Items required] by -{title} Recipe tier {tier}- **Measured by Number of Extractions**.")
         fisi_df_fin = pd.merge(fisi_df, gnodes_items[['Items', 'GNodesInput']], on=["Items"], how='left')
         fisi_df_fin['GNodesInput'] = fisi_df_fin['GNodesInput'].replace(np.nan, 0)
         fisi_df_fin['Item Balance'] = fisi_df_fin['GNodesInput'] - fisi_df_fin['ExtRequiredOnRecipe']
