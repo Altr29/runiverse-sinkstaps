@@ -53,6 +53,7 @@ fig.update_yaxes(tick0=0, dtick=5)
 st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 
+
 type = "Woods"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
@@ -64,14 +65,12 @@ agg_d12 = df1.groupby(type, as_index=False).agg(
                 type+' Amount': ['sum']
             })
 st.dataframe(agg_d12)
-woods_vals = {}
-for i in list(df1[type].unique()):
-    woods_vals[i] = df1[df1[type]==i][type+' Amount'].sum()
 
 df_woods_vals = pd.DataFrame.from_dict(
-            {'Items': list(woods_vals.keys()),
-             'GNodesInput': [element_multiplier(type)*multiplier*woods_nu]*len(list(woods_vals.keys()))
+            {'Items': [i for i in list(df1[type].unique())],
+             'GNodesInput': [gems_nu*element_multiplier(type)*multiplier if df1[df1[type]==i][type+'Frecuency'].sum()>0 else 0 for i in list(df1[type].unique())]
              })
+
 
 type = "Stone"
 nodes(type, df1)
@@ -85,35 +84,32 @@ agg_d12 = df1.groupby(type, as_index=False).agg(
             })
 st.dataframe(agg_d12)
 
-stone_vals = {}
-for i in list(df1[type].unique()):
-    stone_vals[i] = df1[df1[type]==i][type+' Amount'].sum()
-
 df_stone_vals = pd.DataFrame.from_dict(
-            {'Items': list(stone_vals.keys()),
-             'GNodesInput': [element_multiplier(type)*multiplier*ston_nu]*len(list(woods_vals.keys()))
+            {'Items': [i for i in list(df1[type].unique())],
+             'GNodesInput': [gems_nu*element_multiplier(type)*multiplier if df1[df1[type]==i][type+'Frecuency'].sum()>0 else 0 for i in list(df1[type].unique())]
              })
+
+
 
 type = "Gems"
 nodes(type, df1)
 df1[type+' Amount'] = df1[type+'Frecuency'].apply(lambda x: x*multiplier)*df1[type].apply(lambda x: element_multiplier(x))
 st.write(f"Each {type} Gathering Node (Frequency) spawns {element_multiplier(type)} items per extraction. The amount of resources is: "
          f"- Frequency * spawned * available extractions per GN (control).")
-gems = df1.groupby(type, as_index=False).agg(
+agg_d12 = df1.groupby(type, as_index=False).agg(
             {
                 type+'Frecuency': ['sum'],
                 type+' Amount': ['sum']
             })
-st.dataframe(gems)
-
-gems_vals = {}
-for i in list(df1[type].unique()):
-    gems_vals[i] = df1[df1[type]==i][type+' Amount'].sum()
+st.dataframe(agg_d12)
 
 df_gems_vals = pd.DataFrame.from_dict(
-            {'Items': list(gems_vals.keys()),
-             'GNodesInput': [element_multiplier(type)*multiplier*gems_nu]*len(list(woods_vals.keys()))
+            {'Items': [i for i in list(df1[type].unique())],
+             'GNodesInput': [gems_nu*element_multiplier(type)*multiplier if df1[df1[type]==i][type+'Frecuency'].sum()>0 else 0 for i in list(df1[type].unique())]
              })
+
+
+
 
 type = "Element"
 nodes(type, df1)
@@ -126,14 +122,14 @@ agg_d12 = df1.groupby(type, as_index=False).agg(
                 type+' Amount': ['sum']
             })
 st.dataframe(agg_d12)
-element_vals = {}
-for i in list(df1[type].unique()):
-    element_vals[i] = df1[df1[type]==i][type+' Amount'].sum()
 
 df_element_vals = pd.DataFrame.from_dict(
-            {'Items': list(element_vals.keys()),
-             'GNodesInput': [element_multiplier(type)*multiplier*els_nu]*len(list(woods_vals.keys()))
+            {'Items': [i for i in list(df1[type].unique())],
+             'GNodesInput': [gems_nu*element_multiplier(type)*multiplier if df1[df1[type]==i][type+'Frecuency'].sum()>0 else 0 for i in list(df1[type].unique())]
              })
+
+
+
 
 type = "Fabrics"
 nodes(type, df1)
@@ -146,14 +142,14 @@ agg_d12 = df1.groupby(type, as_index=False).agg(
                 type+' Amount': ['sum']
             })
 st.dataframe(agg_d12)
-Fabrics_vals = {}
-for i in list(df1[type].unique()):
-    Fabrics_vals[i] = df1[df1[type]==i][type+' Amount'].sum()
 
 df_Fabrics_vals = pd.DataFrame.from_dict(
-            {'Items': list(Fabrics_vals.keys()),
-             'GNodesInput': [element_multiplier(type)*multiplier*fab_nu]*len(list(woods_vals.keys()))
+            {'Items': [i for i in list(df1[type].unique())],
+             'GNodesInput': [gems_nu*element_multiplier(type)*multiplier if df1[df1[type]==i][type+'Frecuency'].sum()>0 else 0 for i in list(df1[type].unique())]
              })
+
+
+
 
 type = "Metals"
 nodes(type, df1)
@@ -166,14 +162,14 @@ agg_d12 = df1.groupby(type, as_index=False).agg(
                 type+' Amount': ['sum']
             })
 st.dataframe(agg_d12)
-Metals_vals = {}
-for i in list(df1[type].unique()):
-    Metals_vals[i] = df1[df1[type]==i][type+' Amount'].sum()
 
 df_Metals_vals = pd.DataFrame.from_dict(
-            {'Items': list(Metals_vals.keys()),
-             'GNodesInput': [element_multiplier(type)*multiplier*met_nu]*len(list(woods_vals.keys()))
+            {'Items': [i for i in list(df1[type].unique())],
+             'GNodesInput': [gems_nu*element_multiplier(type)*multiplier if df1[df1[type]==i][type+'Frecuency'].sum()>0 else 0 for i in list(df1[type].unique())]
              })
+
+
+
 
 frames = [df_stone_vals, df_woods_vals,
           df_Metals_vals, df_Fabrics_vals,
