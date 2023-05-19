@@ -73,12 +73,12 @@ def nodes(el, df1):
 
 def element_multiplier(el: object) -> object:
     try:
-        val = 5
         if 'Gems' in el or 'Elemen' in el:
             val = 1
+        elif 'Met' in el or 'Fabri' in el:
+            val = 3
         else:
-            if 'Met' in el or 'Fabri' in el:
-                val = 3
+            val = 5
         return val
 
     except Exception as e:
