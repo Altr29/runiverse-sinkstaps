@@ -4,6 +4,7 @@ import logging
 import plotly.express as px
 import streamlit as st
 from source.inputs import gems_list, els_list, stones_list, woods_list, fabrics_list, metals_list, d_type
+from source.functions import element_multiplier
 
 woods_stones = {
     'Primary':[24,48,72,96],
@@ -291,7 +292,7 @@ def items_summary(df, tier, els, title, ememies_items,enemies_gold, gnodes_items
                 count_gold['GOLD'] = df1[el].sum()
             else:
                 if df1[el].sum()>0:
-                    count_fis[el] = df1[el].sum()
+                    count_fis[el] = int(df1[el].sum()/element_multiplier(el))
                 else:
                     pass
 
@@ -304,26 +305,28 @@ def items_summary(df, tier, els, title, ememies_items,enemies_gold, gnodes_items
         fisi_df = pd.DataFrame.from_dict(
             {'Items': list(count_fis.keys()),
              'Family': [d_type(i) for i in list(count_fis.keys())],
-             'RequiredOnRecipe': list(count_fis.values())
+             'ExtRequiredOnRecipe': list(count_fis.values())
              })
 
         elite_b = -count_gold['GOLD']+enemies_gold['Elite']
-        elite_con = ['NEGATIVE: More gold is required than dropped by enemies' if elite_b<0 else 'POSITIVE: Enough gold required vs dropped by enemies'][0]
         standard_b = -count_gold['GOLD']+enemies_gold['Standard']
-        standard_con = [
-            'NEGATIVE: More gold is required than dropped by enemies' if standard_b < 0 else 'POSITIVE: Enough gold required vs dropped by enemies'][
-            0]
 
+        def _msj(condition):
+            con = [
+            '(More gold is required than dropped by enemies)' if condition < 0 else
+            '(Enough gold required vs dropped by enemies)'][
+            0]
+            return con
 
         st.write(f":blue[1) Gold: Drop by Enemies - Required by {title} Recipe tier {tier} ({count_gold['GOLD']} Units):] ")
         st.write(
-                 f" :green[Elite: {elite_b} units] {elite_con}")
+                 f" :green[Elite]: {elite_b} units {_msj(elite_b)}")
         st.write(
-            f" :green[Standard: {standard_b} units] {standard_con}"
+            f" :green[Standard]: {standard_b} units {_msj(standard_b)}"
                  )
         st.write(
-            f" :green[Elite+Standard: {enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD']} units] "
-            f"{'POSITIVE' if enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD']>0 else 'Negative'}"
+            f" :green[Elite+Standard]: {enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD']} units "
+            f"{_msj(enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD'])}"
         )
 
 
@@ -335,13 +338,13 @@ def items_summary(df, tier, els, title, ememies_items,enemies_gold, gnodes_items
         st.write(spitit_fin[['Items','Type','InputByEnemies','RequiredOnRecipe','Item Balance']])
 
 
-        st.write(f":blue[3) Summary of Physical Items required by -{title} Recipe tier {tier}-.]")
+        st.write(f":blue[3) Summary of Physical Items required] by -{title} Recipe tier {tier}- **Measured by Number of Extractions**.")
         fisi_df_fin = pd.merge(fisi_df, gnodes_items[['Items', 'GNodesInput']], on=["Items"], how='left')
         fisi_df_fin['GNodesInput'] = fisi_df_fin['GNodesInput'].replace(np.nan, 0)
-        fisi_df_fin['Item Balance'] = fisi_df_fin['GNodesInput'] - fisi_df_fin['RequiredOnRecipe']
-        fisi_df_fin['Intra pct'] = fisi_df_fin['RequiredOnRecipe']/fisi_df_fin['GNodesInput']
+        fisi_df_fin['Item Balance'] = fisi_df_fin['GNodesInput'] - fisi_df_fin['ExtRequiredOnRecipe']
+        fisi_df_fin['Intra pct'] = fisi_df_fin['ExtRequiredOnRecipe']/fisi_df_fin['GNodesInput']
         fisi_df_fin['Pct'] = fisi_df_fin['Intra pct'] .apply(lambda x: str("{:.2f}".format(x*100))+' %')
-        st.write(fisi_df_fin[['Items', 'Family', 'GNodesInput', 'RequiredOnRecipe','Pct', 'Item Balance']])
+        st.write(fisi_df_fin[['Items', 'Family', 'GNodesInput', 'ExtRequiredOnRecipe','Pct', 'Item Balance']])
 
     except Exception as e:
         logging.error('Error in items_summary ', e)

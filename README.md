@@ -1,12 +1,12 @@
 ## Methodology
 Recipes Economy Dashboard was developed in order to present a dynamic file where to experiment with distinct inputs that changes the amount of resources on gathering nodes and encounters. 
-This is about aggregations per region name and materials family. Each section provides an explanation. We cover:
+This is about aggregations per region name and materials family or even enemies in that case. Each section provides its own explanation. We cover:
 *  Amount of gathering nodes distributed by Regions and number of physical elements on that based on a global multiplier value.
 *  Enemies Resources Drops that includes Spiritual Elements.
-*  Time to complete a certain recipe based on those numbers.
+*  Balance between S1 and S2 and recipes requirements.
 
 ## Output Dashboard
-The final output can be found on:
+The final dashboard output can be found on:
 
 *  [`streamlit dashboard`](https://mariaob1201-runiverse-sinkstaps-main-ls4sij.streamlit.app/).
 
