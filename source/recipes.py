@@ -309,7 +309,9 @@ def items_summary(df, tier, els, title, ememies_items, gnodes_items):
         fisi_df = pd.DataFrame.from_dict(
             {'Items': list(count_fis.keys()),
              'Family': [d_type(i) for i in list(count_fis.keys())],
-             'ExtractionsRequiredOnRecipe': [math.ceil(count_fis[el]/element_multiplier(el)) for el in list(count_fis.keys())]
+             'AmountRequiredOnRecipe': [count_fis[el] for el in list(count_fis.keys())],
+             'ExtractionsRequiredOnRecipe': [math.ceil(count_fis[el]/element_multiplier(el)) for el in
+                                             list(count_fis.keys())]
              })
 
         # elite_b = -count_gold['GOLD']+enemies_gold['Elite']
