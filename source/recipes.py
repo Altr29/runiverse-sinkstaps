@@ -7,7 +7,6 @@ from source.inputs import gems_list, els_list, stones_list, woods_list, fabrics_
 from source.functions import element_multiplier
 import math
 
-
 woods_stones = {
     'Primary': [24, 48, 72, 96],
     'Secondary': [16, 32, 48, 64],
@@ -273,7 +272,7 @@ def tiers_plots(df, tier, els, NAME):
         logging.error('Error in tier_plots ', e)
 
 
-def items_summary(df, tier, els, title, ememies_items, RARITY):
+def required_items(df, tier, els, title):
     gc_list = ['GOLD COST']
     if 'Equipment' in title:
         gc_list = ['Gold Cost']
@@ -309,10 +308,19 @@ def items_summary(df, tier, els, title, ememies_items, RARITY):
         fisi_df = pd.DataFrame.from_dict(
             {'Items': list(count_fis.keys()),
              'Family': [d_type(i) for i in list(count_fis.keys())],
-             'ExtractionsRequiredOnRecipe': [math.ceil(count_fis[el]/element_multiplier(d_type(el))) for el in
+             'ExtractionsRequiredOnRecipe': [math.ceil(count_fis[el] / element_multiplier(d_type(el))) for el in
                                              list(count_fis.keys())]
              })
+        return spirit_df, fisi_df
 
+    except Exception as e:
+        logging.error('In --->', e)
+        return None, None
+
+
+def items_summary(df, tier, els, title, RARITY):
+    try:
+        spirit_df, fisi_df = required_items(df, tier, els, title)
         st.write(
             f":blue[1) Physical Items required] to complete -{RARITY} {title} Recipe tier {tier}-.")
         st.write(fisi_df)

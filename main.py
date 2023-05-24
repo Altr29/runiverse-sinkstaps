@@ -238,19 +238,19 @@ else:
 
 st.write(f''':level_slider: TIER 1''')
 tiers_plots(df, 'I', els, "CRYSTAL NAME")
-items_summary(df, 'I', els, 'Crystals', spiritual_elements, recipe_rarity)
+items_summary(df, 'I', els, 'Crystals', recipe_rarity)
 gold_cost(df, 'I', 'CRYSTAL NAME', 'GOLD COST')
 
 
 st.write(f''':level_slider: :level_slider: TIER 2''')
 tiers_plots(df, 'II', els, "CRYSTAL NAME")
-items_summary(df, 'II', els, 'Crystals', spiritual_elements, recipe_rarity)
+items_summary(df, 'II', els, 'Crystals', recipe_rarity)
 gold_cost(df, 'II', 'CRYSTAL NAME', 'GOLD COST')
 
 
 st.write(f''':level_slider: :level_slider: :level_slider: TIER 3''')
 tiers_plots(df, 'III', els, "CRYSTAL NAME")
-items_summary(df, 'III', els, 'Crystals', spiritual_elements, recipe_rarity)
+items_summary(df, 'III', els, 'Crystals', recipe_rarity)
 gold_cost(df, 'III', 'CRYSTAL NAME', 'GOLD COST')
 
 
@@ -265,19 +265,19 @@ df, els = recipes_type(recipe, 9, -11, 'NAME')
 df2 = totals(df, els)
 st.write(f''':level_slider: TIER 1''')
 tiers_plots(df, 'I', els, "NAME")
-items_summary(df, 'I', els, 'Equipment', spiritual_elements, recipe_rarity)
+items_summary(df, 'I', els, 'Equipment', recipe_rarity)
 gold_cost(df, 'I', 'NAME', 'Gold Cost')
 
 
 st.write(f''':level_slider: :level_slider: TIER 2''')
 tiers_plots(df, 'II', els, "NAME")
-items_summary(df, 'II', els, 'Equipment', spiritual_elements, recipe_rarity)
+items_summary(df, 'II', els, 'Equipment', recipe_rarity)
 gold_cost(df, 'II', 'NAME', 'Gold Cost')
 
 
 st.write(f''':level_slider: :level_slider: :level_slider: TIER 3''')
 tiers_plots(df, 'III', els, "NAME")
-items_summary(df, 'III', els, 'Equipment', spiritual_elements, recipe_rarity)
+items_summary(df, 'III', els, 'Equipment', recipe_rarity)
 gold_cost(df,'III','NAME','Gold Cost')
 # time_to_collect(df,'NAME', epm, els, 'III', shard_ipm, ember_ipm, soul_ipm)
 
