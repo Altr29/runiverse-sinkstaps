@@ -17,6 +17,7 @@ SAMPLE_RANGE_NAME = event['SAMPLE_RANGE_NAME']
 st.sidebar.markdown("## Controls")
 
 multiplier = st.sidebar.slider('Available Extractions on G Node', min_value=1, max_value=60, value=30, step=1)
+batt_times = st.sidebar.slider('Number of battles', min_value=1, max_value=10, value=1, step=1)
 #epm = st.sidebar.slider('Extractions per minute', min_value=1, max_value=50, value=5, step=1)
 gems_nu = st.sidebar.slider('Gems G Nodes used', min_value=0, max_value=12, value=3, step=1)
 els_nu = st.sidebar.slider('Elements G Nodes used', min_value=0, max_value=12, value=1, step=1)
@@ -148,12 +149,109 @@ result = pd.concat(frames)
 
 
 print('------------------------------- ENEMIES ENEMIES ENEMIES ---------------------------------------------')
-st.markdown(f"<h1 style='text-align: center; color: red;'>2. Enemies</h1>", unsafe_allow_html=True)
-st.write(f":blue[Spiritual Items and Gold are dropped by Enemies.] "
-         f"For this section, we take the numbers from Founder Enemies "
-         f"[link here](https://docs.google.com/spreadsheets/d/1BaMpBSAiMdAUsfel7UweenSSbIwrLra1oScWWOsCNDk/edit?usp=sharing).")
+st.markdown(f"<h1 style='text-align: center; color: red;'>2. Battles </h1>", unsafe_allow_html=True)
+st.write(f":blue[Spiritual Items dropped by Enemies.] "
+         f"For this section, we take the numbers from "
+         f"[Battle Drops](https://docs.google.com/spreadsheets/d/1T2sUbs_L4tgRqlHD6aW0EmOGNmHF4PCK158Ac2kokNk/edit#gid=0).")
 
 
+Monster_l = st.selectbox(
+    'Monster choice',
+    ('Chemist ',
+ 'Cockatrice ',
+ 'Eagle',
+ 'Enforcer',
+ 'Exploding Jelly',
+ 'Flame Skull',
+ 'Gargantuan Beetle',
+ 'Giant Ant',
+ 'Giant Bat',
+ 'Giant Rat',
+ 'Giant Spider',
+ 'Giant Wasp',
+ 'Gunpowder Banshee',
+ 'Gunslinger',
+ 'Harpy',
+ 'Parasitic Jelly',
+ 'Smoke Jelly',
+ 'Specter',
+ 'Spitting Jelly',
+ 'Vampyre',
+ 'Wolf',
+ 'Zombie'))
+
+
+Area_l = st.sidebar.selectbox('Area of Battle',
+                              ('Area 1', 'Area 2', 'Area 3',
+         'Area 4', 'Area 5', 'Area 6'), key=112
+    )
+
+st.write('You chose to battle ', batt_times, 'times on', Area_l, ' Against ', Monster_l)
+
+
+
+battles_ofile = pd.read_excel('source/ALPHA wild resources.xlsx',sheet_name='Battles', header = 0)
+battles_ofile.fillna(method='ffill', inplace=True)
+
+battles_file_f = battles_ofile[(battles_ofile['MONSTER'].str.contains(Monster_l)==True) & (battles_ofile['AREA'].str.contains(Area_l)==True)]
+
+battles_all = []
+def find_between( s, first, last ):
+    try:
+        start = s.index( first ) + len( first )
+        end = s.index( last, start )
+        return s[start:end]
+    except ValueError:
+        return ""
+
+bats=[]
+if batt_times >= 10:
+    bats = [a1.iat[0, -1]]
+else:
+    for i in range(2, batt_times):
+        bats.append(a1.iat[0, i])
+
+battles_d = {}
+bat_oorder = {}
+
+for s in bats:
+    nums = re.findall('\d+', s)
+    els = []
+    N = len(nums)
+    for i in range(0, N):
+        if 'No Drops' in s:
+            els = []
+            break
+        else:
+            if i < 1:
+                els.append(s.split(nums[i])[0].replace(' - ', '').replace('\n', ''))
+            else:
+                if i > N - 1:
+                    els.append(s.split(nums[i])[-1].replace(' - ', '').replace('\n', ''))
+                else:
+                    x = find_between(s, nums[i - 1], nums[i])
+                    els.append(x.replace(' - ', '').replace('\n', ''))
+
+    if els:
+        for ele in els:
+            j = els.index(ele)
+            if ele not in bat_oorder.keys():
+                bat_oorder[ele] = int(nums[j])
+            else:
+                bat_oorder[ele] += int(nums[j])
+    else:
+        pass
+
+spiritual_elements = pd.DataFrame.from_dict(
+            {'Items': list(bat_oorder.keys()),
+             'Amount': list(bat_oorder.values()),
+             'Type': [d_type(i) for i in list(bat_oorder.keys())]})
+plot_enem_items(spiritual_elements)
+
+
+
+
+st.title('Version 2')
 alpha_wild_areas = {'The Hedge Maze':3,
                     'Raptor Peak':3,
                     'The Spore Fens':3,
@@ -183,8 +281,8 @@ st.write(
     f"Standard mode: {gold_unities['Standard']}, "
     f"Elite+Standard: {gold_unities['Elite'] + gold_unities['Standard']}")
 
-spiritual_elements = collect_(df)
-plot_enem_items(spiritual_elements)
+#spiritual_elements = collect_(df)
+#plot_enem_items(spiritual_elements)
 
 
 print('-------------------------------------- Recipes Crystals -----------------------------------------------')
