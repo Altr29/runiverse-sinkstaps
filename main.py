@@ -155,36 +155,25 @@ st.write(f":blue[Spiritual Items dropped by Enemies.] "
          f"[Battle Drops](https://docs.google.com/spreadsheets/d/1T2sUbs_L4tgRqlHD6aW0EmOGNmHF4PCK158Ac2kokNk/edit#gid=0).")
 
 
-Monster_l = st.selectbox(
-    'Monster choice',
-    ('Chemist ',
- 'Cockatrice ',
- 'Eagle',
- 'Enforcer',
- 'Exploding Jelly',
- 'Flame Skull',
- 'Gargantuan Beetle',
- 'Giant Ant',
- 'Giant Bat',
- 'Giant Rat',
- 'Giant Spider',
- 'Giant Wasp',
- 'Gunpowder Banshee',
- 'Gunslinger',
- 'Harpy',
- 'Parasitic Jelly',
- 'Smoke Jelly',
- 'Specter',
- 'Spitting Jelly',
- 'Vampyre',
- 'Wolf',
- 'Zombie'))
 
 
 Area_l = st.sidebar.selectbox('Area of Battle',
                               ('Area 1', 'Area 2', 'Area 3',
-         'Area 4', 'Area 5', 'Area 6'), key=112
-    )
+         'Area 4', 'Area 5', 'Area 6'))
+
+monsters_dict = {'Area 1': ('Wolf', 'Giant Rat', 'Giant Bat', 'Cockatrice '),
+             'Area 2': ('Giant Ant', 'Giant Wasp', 'Giant Spider', 'Gargantuan Beetle'),
+             'Area 3': ('Zombie', 'Specter', 'Flame Skull', 'Vampyre'),
+            'Area 4': ('Spitting Jelly', 'Exploding Jelly', 'Smoke Jelly',
+       'Parasitic Jelly'),
+            'Area 5': ('Eagle', 'Gunslinger', 'Harpy'),
+            'Area 6': ('Chemist ', 'Enforcer', 'Gunpowder Banshee')}
+
+
+Monster_l = st.selectbox(
+    'Monster choice',
+    monsters_dict[Area_l])
+
 
 st.write('You chose to battle ', batt_times, 'times on', Area_l, ' Against ', Monster_l)
 
