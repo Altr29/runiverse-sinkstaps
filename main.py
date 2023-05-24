@@ -144,78 +144,76 @@ monsters_dict = {'Area 1': ('Wolf', 'Giant Rat', 'Giant Bat', 'Cockatrice '),
                  'Area 5': ('Eagle', 'Gunslinger', 'Harpy'),
                  'Area 6': ('Chemist ', 'Enforcer', 'Gunpowder Banshee')}
 
-Monster_l = st.selectbox(
-    'Monster to battle',
-    monsters_dict[Area_l])
 
-st.write(f"You chose to battle :green[{batt_times} times] on :green[{Area_l}] Against :green[{Monster_l}]")
+st.write(f"You chose to battle :green[{batt_times} times] on :green[{Area_l}]")
 
 
 battles_ofile = pd.read_excel('source/ALPHA wild resources (1).xlsx', sheet_name='Battles', header=0)
 battles_ofile.fillna(method='ffill', inplace=True)
 
-a1 = battles_ofile[(battles_ofile['MONSTER'].str.contains(str(Monster_l)) == True) &
+for Monster in monsters_dict[Area_l]:
+    a1 = battles_ofile[(battles_ofile['MONSTER'].str.contains(str(Monster)) == True) &
                    (battles_ofile['AREA'].str.contains(str(Area_l)) == True)]
 
-battles_all = []
+    battles_all = []
 
+    def find_between(s, first, last):
+        try:
+            start = s.index(first) + len(first)
+            end = s.index(last, start)
+            return s[start:end]
+        except ValueError:
+            return ""
 
-def find_between(s, first, last):
-    try:
-        start = s.index(first) + len(first)
-        end = s.index(last, start)
-        return s[start:end]
-    except ValueError:
-        return ""
+    bats = []
+    if batt_times >= 10:
+        bats = [a1.iat[0, -1]]
+    else:
+        for i in range(0, batt_times):
+            bats.append(a1.iat[0, i + 2])
 
-bats = []
-if batt_times >= 10:
-    bats = [a1.iat[0, -1]]
-else:
-    for i in range(0, batt_times):
-        bats.append(a1.iat[0, i + 2])
+    battles_d = {}
+    bat_oorder = {}
+    bats1 = [x for x in bats if "No Drop" not in x]
 
-battles_d = {}
-bat_oorder = {}
-bats1 = [x for x in bats if "No Drop" not in x]
-
-if len(bats1) < 1:
-    st.write('No enemies to encounter')
-else:
-    for s in bats1:
-        nums = re.findall('\d+', s)
-        els = []
-        N = len(nums)
-        for i in range(0, N):
-            if 'No Drops' in s:
-                els = []
-                break
-            else:
-                if i < 1:
-                    els.append(s.split(nums[i])[0].replace(' - ', '').replace('\n', ''))
+    if len(bats1) < 1:
+        st.write('No enemies to encounter')
+    else:
+        for s in bats1:
+            nums = re.findall('\d+', s)
+            els = []
+            N = len(nums)
+            for i in range(0, N):
+                if 'No Drops' in s:
+                    els = []
+                    break
                 else:
-                    if i > N - 1:
-                        els.append(s.split(nums[i])[-1].replace(' - ', '').replace('\n', ''))
+                    if i < 1:
+                        els.append(s.split(nums[i])[0].replace(' - ', '').replace('\n', ''))
                     else:
-                        x = find_between(s, nums[i - 1], nums[i])
-                        els.append(x.replace(' - ', '').replace('\n', ''))
+                        if i > N - 1:
+                            els.append(s.split(nums[i])[-1].replace(' - ', '').replace('\n', ''))
+                        else:
+                            x = find_between(s, nums[i - 1], nums[i])
+                            els.append(x.replace(' - ', '').replace('\n', ''))
 
-        if els:
-            for ele in els:
-                j = els.index(ele)
-                if ele not in bat_oorder.keys():
-                    bat_oorder[ele] = int(nums[j])
-                else:
-                    bat_oorder[ele] += int(nums[j])
-        else:
-            pass
+            if els:
+                for ele in els:
+                    j = els.index(ele)
+                    if ele not in bat_oorder.keys():
+                        bat_oorder[ele] = int(nums[j])
+                    else:
+                        bat_oorder[ele] += int(nums[j])
+            else:
+                pass
 
-spiritual_elements = pd.DataFrame.from_dict(
-    {'Items': list(bat_oorder.keys()),
-     'Amount': list(bat_oorder.values()),
-     'Type': [d_type(i) for i in list(bat_oorder.keys())]})
+    spiritual_elements = pd.DataFrame.from_dict(
+        {'Items': list(bat_oorder.keys()),
+         'Amount': list(bat_oorder.values()),
+         'Type': [d_type(i) for i in list(bat_oorder.keys())]})
 
-plot_enem_items(spiritual_elements)
+    st.write(f"Against :green[{Monster}]")
+    plot_enem_items(spiritual_elements)
 
 
 print('-------------------------------------- Recipes Crystals -----------------------------------------------')
