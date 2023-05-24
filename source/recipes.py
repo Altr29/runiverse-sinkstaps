@@ -273,7 +273,7 @@ def tiers_plots(df, tier, els, NAME):
         logging.error('Error in tier_plots ', e)
 
 
-def items_summary(df, tier, els, title, ememies_items, gnodes_items):
+def items_summary(df, tier, els, title, ememies_items, RARITY):
     gc_list = ['GOLD COST']
     if 'Equipment' in title:
         gc_list = ['Gold Cost']
@@ -309,31 +309,13 @@ def items_summary(df, tier, els, title, ememies_items, gnodes_items):
         fisi_df = pd.DataFrame.from_dict(
             {'Items': list(count_fis.keys()),
              'Family': [d_type(i) for i in list(count_fis.keys())],
-             'AmountRequiredOnRecipe': [count_fis[el] for el in list(count_fis.keys())],
              'ExtractionsRequiredOnRecipe': [math.ceil(count_fis[el]/element_multiplier(d_type(el))) for el in
                                              list(count_fis.keys())]
              })
 
-        # elite_b = -count_gold['GOLD']+enemies_gold['Elite']
-        # standard_b = -count_gold['GOLD']+enemies_gold['Standard']
-
-        # def _msj(condition):
-        #    con = [
-        #    '(More gold is required than dropped by enemies)' if condition < 0 else
-        #    '(Enough gold required vs dropped by enemies)'][
-        #    0]
-        #    return con
-
-        # st.write(f":blue[1) Gold: Drop by Enemies - Required by {title} Recipe tier {tier} ({count_gold['GOLD']} Units):] ")
-        # st.write(
-        #         f" :green[Elite]: {elite_b} units {_msj(elite_b)}")
-        # st.write(
-        #    f" :green[Standard]: {standard_b} units {_msj(standard_b)}"
-        #         )
-        # st.write(
-        #    f" :green[Elite+Standard]: {enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD']} units "
-        #    f"{_msj(enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD'])}"
-        # )
+        st.write(
+            f":blue[1) Physical Items required] to complete -{title} {RARITY} Recipe tier {tier}-.")
+        st.write(fisi_df)
 
         st.write(f" :blue[2) Summary of Spiritual Items required by -{title} Recipe tier {tier}-.]")
         ememies_items.rename(columns={'Amount': 'InputByEnemies'}, inplace=True)
@@ -341,11 +323,6 @@ def items_summary(df, tier, els, title, ememies_items, gnodes_items):
         spitit_fin['InputByEnemies'] = spitit_fin['InputByEnemies'].replace(np.nan, 0)
         spitit_fin['Item Balance'] = spitit_fin['InputByEnemies'] - spitit_fin['RequiredOnRecipe']
         st.write(spitit_fin[['Items', 'Type', 'InputByEnemies', 'RequiredOnRecipe', 'Item Balance']])
-
-        st.write(
-            f":blue[3) Summary of Physical Items required] by -{title} Recipe tier {tier}- **Measured by Number of Extractions**.")
-        # fisi_df_fin = pd.merge(fisi_df, gnodes_items[['Items', 'GNodesInput']], on=["Items"], how='left')
-        st.write(fisi_df)
 
     except Exception as e:
         logging.error('Error in items_summary ', e)
