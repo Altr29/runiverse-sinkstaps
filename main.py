@@ -21,13 +21,7 @@ batt_times = st.sidebar.slider('Number of battles', min_value=1, max_value=10, v
 Area_l = st.sidebar.selectbox('Area of Battle',
                               ('Area 1', 'Area 2', 'Area 3',
                                'Area 4', 'Area 5', 'Area 6'))
-# epm = st.sidebar.slider('Extractions per minute', min_value=1, max_value=50, value=5, step=1)
-gems_nu = st.sidebar.slider('Gems G Nodes used', min_value=0, max_value=12, value=3, step=1)
-els_nu = st.sidebar.slider('Elements G Nodes used', min_value=0, max_value=12, value=1, step=1)
-met_nu = st.sidebar.slider('Metals G Nodes used', min_value=0, max_value=12, value=2, step=1)
-fab_nu = st.sidebar.slider('Fabrics G Nodes used', min_value=0, max_value=12, value=2, step=1)
-woods_nu = st.sidebar.slider('Woods G Nodes used', min_value=0, max_value=12, value=2, step=1)
-ston_nu = st.sidebar.slider('Stones G Nodes used', min_value=0, max_value=12, value=2, step=1)
+
 
 alpha_reg = st.checkbox('ALPHA Version')
 st.header(f":blue[INTRODUCTION: Recipes System as the mechanism to combat inflation in the Runiverse.]")
@@ -35,7 +29,8 @@ st.header(f":blue[INTRODUCTION: Recipes System as the mechanism to combat inflat
 st.write(f"This dashboard illustrates how the recipes mechanism serves as a sink for Runiverse taps "
          f"(gathering nodes and enemies that drops physical, spiritual and gold). ")
 st.write(f":green[Taps] we have for resources creation: on {'ALPHA Version of' if alpha_reg else 'Final Version of'} "
-         f"Runiverse we have a) {'Gathering Nodes' if alpha_reg else 'Plots'} that input physical elements into the world"
+         f"Runiverse we have a) {'Gathering Nodes' if alpha_reg else 'Plots'} that input physical elements into the "
+         f"world "
          f"and 2) Enemies drops spiritual and Gold.")
 st.write(f":green[Sinks:] recipes requires a combination of gold and physical and spiritual materials.")
 st.write(
@@ -79,7 +74,7 @@ _summ(df1, type, multiplier)
 
 df_woods_vals = pd.DataFrame.from_dict(
     {'Items': [i for i in list(df1[type].unique())],
-     'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else woods_nu * multiplier
+     'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else 1 * multiplier
                      for i in list(df1[type].unique())]
      })
 
@@ -89,7 +84,7 @@ _summ(df1, type, multiplier)
 
 df_stone_vals = pd.DataFrame.from_dict(
     {'Items': [i for i in list(df1[type].unique())],
-     'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else ston_nu * multiplier
+     'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else 1 * multiplier
                      for i in list(df1[type].unique())]
      })
 
@@ -98,7 +93,7 @@ nodes(type, df1, alpha_reg)
 _summ(df1, type, multiplier)
 df_gems_vals = pd.DataFrame.from_dict(
     {'Items': [i for i in list(df1[type].unique())],
-     'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else gems_nu * multiplier
+     'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else 1 * multiplier
                      for i in list(df1[type].unique())]
      })
 
@@ -107,7 +102,7 @@ nodes(type, df1, alpha_reg)
 _summ(df1, type, multiplier)
 df_element_vals = pd.DataFrame.from_dict(
     {'Items': [i for i in list(df1[type].unique())],
-     'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else els_nu * multiplier
+     'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else 1 * multiplier
                      for i in list(df1[type].unique())]
      })
 
@@ -116,7 +111,7 @@ nodes(type, df1, alpha_reg)
 _summ(df1, type, multiplier)
 df_Fabrics_vals = pd.DataFrame.from_dict(
     {'Items': [i for i in list(df1[type].unique())],
-     'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else fab_nu * multiplier
+     'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else 1 * multiplier
                      for i in list(df1[type].unique())]
      })
 
@@ -125,7 +120,7 @@ nodes(type, df1, alpha_reg)
 _summ(df1, type, multiplier)
 df_Metals_vals = pd.DataFrame.from_dict(
     {'Items': [i for i in list(df1[type].unique())],
-     'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else met_nu * multiplier
+     'GNodesInput': [0 if df1[df1[type] == i][type + 'Frecuency'].sum() <= 0 else 1 * multiplier
                      for i in list(df1[type].unique())]
      })
 

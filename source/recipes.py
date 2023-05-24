@@ -314,15 +314,11 @@ def items_summary(df, tier, els, title, ememies_items, RARITY):
              })
 
         st.write(
-            f":blue[1) Physical Items required] to complete -{title} {RARITY} Recipe tier {tier}-.")
+            f":blue[1) Physical Items required] to complete -{RARITY} {title} Recipe tier {tier}-.")
         st.write(fisi_df)
 
-        st.write(f" :blue[2) Summary of Spiritual Items required by -{title} Recipe tier {tier}-.]")
-        ememies_items.rename(columns={'Amount': 'InputByEnemies'}, inplace=True)
-        spitit_fin = pd.merge(spirit_df, ememies_items[['Items', 'InputByEnemies']], on=["Items"], how='left')
-        spitit_fin['InputByEnemies'] = spitit_fin['InputByEnemies'].replace(np.nan, 0)
-        spitit_fin['Item Balance'] = spitit_fin['InputByEnemies'] - spitit_fin['RequiredOnRecipe']
-        st.write(spitit_fin[['Items', 'Type', 'InputByEnemies', 'RequiredOnRecipe', 'Item Balance']])
+        st.write(f" :blue[2) Summary of Spiritual Items required by -{RARITY} {title} Recipe tier {tier}-.]")
+        st.write(spirit_df)
 
     except Exception as e:
         logging.error('Error in items_summary ', e)
