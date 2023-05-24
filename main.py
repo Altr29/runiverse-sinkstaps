@@ -155,6 +155,7 @@ Monster_l = st.selectbox(
 
 st.write(f"You chose to battle :green[{batt_times} times] on :green[{Area_l}] Against :green[{Monster_l}]")
 
+
 battles_ofile = pd.read_excel('source/ALPHA wild resources (1).xlsx', sheet_name='Battles', header=0)
 battles_ofile.fillna(method='ffill', inplace=True)
 
@@ -235,20 +236,22 @@ st.header(f"{recipe[:5].upper() + ' ' + recipe[5:12] + ' ' + recipe[12:]}")
 df, els = recipes_type(recipe, 15, -8, 'CRYSTAL NAME')
 df2 = totals(df, els)
 
-st.write(f''':level_slider:''')
+st.write(f''':level_slider: TIER 1''')
 tiers_plots(df, 'I', els, "CRYSTAL NAME")
-# gold_cost(df, 'I', 'CRYSTAL NAME', 'GOLD COST')
 items_summary(df, 'I', els, 'Crystals', spiritual_elements, result)
+gold_cost(df, 'I', 'CRYSTAL NAME', 'GOLD COST')
 
-st.write(f''':level_slider: :level_slider:''')
+
+st.write(f''':level_slider: :level_slider: TIER 2''')
 tiers_plots(df, 'II', els, "CRYSTAL NAME")
-# gold_cost(df,'II','CRYSTAL NAME','GOLD COST')
 items_summary(df, 'II', els, 'Crystals', spiritual_elements, result)
+gold_cost(df, 'II', 'CRYSTAL NAME', 'GOLD COST')
 
-st.write(f''':level_slider: :level_slider: :level_slider:''')
+
+st.write(f''':level_slider: :level_slider: :level_slider: TIER 3''')
 tiers_plots(df, 'III', els, "CRYSTAL NAME")
-# gold_cost(df,'III','CRYSTAL NAME','GOLD COST')
 items_summary(df, 'III', els, 'Crystals', spiritual_elements, result)
+gold_cost(df, 'III', 'CRYSTAL NAME', 'GOLD COST')
 
 
 print('------------------------------------- Equipment ---------------------------------------------------------')
@@ -260,20 +263,23 @@ st.write(f''':gear: :gear: :gear: :gear:''')
 df, els = recipes_type(recipe, 9, -11, 'NAME')
 
 df2 = totals(df, els)
-st.write(f''':level_slider:''')
+st.write(f''':level_slider: TIER 1''')
 tiers_plots(df, 'I', els, "NAME")
-# gold_cost(df,'I','NAME','Gold Cost')
 items_summary(df, 'I', els, 'Equipment', spiritual_elements, result)
+gold_cost(df, 'I', 'NAME', 'Gold Cost')
 
-st.write(f''':level_slider: :level_slider:''')
+
+st.write(f''':level_slider: :level_slider: TIER 2''')
 tiers_plots(df, 'II', els, "NAME")
-# gold_cost(df,'II','NAME','Gold Cost')
 items_summary(df, 'II', els, 'Equipment', spiritual_elements, result)
+gold_cost(df, 'II', 'NAME', 'Gold Cost')
 
-st.write(f''':level_slider: :level_slider: :level_slider:''')
+
+st.write(f''':level_slider: :level_slider: :level_slider: TIER 3''')
 tiers_plots(df, 'III', els, "NAME")
-# gold_cost(df,'III','NAME','Gold Cost')
 items_summary(df, 'III', els, 'Equipment', spiritual_elements, result)
+gold_cost(df,'III','NAME','Gold Cost')
+# time_to_collect(df,'NAME', epm, els, 'III', shard_ipm, ember_ipm, soul_ipm)
 
 
 print('-------------------------------------BUILDINGS TBD-------------------------------------------------------')

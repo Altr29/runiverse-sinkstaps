@@ -7,56 +7,56 @@ from source.inputs import gems_list, els_list, stones_list, woods_list, fabrics_
 from source.functions import element_multiplier
 
 woods_stones = {
-    'Primary':[24,48,72,96],
-    'Secondary':[16,32,48,64],
-    'Tertiary':[8,16,24,32]
+    'Primary': [24, 48, 72, 96],
+    'Secondary': [16, 32, 48, 64],
+    'Tertiary': [8, 16, 24, 32]
 }
 
 fabrics_metals = {
-    'Primary':[12,24,36,48],
-    'Secondary':[8,16,24,32],
-    'Tertiary':[4,8,12,16]
+    'Primary': [12, 24, 36, 48],
+    'Secondary': [8, 16, 24, 32],
+    'Tertiary': [4, 8, 12, 16]
 }
 
 gems_els = {
-    'Primary':[6,12,18,24],
-    'Secondary':[4,8,12,16],
-    'Tertiary':[2,4,6,8]
+    'Primary': [6, 12, 18, 24],
+    'Secondary': [4, 8, 12, 16],
+    'Tertiary': [2, 4, 6, 8]
 }
 
 shard = {
-    'Primary':[9,18,27,36],
-    'Secondary':[6,12,18,24],
-    'Tertiary':[3,6,9,12]
+    'Primary': [9, 18, 27, 36],
+    'Secondary': [6, 12, 18, 24],
+    'Tertiary': [3, 6, 9, 12]
 }
 ember = {
-    'Primary':[6,	12,	18,	24],
-    'Secondary':[4,8,12,16],
-    'Tertiary':[2,4,6,8]
+    'Primary': [6, 12, 18, 24],
+    'Secondary': [4, 8, 12, 16],
+    'Tertiary': [2, 4, 6, 8]
 }
 soul = {
-    'Primary':[3,6,9,12],
-    'Secondary':[2,4,6,8],
-    'Tertiary':[1,2,3,4]
+    'Primary': [3, 6, 9, 12],
+    'Secondary': [2, 4, 6, 8],
+    'Tertiary': [1, 2, 3, 4]
 }
 
-costs = {'PhysicalMaterials':[woods_stones, fabrics_metals, gems_els],
-         'SpiritualMaterials':[shard, ember, soul]}
+costs = {'PhysicalMaterials': [woods_stones, fabrics_metals, gems_els],
+         'SpiritualMaterials': [shard, ember, soul]}
 
 
 def recipes_type(recipe_type, init, fin, NAME):
     try:
-        alpha_recipes = pd.read_excel('source/ALPHA Recipes (2).xlsx',sheet_name=recipe_type, header = 1)
-        alpha_recipes0 = pd.read_excel('source/ALPHA Recipes (2).xlsx',sheet_name=recipe_type, header = 0)
+        alpha_recipes = pd.read_excel('source/ALPHA Recipes (2).xlsx', sheet_name=recipe_type, header=1)
+        alpha_recipes0 = pd.read_excel('source/ALPHA Recipes (2).xlsx', sheet_name=recipe_type, header=0)
         alpha_recipes0 = alpha_recipes0[alpha_recipes0[NAME].str.contains('item|Item') == False]
-        alpha_recipes0.rename(columns={'TIER ':'TIER'}, inplace=True)
+        alpha_recipes0.rename(columns={'TIER ': 'TIER'}, inplace=True)
         cols_names = {}
-        for k in range(0,46):
+        for k in range(0, 46):
             if 'Unnamed' in alpha_recipes0.columns[k] and 'Unnamed' not in alpha_recipes.columns[k]:
-                cols_names[alpha_recipes0.columns[k]]=alpha_recipes.columns[k]
+                cols_names[alpha_recipes0.columns[k]] = alpha_recipes.columns[k]
             else:
                 if 'Unnamed' in alpha_recipes.columns[k] and 'Unnamed' not in alpha_recipes0.columns[k]:
-                    cols_names[alpha_recipes0.columns[k]]=alpha_recipes0.columns[k]
+                    cols_names[alpha_recipes0.columns[k]] = alpha_recipes0.columns[k]
                 else:
                     pass
 
@@ -67,11 +67,13 @@ def recipes_type(recipe_type, init, fin, NAME):
         els = list(cols)[init:-1]
 
         alpha_recipes_f['TIER'] = alpha_recipes_f['TIER'].replace('1', 'I').replace(1, 'I').replace(
-                                                '2','II').replace('3', 'III').replace(2, 'II').replace(3, 'III')
+            '2', 'II').replace('3', 'III').replace(2, 'II').replace(3, 'III')
         for col in els:
             alpha_recipes_f[col] = alpha_recipes_f[col].replace('-', 'None').replace('1',
-                                    'Primary').replace('2', 'Secondary').replace('3', 'Tertiary').replace(1,
-                                                    'Primary').replace(2, 'Secondary').replace(3,'Tertiary')
+                                                                                     'Primary').replace('2',
+                                                                                                        'Secondary').replace(
+                '3', 'Tertiary').replace(1,
+                                         'Primary').replace(2, 'Secondary').replace(3, 'Tertiary')
         for el in els:
             if 'Shard' in el:
                 field = shard
@@ -79,73 +81,71 @@ def recipes_type(recipe_type, init, fin, NAME):
                 field = ember
             elif 'Soul' in soul:
                 field = soul
-            elif el in woods_list+stones_list:
+            elif el in woods_list + stones_list:
                 field = woods_stones
-            elif el in fabrics_list+metals_list:
+            elif el in fabrics_list + metals_list:
                 field = fabrics_metals
-            elif el in gems_list+els_list:
+            elif el in gems_list + els_list:
                 field = gems_els
 
             alpha_recipes_f[el] = np.select(
                 [
                     (alpha_recipes_f['RARITY'] == 'Common') & (alpha_recipes_f['TIER'] == 'I') & (
-                                alpha_recipes_f[el] == 'Primary'),
+                            alpha_recipes_f[el] == 'Primary'),
                     (alpha_recipes_f['RARITY'] == 'Common') & (alpha_recipes_f['TIER'] == 'II') & (
-                                alpha_recipes_f[el] == 'Primary'),
+                            alpha_recipes_f[el] == 'Primary'),
                     (alpha_recipes_f['RARITY'] == 'Common') & (alpha_recipes_f['TIER'] == 'III') & (
-                                alpha_recipes_f[el] == 'Primary'),
+                            alpha_recipes_f[el] == 'Primary'),
                     (alpha_recipes_f['RARITY'] == 'Uncommon') & (alpha_recipes_f['TIER'] == 'I') & (
-                                alpha_recipes_f[el] == 'Primary'),
+                            alpha_recipes_f[el] == 'Primary'),
                     (alpha_recipes_f['RARITY'] == 'Uncommon') & (alpha_recipes_f['TIER'] == 'II') & (
-                                alpha_recipes_f[el] == 'Primary'),
+                            alpha_recipes_f[el] == 'Primary'),
                     (alpha_recipes_f['RARITY'] == 'Uncommon') & (alpha_recipes_f['TIER'] == 'III') & (
-                                alpha_recipes_f[el] == 'Primary'),
+                            alpha_recipes_f[el] == 'Primary'),
                     (alpha_recipes_f['RARITY'] == 'Rare') & (alpha_recipes_f['TIER'] == 'I') & (
-                                alpha_recipes_f[el] == 'Primary'),
+                            alpha_recipes_f[el] == 'Primary'),
                     (alpha_recipes_f['RARITY'] == 'Rare') & (alpha_recipes_f['TIER'] == 'II') & (
-                                alpha_recipes_f[el] == 'Primary'),
+                            alpha_recipes_f[el] == 'Primary'),
                     (alpha_recipes_f['RARITY'] == 'Rare') & (alpha_recipes_f['TIER'] == 'III') & (
-                                alpha_recipes_f[el] == 'Primary'),
-
+                            alpha_recipes_f[el] == 'Primary'),
 
                     (alpha_recipes_f['RARITY'] == 'Common') & (alpha_recipes_f['TIER'] == 'I') & (
-                                alpha_recipes_f[el] == 'Secondary'),
+                            alpha_recipes_f[el] == 'Secondary'),
                     (alpha_recipes_f['RARITY'] == 'Common') & (alpha_recipes_f['TIER'] == 'II') & (
-                                alpha_recipes_f[el] == 'Secondary'),
+                            alpha_recipes_f[el] == 'Secondary'),
                     (alpha_recipes_f['RARITY'] == 'Common') & (alpha_recipes_f['TIER'] == 'III') & (
-                                alpha_recipes_f[el] == 'Secondary'),
+                            alpha_recipes_f[el] == 'Secondary'),
                     (alpha_recipes_f['RARITY'] == 'Uncommon') & (alpha_recipes_f['TIER'] == 'I') & (
-                                alpha_recipes_f[el] == 'Secondary'),
+                            alpha_recipes_f[el] == 'Secondary'),
                     (alpha_recipes_f['RARITY'] == 'Uncommon') & (alpha_recipes_f['TIER'] == 'II') & (
-                                alpha_recipes_f[el] == 'Secondary'),
+                            alpha_recipes_f[el] == 'Secondary'),
                     (alpha_recipes_f['RARITY'] == 'Uncommon') & (alpha_recipes_f['TIER'] == 'III') & (
-                                alpha_recipes_f[el] == 'Secondary'),
+                            alpha_recipes_f[el] == 'Secondary'),
                     (alpha_recipes_f['RARITY'] == 'Rare') & (alpha_recipes_f['TIER'] == 'I') & (
-                                alpha_recipes_f[el] == 'Secondary'),
+                            alpha_recipes_f[el] == 'Secondary'),
                     (alpha_recipes_f['RARITY'] == 'Rare') & (alpha_recipes_f['TIER'] == 'II') & (
-                                alpha_recipes_f[el] == 'Secondary'),
+                            alpha_recipes_f[el] == 'Secondary'),
                     (alpha_recipes_f['RARITY'] == 'Rare') & (alpha_recipes_f['TIER'] == 'III') & (
-                                alpha_recipes_f[el] == 'Secondary'),
-
+                            alpha_recipes_f[el] == 'Secondary'),
 
                     (alpha_recipes_f['RARITY'] == 'Common') & (alpha_recipes_f['TIER'] == 'I') & (
-                                alpha_recipes_f[el] == 'Tertiary'),
+                            alpha_recipes_f[el] == 'Tertiary'),
                     (alpha_recipes_f['RARITY'] == 'Common') & (alpha_recipes_f['TIER'] == 'II') & (
-                                alpha_recipes_f[el] == 'Tertiary'),
+                            alpha_recipes_f[el] == 'Tertiary'),
                     (alpha_recipes_f['RARITY'] == 'Common') & (alpha_recipes_f['TIER'] == 'III') & (
-                                alpha_recipes_f[el] == 'Tertiary'),
+                            alpha_recipes_f[el] == 'Tertiary'),
                     (alpha_recipes_f['RARITY'] == 'Uncommon') & (alpha_recipes_f['TIER'] == 'I') & (
-                                alpha_recipes_f[el] == 'Tertiary'),
+                            alpha_recipes_f[el] == 'Tertiary'),
                     (alpha_recipes_f['RARITY'] == 'Uncommon') & (alpha_recipes_f['TIER'] == 'II') & (
-                                alpha_recipes_f[el] == 'Tertiary'),
+                            alpha_recipes_f[el] == 'Tertiary'),
                     (alpha_recipes_f['RARITY'] == 'Uncommon') & (alpha_recipes_f['TIER'] == 'III') & (
-                                alpha_recipes_f[el] == 'Tertiary'),
+                            alpha_recipes_f[el] == 'Tertiary'),
                     (alpha_recipes_f['RARITY'] == 'Rare') & (alpha_recipes_f['TIER'] == 'I') & (
-                                alpha_recipes_f[el] == 'Tertiary'),
+                            alpha_recipes_f[el] == 'Tertiary'),
                     (alpha_recipes_f['RARITY'] == 'Rare') & (alpha_recipes_f['TIER'] == 'II') & (
-                                alpha_recipes_f[el] == 'Tertiary'),
+                            alpha_recipes_f[el] == 'Tertiary'),
                     (alpha_recipes_f['RARITY'] == 'Rare') & (alpha_recipes_f['TIER'] == 'III') & (
-                                alpha_recipes_f[el] == 'Tertiary')
+                            alpha_recipes_f[el] == 'Tertiary')
                 ],
                 [
                     field['Primary'][0],
@@ -186,7 +186,8 @@ def recipes_type(recipe_type, init, fin, NAME):
         logging.error('Error recipes_type>>> ', e)
         return None, []
 
-def time_to_collect(df,NAME, epm, els, tier, shard_ipm, ember_ipm, soul_ipm):
+
+def time_to_collect(df, NAME, epm, els, tier, shard_ipm, ember_ipm, soul_ipm):
     df1 = df[df['TIER'] == tier]
     try:
         for el in els:
@@ -195,16 +196,16 @@ def time_to_collect(df,NAME, epm, els, tier, shard_ipm, ember_ipm, soul_ipm):
             elif 'Ember' in el:
                 df1[el + '_time'] = df1[el].apply(lambda x: int(x / ember_ipm))
             elif 'Soul' in el:
-                    df1[el + '_time'] = df1[el].apply(lambda x: int(x / soul_ipm))
+                df1[el + '_time'] = df1[el].apply(lambda x: int(x / soul_ipm))
             else:
-                if el in woods_list+stones_list:
-                    k=5
-                elif el in fabrics_list+metals_list:
-                    k=3
-                elif el in gems_list+els_list:
+                if el in woods_list + stones_list:
+                    k = 5
+                elif el in fabrics_list + metals_list:
+                    k = 3
+                elif el in gems_list + els_list:
                     k = 1
 
-            df1[el+'_time'] = df1[el].apply(lambda x: int((x/epm)/k))
+            df1[el + '_time'] = df1[el].apply(lambda x: int((x / epm) / k))
 
         els1 = [k + '_time' for k in els]
         fig = px.bar(
@@ -219,6 +220,7 @@ def time_to_collect(df,NAME, epm, els, tier, shard_ipm, ember_ipm, soul_ipm):
         logging.error('Error time_to_collect >>> ', e)
         return None
 
+
 def totals(alpha_recipes_f2, els):
     try:
         field = {'Shard': [], 'Ember': [], 'Soul': [], 'w_s': [], 'm_f': [], 'g_e': []}
@@ -229,11 +231,11 @@ def totals(alpha_recipes_f2, els):
                 field['Ember'].append(el)
             elif 'Soul' in soul:
                 field['Soul'].append(el)
-            elif el in woods_list+stones_list:
+            elif el in woods_list + stones_list:
                 field['w_s'].append(el)
-            elif el in fabrics_list+metals_list:
+            elif el in fabrics_list + metals_list:
                 field['m_f'].append(el)
-            elif el in gems_list+els_list:
+            elif el in gems_list + els_list:
                 field['g_e'].append(el)
 
         alpha_recipes_f2['Shard_total'] = alpha_recipes_f2[field['Shard']].sum(axis=1)
@@ -255,10 +257,10 @@ def tiers_plots(df, tier, els, NAME):
         if 'III' in tier:
             cuts = 25
 
-        df1 = df[df['TIER']==tier]
+        df1 = df[df['TIER'] == tier]
         fig = px.bar(
             df1, x=NAME, y=els,
-            hover_data=['RARITY', 'TIER'],labels={"value": "Items"},
+            hover_data=['RARITY', 'TIER'], labels={"value": "Items"},
             text_auto=True)
         fig.update_layout(title=f"Items needed per recipe - TIER {tier}", title_x=0.25)
         fig.update_yaxes(tick0=0, dtick=cuts)
@@ -277,7 +279,7 @@ def items_summary(df, tier, els, title, ememies_items, gnodes_items):
     try:
         df1 = df[df['TIER'] == tier]
         if 'ALL' in tier:
-            df1=df
+            df1 = df
 
         count_sp = {}
         count_fis = {}
@@ -292,7 +294,7 @@ def items_summary(df, tier, els, title, ememies_items, gnodes_items):
                 count_gold['GOLD'] = df1[el].sum()
             else:
                 if df1[el].sum() > 0:
-                    count_fis[el] = int(df1[el].sum()/element_multiplier(el))
+                    count_fis[el] = int(df1[el].sum() / element_multiplier(el))
                 else:
                     pass
 
@@ -305,56 +307,52 @@ def items_summary(df, tier, els, title, ememies_items, gnodes_items):
         fisi_df = pd.DataFrame.from_dict(
             {'Items': list(count_fis.keys()),
              'Family': [d_type(i) for i in list(count_fis.keys())],
-             'ExtRequiredOnRecipe': list(count_fis.values())
+             'ExtractionsRequiredOnRecipe': list(count_fis.values())
              })
 
-        #elite_b = -count_gold['GOLD']+enemies_gold['Elite']
-        #standard_b = -count_gold['GOLD']+enemies_gold['Standard']
+        # elite_b = -count_gold['GOLD']+enemies_gold['Elite']
+        # standard_b = -count_gold['GOLD']+enemies_gold['Standard']
 
-        #def _msj(condition):
+        # def _msj(condition):
         #    con = [
         #    '(More gold is required than dropped by enemies)' if condition < 0 else
         #    '(Enough gold required vs dropped by enemies)'][
         #    0]
         #    return con
 
-        #st.write(f":blue[1) Gold: Drop by Enemies - Required by {title} Recipe tier {tier} ({count_gold['GOLD']} Units):] ")
-        #st.write(
+        # st.write(f":blue[1) Gold: Drop by Enemies - Required by {title} Recipe tier {tier} ({count_gold['GOLD']} Units):] ")
+        # st.write(
         #         f" :green[Elite]: {elite_b} units {_msj(elite_b)}")
-        #st.write(
+        # st.write(
         #    f" :green[Standard]: {standard_b} units {_msj(standard_b)}"
         #         )
-        #st.write(
+        # st.write(
         #    f" :green[Elite+Standard]: {enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD']} units "
         #    f"{_msj(enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD'])}"
-        #)
-
+        # )
 
         st.write(f" :blue[2) Summary of Spiritual Items required by -{title} Recipe tier {tier}-.]")
-        ememies_items.rename(columns ={'Amount':'InputByEnemies'}, inplace=True)
-        spitit_fin = pd.merge(spirit_df,ememies_items[['Items','InputByEnemies']],on=["Items"], how='left')
+        ememies_items.rename(columns={'Amount': 'InputByEnemies'}, inplace=True)
+        spitit_fin = pd.merge(spirit_df, ememies_items[['Items', 'InputByEnemies']], on=["Items"], how='left')
         spitit_fin['InputByEnemies'] = spitit_fin['InputByEnemies'].replace(np.nan, 0)
-        spitit_fin['Item Balance'] = spitit_fin['InputByEnemies']-spitit_fin['RequiredOnRecipe']
-        st.write(spitit_fin[['Items','Type','InputByEnemies','RequiredOnRecipe','Item Balance']])
+        spitit_fin['Item Balance'] = spitit_fin['InputByEnemies'] - spitit_fin['RequiredOnRecipe']
+        st.write(spitit_fin[['Items', 'Type', 'InputByEnemies', 'RequiredOnRecipe', 'Item Balance']])
 
-
-        st.write(f":blue[3) Summary of Physical Items required] by -{title} Recipe tier {tier}- **Measured by Number of Extractions**.")
-        fisi_df_fin = pd.merge(fisi_df, gnodes_items[['Items', 'GNodesInput']], on=["Items"], how='left')
-        fisi_df_fin['GNodesInput'] = fisi_df_fin['GNodesInput'].replace(np.nan, 0)
-        fisi_df_fin['Item Balance'] = fisi_df_fin['GNodesInput'] - fisi_df_fin['ExtRequiredOnRecipe']
-        fisi_df_fin['Intra pct'] = fisi_df_fin['ExtRequiredOnRecipe']/fisi_df_fin['GNodesInput']
-        fisi_df_fin['Pct'] = fisi_df_fin['Intra pct'] .apply(lambda x: str("{:.2f}".format(x*100))+' %')
-        st.write(fisi_df_fin[['Items', 'Family', 'GNodesInput', 'ExtRequiredOnRecipe','Pct', 'Item Balance']])
+        st.write(
+            f":blue[3) Summary of Physical Items required] by -{title} Recipe tier {tier}- **Measured by Number of Extractions**.")
+        # fisi_df_fin = pd.merge(fisi_df, gnodes_items[['Items', 'GNodesInput']], on=["Items"], how='left')
+        st.write(fisi_df)
 
     except Exception as e:
         logging.error('Error in items_summary ', e)
 
+
 def gold_cost(df, tier, NAME, title):
     try:
-        df1 = df[df['TIER']==tier]
+        df1 = df[df['TIER'] == tier]
         fig = px.bar(
             df1, x=NAME, y=title,
-            hover_data=['RARITY', 'TIER'],labels={"GOLD COST": "Gold Unities"},
+            hover_data=['RARITY', 'TIER'], labels={"GOLD COST": "Gold Unities"},
             text_auto=True, title=f"Gold Cost - TIER {tier}")
         fig.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
         st.plotly_chart(fig, theme="streamlit", use_container_width=True)
