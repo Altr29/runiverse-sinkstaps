@@ -206,6 +206,7 @@ else:
 battles_d = {}
 bat_oorder = {}
 bats1=[ x for x in bats if "No Drop" not in x ]
+import re
 
 st.write('Battles: ', len(bats1))
 if len(bats1)<1:
