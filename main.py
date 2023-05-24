@@ -185,7 +185,7 @@ battles_ofile.fillna(method='ffill', inplace=True)
 a1 = battles_ofile[(battles_ofile['MONSTER'].str.contains(str(Monster_l))==True) &
                                (battles_ofile['AREA'].str.contains(str(Area_l))==True)]
 
-#st.dataframe(a1)
+st.dataframe(a1)
 
 battles_all = []
 def find_between( s, first, last ):
@@ -233,6 +233,8 @@ for s in bats:
                 bat_oorder[ele] += int(nums[j])
     else:
         pass
+
+st.write('---->',bat_oorder)
 
 from source.inputs import d_type
 spiritual_elements = pd.DataFrame.from_dict(
