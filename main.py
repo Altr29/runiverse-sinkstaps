@@ -207,30 +207,34 @@ battles_d = {}
 bat_oorder = {}
 
 for s in bats:
-    nums = re.findall('\d+', s)
-    els = []
-    N = len(nums)
-    for i in range(0, N):
-        if 'No Drops' in s:
-            els = []
-            break
-        else:
-            if i < 1:
-                els.append(s.split(nums[i])[0].replace(' - ', '').replace('\n', ''))
-            else:
-                if i > N - 1:
-                    els.append(s.split(nums[i])[-1].replace(' - ', '').replace('\n', ''))
-                else:
-                    x = find_between(s, nums[i - 1], nums[i])
-                    els.append(x.replace(' - ', '').replace('\n', ''))
 
-    if els:
-        for ele in els:
-            j = els.index(ele)
-            if ele not in bat_oorder.keys():
-                bat_oorder[ele] = int(nums[j])
+    nums = re.findall('\d+', s)
+    if nums:
+        els = []
+        N = len(nums)
+        for i in range(0, N):
+            if 'No Drops' in s:
+                els = []
+                break
             else:
-                bat_oorder[ele] += int(nums[j])
+                if i < 1:
+                    els.append(s.split(nums[i])[0].replace(' - ', '').replace('\n', ''))
+                else:
+                    if i > N - 1:
+                        els.append(s.split(nums[i])[-1].replace(' - ', '').replace('\n', ''))
+                    else:
+                        x = find_between(s, nums[i - 1], nums[i])
+                        els.append(x.replace(' - ', '').replace('\n', ''))
+
+        if els:
+            for ele in els:
+                j = els.index(ele)
+                if ele not in bat_oorder.keys():
+                    bat_oorder[ele] = int(nums[j])
+                else:
+                    bat_oorder[ele] += int(nums[j])
+        else:
+            pass
     else:
         pass
 
