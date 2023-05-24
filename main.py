@@ -7,6 +7,9 @@ from source.recipes import recipes_type
 from source.enemies import *
 from source.inputs import gems_list, els_list, stones_list, woods_list, fabrics_list, metals_list, event
 import plotly.graph_objects as go
+import re
+from source.inputs import d_type
+
 
 
 SAMPLE_SPREADSHEET_ID_input = event['SAMPLE_SPREADSHEET_ID']
@@ -185,7 +188,7 @@ battles_ofile.fillna(method='ffill', inplace=True)
 a1 = battles_ofile[(battles_ofile['MONSTER'].str.contains(str(Monster_l))==True) &
                                (battles_ofile['AREA'].str.contains(str(Area_l))==True)]
 
-st.dataframe(a1)
+#st.dataframe(a1)
 
 battles_all = []
 def find_between( s, first, last ):
@@ -206,7 +209,7 @@ else:
 battles_d = {}
 bat_oorder = {}
 bats1=[ x for x in bats if "No Drop" not in x ]
-import re
+
 
 st.write('Battles: ', len(bats1))
 if len(bats1)<1:
@@ -241,9 +244,6 @@ else:
         else:
             pass
 
-st.write('---->',bat_oorder)
-
-from source.inputs import d_type
 spiritual_elements = pd.DataFrame.from_dict(
             {'Items': list(bat_oorder.keys()),
              'Amount': list(bat_oorder.values()),
