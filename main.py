@@ -138,7 +138,7 @@ result = pd.concat(frames)
 print('------------------------------- ENEMIES ENEMIES ENEMIES ---------------------------------------------')
 st.markdown(f"<h1 style='text-align: center; color: red;'>2. Battles </h1>", unsafe_allow_html=True)
 st.write(f":blue[Spiritual Items dropped by Enemies.] "
-         f"For this section, we take the numbers from "
+         f"For this section, we take the numbers on battles from "
          f"[Battle Drops](https://docs.google.com/spreadsheets/d/1T2sUbs_L4tgRqlHD6aW0EmOGNmHF4PCK158Ac2kokNk/edit#gid=0).")
 
 monsters_dict = {'Area 1': ('Wolf', 'Giant Rat', 'Giant Bat', 'Cockatrice '),
@@ -150,18 +150,16 @@ monsters_dict = {'Area 1': ('Wolf', 'Giant Rat', 'Giant Bat', 'Cockatrice '),
                  'Area 6': ('Chemist ', 'Enforcer', 'Gunpowder Banshee')}
 
 Monster_l = st.selectbox(
-    'Monster choice',
+    'Monster to battle',
     monsters_dict[Area_l])
 
-st.write('You chose to battle ', batt_times, 'times on', Area_l, ' Against ', Monster_l)
+st.write(f"You chose to battle :green[{batt_times} times] on :green[{Area_l}] Against :green[{Monster_l}]")
 
 battles_ofile = pd.read_excel('source/ALPHA wild resources (1).xlsx', sheet_name='Battles', header=0)
 battles_ofile.fillna(method='ffill', inplace=True)
 
 a1 = battles_ofile[(battles_ofile['MONSTER'].str.contains(str(Monster_l)) == True) &
                    (battles_ofile['AREA'].str.contains(str(Area_l)) == True)]
-
-# st.dataframe(a1)
 
 battles_all = []
 
@@ -174,7 +172,6 @@ def find_between(s, first, last):
     except ValueError:
         return ""
 
-
 bats = []
 if batt_times >= 10:
     bats = [a1.iat[0, -1]]
@@ -186,12 +183,10 @@ battles_d = {}
 bat_oorder = {}
 bats1 = [x for x in bats if "No Drop" not in x]
 
-# st.write('Battles: ', len(bats1))
 if len(bats1) < 1:
-    st.write('No enemies to enconter')
+    st.write('No enemies to encounter')
 else:
     for s in bats1:
-        # st.write('first enemy ', s)
         nums = re.findall('\d+', s)
         els = []
         N = len(nums)
@@ -224,12 +219,7 @@ spiritual_elements = pd.DataFrame.from_dict(
      'Amount': list(bat_oorder.values()),
      'Type': [d_type(i) for i in list(bat_oorder.keys())]})
 
-# st.dataframe(spiritual_elements)
-
 plot_enem_items(spiritual_elements)
-
-# spiritual_elements = collect_(df)
-# plot_enem_items(spiritual_elements)
 
 
 print('-------------------------------------- Recipes Crystals -----------------------------------------------')
@@ -249,19 +239,16 @@ st.write(f''':level_slider:''')
 tiers_plots(df, 'I', els, "CRYSTAL NAME")
 # gold_cost(df, 'I', 'CRYSTAL NAME', 'GOLD COST')
 items_summary(df, 'I', els, 'Crystals', spiritual_elements, result)
-# time_to_collect(df,'CRYSTAL NAME', epm, els, 'I', shard_ipm, ember_ipm, soul_ipm)
 
 st.write(f''':level_slider: :level_slider:''')
 tiers_plots(df, 'II', els, "CRYSTAL NAME")
 # gold_cost(df,'II','CRYSTAL NAME','GOLD COST')
 items_summary(df, 'II', els, 'Crystals', spiritual_elements, result)
-# time_to_collect(df,'CRYSTAL NAME', epm, els, 'II', shard_ipm, ember_ipm, soul_ipm)
 
 st.write(f''':level_slider: :level_slider: :level_slider:''')
 tiers_plots(df, 'III', els, "CRYSTAL NAME")
 # gold_cost(df,'III','CRYSTAL NAME','GOLD COST')
 items_summary(df, 'III', els, 'Crystals', spiritual_elements, result)
-# time_to_collect(df,'CRYSTAL NAME', epm, els, 'III', shard_ipm, ember_ipm, soul_ipm)
 
 
 print('------------------------------------- Equipment ---------------------------------------------------------')
@@ -277,19 +264,16 @@ st.write(f''':level_slider:''')
 tiers_plots(df, 'I', els, "NAME")
 # gold_cost(df,'I','NAME','Gold Cost')
 items_summary(df, 'I', els, 'Equipment', spiritual_elements, result)
-# time_to_collect(df,'NAME', epm, els, 'I', shard_ipm, ember_ipm, soul_ipm)
 
 st.write(f''':level_slider: :level_slider:''')
 tiers_plots(df, 'II', els, "NAME")
 # gold_cost(df,'II','NAME','Gold Cost')
 items_summary(df, 'II', els, 'Equipment', spiritual_elements, result)
-# time_to_collect(df,'NAME', epm, els, 'II', shard_ipm, ember_ipm, soul_ipm)
 
 st.write(f''':level_slider: :level_slider: :level_slider:''')
 tiers_plots(df, 'III', els, "NAME")
 # gold_cost(df,'III','NAME','Gold Cost')
 items_summary(df, 'III', els, 'Equipment', spiritual_elements, result)
-# time_to_collect(df,'NAME', epm, els, 'III', shard_ipm, ember_ipm, soul_ipm)
 
 
 print('-------------------------------------BUILDINGS TBD-------------------------------------------------------')
