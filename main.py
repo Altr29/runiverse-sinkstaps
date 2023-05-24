@@ -21,6 +21,9 @@ st.sidebar.markdown("## Controls")
 
 multiplier = st.sidebar.slider('Available Extractions on G Node', min_value=1, max_value=60, value=30, step=1)
 batt_times = st.sidebar.slider('Number of battles', min_value=1, max_value=10, value=1, step=1)
+Area_l = st.sidebar.selectbox('Area of Battle',
+                              ('Area 1', 'Area 2', 'Area 3',
+         'Area 4', 'Area 5', 'Area 6'))
 #epm = st.sidebar.slider('Extractions per minute', min_value=1, max_value=50, value=5, step=1)
 gems_nu = st.sidebar.slider('Gems G Nodes used', min_value=0, max_value=12, value=3, step=1)
 els_nu = st.sidebar.slider('Elements G Nodes used', min_value=0, max_value=12, value=1, step=1)
@@ -159,11 +162,6 @@ st.write(f":blue[Spiritual Items dropped by Enemies.] "
 
 
 
-
-Area_l = st.sidebar.selectbox('Area of Battle',
-                              ('Area 1', 'Area 2', 'Area 3',
-         'Area 4', 'Area 5', 'Area 6'))
-
 monsters_dict = {'Area 1': ('Wolf', 'Giant Rat', 'Giant Bat', 'Cockatrice '),
              'Area 2': ('Giant Ant', 'Giant Wasp', 'Giant Spider', 'Gargantuan Beetle'),
              'Area 3': ('Zombie', 'Specter', 'Flame Skull', 'Vampyre'),
@@ -216,7 +214,7 @@ if len(bats1)<1:
     st.write('No enemies to enconter')
 else:
     for s in bats1:
-        st.write('first enemy ', s)
+        #st.write('first enemy ', s)
         nums = re.findall('\d+', s)
         els = []
         N = len(nums)
@@ -249,7 +247,7 @@ spiritual_elements = pd.DataFrame.from_dict(
              'Amount': list(bat_oorder.values()),
              'Type': [d_type(i) for i in list(bat_oorder.keys())]})
 
-st.dataframe(spiritual_elements)
+#st.dataframe(spiritual_elements)
 
 plot_enem_items(spiritual_elements)
 
