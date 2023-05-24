@@ -145,7 +145,7 @@ monsters_dict = {'Area 1': ('Wolf', 'Giant Rat', 'Giant Bat', 'Cockatrice '),
                  'Area 6': ('Chemist ', 'Enforcer', 'Gunpowder Banshee')}
 
 
-st.write(f"You chose to battle :green[{batt_times} times] on :green[{Area_l}]")
+st.write(f"You chose to battle :green[{batt_times} times] on :green[{Area_l}.]")
 
 
 battles_ofile = pd.read_excel('source/ALPHA wild resources (1).xlsx', sheet_name='Battles', header=0)
