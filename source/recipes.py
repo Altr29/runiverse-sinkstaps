@@ -269,7 +269,7 @@ def tiers_plots(df, tier, els, NAME):
         logging.error('Error in tier_plots ', e)
 
 
-def items_summary(df, tier, els, title, ememies_items,enemies_gold, gnodes_items):
+def items_summary(df, tier, els, title, ememies_items, gnodes_items):
     gc_list = ['GOLD COST']
     if 'Equipment' in title:
         gc_list = ['Gold Cost']
@@ -284,14 +284,14 @@ def items_summary(df, tier, els, title, ememies_items,enemies_gold, gnodes_items
         count_gold = {}
         for el in els + gc_list:
             if 'Shard' in el or 'Soul' in el or 'Ember' in el:
-                if df1[el].sum()>0:
+                if df1[el].sum() > 0:
                     count_sp[el] = df1[el].sum()
                 else:
                     pass
             elif el in gc_list:
                 count_gold['GOLD'] = df1[el].sum()
             else:
-                if df1[el].sum()>0:
+                if df1[el].sum() > 0:
                     count_fis[el] = int(df1[el].sum()/element_multiplier(el))
                 else:
                     pass
@@ -308,26 +308,26 @@ def items_summary(df, tier, els, title, ememies_items,enemies_gold, gnodes_items
              'ExtRequiredOnRecipe': list(count_fis.values())
              })
 
-        elite_b = -count_gold['GOLD']+enemies_gold['Elite']
-        standard_b = -count_gold['GOLD']+enemies_gold['Standard']
+        #elite_b = -count_gold['GOLD']+enemies_gold['Elite']
+        #standard_b = -count_gold['GOLD']+enemies_gold['Standard']
 
-        def _msj(condition):
-            con = [
-            '(More gold is required than dropped by enemies)' if condition < 0 else
-            '(Enough gold required vs dropped by enemies)'][
-            0]
-            return con
+        #def _msj(condition):
+        #    con = [
+        #    '(More gold is required than dropped by enemies)' if condition < 0 else
+        #    '(Enough gold required vs dropped by enemies)'][
+        #    0]
+        #    return con
 
-        st.write(f":blue[1) Gold: Drop by Enemies - Required by {title} Recipe tier {tier} ({count_gold['GOLD']} Units):] ")
-        st.write(
-                 f" :green[Elite]: {elite_b} units {_msj(elite_b)}")
-        st.write(
-            f" :green[Standard]: {standard_b} units {_msj(standard_b)}"
-                 )
-        st.write(
-            f" :green[Elite+Standard]: {enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD']} units "
-            f"{_msj(enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD'])}"
-        )
+        #st.write(f":blue[1) Gold: Drop by Enemies - Required by {title} Recipe tier {tier} ({count_gold['GOLD']} Units):] ")
+        #st.write(
+        #         f" :green[Elite]: {elite_b} units {_msj(elite_b)}")
+        #st.write(
+        #    f" :green[Standard]: {standard_b} units {_msj(standard_b)}"
+        #         )
+        #st.write(
+        #    f" :green[Elite+Standard]: {enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD']} units "
+        #    f"{_msj(enemies_gold['Elite']+enemies_gold['Standard']-count_gold['GOLD'])}"
+        #)
 
 
         st.write(f" :blue[2) Summary of Spiritual Items required by -{title} Recipe tier {tier}-.]")
