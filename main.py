@@ -242,10 +242,14 @@ for s in bats:
     else:
         pass
 
+from source.inputs import d_type
 spiritual_elements = pd.DataFrame.from_dict(
             {'Items': list(bat_oorder.keys()),
              'Amount': list(bat_oorder.values()),
              'Type': [d_type(i) for i in list(bat_oorder.keys())]})
+
+st.dataframe(spiritual_elements)
+
 plot_enem_items(spiritual_elements)
 
 
@@ -272,8 +276,8 @@ if alpha_reg:
     st.dataframe(dict_)
 
 
-gold_unities={'Elite':df[df['Type']=='Elite']['Gold Drop'].sum(),
-              'Standard':df[df['Type']=='Standard']['Gold Drop'].sum()}
+gold_unities={'Elite': df[df['Type'] == 'Elite']['Gold Drop'].sum(),
+              'Standard': df[df['Type'] == 'Standard']['Gold Drop'].sum()}
 
 gold_drop(df, 'Monster', 'Gold Drop')
 st.write(
