@@ -155,7 +155,7 @@ Monster_l = st.selectbox(
 
 st.write('You chose to battle ', batt_times, 'times on', Area_l, ' Against ', Monster_l)
 
-battles_ofile = pd.read_excel('source/ALPHA wild resources.xlsx', sheet_name='Battles', header=0)
+battles_ofile = pd.read_excel('source/ALPHA wild resources (1).xlsx', sheet_name='Battles', header=0)
 battles_ofile.fillna(method='ffill', inplace=True)
 
 a1 = battles_ofile[(battles_ofile['MONSTER'].str.contains(str(Monster_l)) == True) &
