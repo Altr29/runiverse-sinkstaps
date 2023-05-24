@@ -205,12 +205,13 @@ else:
 
 battles_d = {}
 bat_oorder = {}
+bats1=[ x for x in bats if "No Drop" not in x ]
 
-st.write('Battles: ', len(bats))
-for s in bats:
-    if 'No Drops' in s:
-        pass
-    else:
+st.write('Battles: ', len(bats1))
+if len(bats1)<1:
+    st.write('No enemies to enconter')
+else:
+    for s in bats1:
         nums = re.findall('\d+', s)
         els = []
         N = len(nums)
