@@ -233,8 +233,15 @@ st.write(f":blue[Recipes costs] "
 recipe = 'AlphaCrystalRecipes'
 st.header(f"{recipe[:5].upper() + ' ' + recipe[5:12] + ' ' + recipe[12:]}")
 
-df, els = recipes_type(recipe, 15, -8, 'CRYSTAL NAME')
-df2 = totals(df, els)
+df1, els = recipes_type(recipe, 15, -8, 'CRYSTAL NAME')
+df2 = totals(df1, els)
+
+recipe_rarity = st.selectbox('Recipe rarity ', ['Common', 'Uncommon', 'Rare', 'ALL'])
+
+if 'ALL' in recipe_rarity:
+    df = df1
+else:
+    df = df1[df1['RARITY'] == recipe_rarity]
 
 st.write(f''':level_slider: TIER 1''')
 tiers_plots(df, 'I', els, "CRYSTAL NAME")
