@@ -209,7 +209,7 @@ bat_oorder = {}
 bats1=[ x for x in bats if "No Drop" not in x ]
 
 
-st.write('Battles: ', len(bats1))
+#st.write('Battles: ', len(bats1))
 if len(bats1)<1:
     st.write('No enemies to enconter')
 else:
