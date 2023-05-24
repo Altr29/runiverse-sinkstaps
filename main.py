@@ -212,6 +212,7 @@ if len(bats1)<1:
     st.write('No enemies to enconter')
 else:
     for s in bats1:
+        st.write('first enemy ', s)
         nums = re.findall('\d+', s)
         els = []
         N = len(nums)
