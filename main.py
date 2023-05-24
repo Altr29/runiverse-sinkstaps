@@ -206,10 +206,12 @@ else:
 battles_d = {}
 bat_oorder = {}
 
+st.write('Battles: ', len(bats))
 for s in bats:
-
-    nums = re.findall('\d+', s)
-    if nums:
+    if 'No Drops' in s:
+        pass
+    else:
+        nums = re.findall('\d+', s)
         els = []
         N = len(nums)
         for i in range(0, N):
@@ -235,8 +237,6 @@ for s in bats:
                     bat_oorder[ele] += int(nums[j])
         else:
             pass
-    else:
-        pass
 
 st.write('---->',bat_oorder)
 
