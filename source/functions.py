@@ -147,10 +147,4 @@ def __enemy(df, Monster, Area_l, batt_times):
             else:
                 pass
 
-    spiritual_elements = pd.DataFrame.from_dict(
-        {'Items': list(bat_oorder.keys()),
-         'Amount': list(bat_oorder.values()),
-         'Type': [d_type(i) for i in list(bat_oorder.keys())]})
-
-    st.write(f":green[Against {Monster}]")
-    plot_enem_items(spiritual_elements)
+    return bat_oorder

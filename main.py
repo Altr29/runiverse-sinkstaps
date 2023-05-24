@@ -148,8 +148,14 @@ battles_ofile = pd.read_excel('source/ALPHA wild resources (1).xlsx', sheet_name
 battles_ofile.fillna(method='ffill', inplace=True)
 
 for Monster in monsters_dict[Area_l]:
-    __enemy(battles_ofile, Monster, Area_l, batt_times)
+    df_btt = __enemy(battles_ofile, Monster, Area_l, batt_times)
+    spiritual_elements = pd.DataFrame.from_dict(
+        {'Items': list(df_btt.keys()),
+         'Amount': list(df_btt.values()),
+         'Type': [d_type(i) for i in list(df_btt.keys())]})
 
+    st.write(f":green[Against {Monster}]")
+    plot_enem_items(spiritual_elements)
 
 print('-------------------------------------- Recipes Crystals -----------------------------------------------')
 st.markdown(f"<h1 style='text-align: center; color: red;'>3. Recipes Costs</h1>", unsafe_allow_html=True)
