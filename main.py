@@ -182,7 +182,10 @@ st.write('You chose to battle ', batt_times, 'times on', Area_l, ' Against ', Mo
 battles_ofile = pd.read_excel('source/ALPHA wild resources.xlsx',sheet_name='Battles', header = 0)
 battles_ofile.fillna(method='ffill', inplace=True)
 
-battles_file_f = battles_ofile[(battles_ofile['MONSTER'].str.contains(Monster_l)==True) & (battles_ofile['AREA'].str.contains(Area_l)==True)]
+battles_file_f = battles_ofile[(battles_ofile['MONSTER'].str.contains(str(Monster_l))==True) &
+                               (battles_ofile['AREA'].str.contains(str(Area_l))==True)]
+
+st.dataframe(battles_file_f)
 
 battles_all = []
 def find_between( s, first, last ):
