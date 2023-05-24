@@ -197,11 +197,11 @@ def find_between( s, first, last ):
         return ""
 
 bats=[]
-if batt_times >= 10:
-    bats = [a1.iat[0, -1]]
+if battles>=10:
+    bats = [a1.iat[0,-1]]
 else:
-    for i in range(2, batt_times):
-        bats.append(a1.iat[0, i])
+    for i in range(0,battles):
+        bats.append(a1.iat[0,i+2])
 
 battles_d = {}
 bat_oorder = {}
