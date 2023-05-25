@@ -203,18 +203,16 @@ gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
 tier = 'II'
 st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "CRYSTAL NAME")
-count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
-items_summary(count_fis, count_sp, tier, 'Crystals', recipe_rarity)
-#st.write('---->',count_fis)
-
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
+
+items_summary(count_fis, count_sp, tier, 'Crystals', recipe_rarity)
+
 
 for key in count_sp.keys():
     print('==================================================================> ', key, ' _____ ', batt[key])
     if batt[key] == {}:
         st.write(f"To complete :green[{key}] you need to battle in more than one area.")
     else:
-
         st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
         for v in batt[key]:
             print(key, ':  ___', str(v), batt[key][v])
@@ -228,19 +226,16 @@ gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
 tier = 'III'
 st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "CRYSTAL NAME")
-count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
-items_summary(count_fis, count_sp, tier, 'Crystals', recipe_rarity)
-#st.write('---->',count_fis)
+batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
 
-batt = __battles_nedeed(count_fis, monsters_dict, battles_ofile)
+items_summary(count_fis, count_sp, tier, 'Crystals', recipe_rarity)
+
 
 for key in count_sp.keys():
-    print('====================================================================================================== ',
-          key, ' _____ ', batt[key])
+    print('==================================================================> ', key, ' _____ ', batt[key])
     if batt[key] == {}:
         st.write(f"To complete :green[{key}] you need to battle in more than one area.")
     else:
-
         st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
         for v in batt[key]:
             print(key, ':  ___', str(v), batt[key][v])
@@ -273,7 +268,6 @@ for key in count_sp.keys():
     if batt[key] == {}:
         st.write(f"To complete :green[{key}] you need to battle in more than one area.")
     else:
-
         st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
         for v in batt[key]:
             print(key, ':  ___', str(v), batt[key][v])
@@ -295,7 +289,6 @@ for key in count_sp.keys():
     if batt[key] == {}:
         st.write(f"To complete :green[{key}] you need to battle in more than one area.")
     else:
-
         st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
         for v in batt[key]:
             print(key, ':  ___', str(v), batt[key][v])
@@ -319,7 +312,6 @@ for key in count_sp.keys():
     if batt[key] == {}:
         st.write(f"To complete :green[{key}] you need to battle in more than one area.")
     else:
-
         st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
         for v in batt[key]:
             print(key, ':  ___', str(v), batt[key][v])
