@@ -180,18 +180,19 @@ def df_spiritual_items(count_sp, batt):
         else:
             #st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
             dictio['Items'].append(key)
-            dictio['Area 1'].append('')
-            dictio['Area 2'].append('')
-            dictio['Area 3'].append('')
-            dictio['Area 4'].append('')
-            dictio['Area 5'].append('')
-            dictio['Area 6'].append('')
+            dictio['Area 1'].append(0)
+            dictio['Area 2'].append(0)
+            dictio['Area 3'].append(0)
+            dictio['Area 4'].append(0)
+            dictio['Area 5'].append(0)
+            dictio['Area 6'].append(0)
 
             for v in batt[key]:
                 print('___', key, ':  ', str(v),'----', batt[key][v])
                 #st.write(f":green[{str(v)}] : {batt[key][v]}")
-                dictio[str(v)][k] = str(batt[key][v])
+                dictio[str(v)][k] = (sum(batt[key][v].values())/4)
             k+=1
+            print('***************', dictio)
 
     return dictio
 
