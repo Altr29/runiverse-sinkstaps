@@ -318,9 +318,9 @@ def required_items(df, tier, els, title):
         return None, None
 
 
-def items_summary(df, tier, els, title, RARITY):
+def items_summary(fisi_df, spirit_df, tier, title, RARITY):
     try:
-        spirit_df, fisi_df = required_items(df, tier, els, title)
+
         st.write(
             f":blue[1) Physical Items required] to complete -{RARITY} {title} Recipe tier {tier}-.")
         st.write(fisi_df)

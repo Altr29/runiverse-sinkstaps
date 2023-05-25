@@ -1,6 +1,7 @@
 from source.functions import *
 from source.recipes import *
 from source.recipes import recipes_type
+from source.enemies import __battles_nedeed
 from source.enemies import *
 from source.inputs import event
 
@@ -176,10 +177,14 @@ if 'ALL' in recipe_rarity:
 else:
     df = df1[df1['RARITY'] == recipe_rarity]
 
-st.write(f''':level_slider: TIER 1''')
-tiers_plots(df, 'I', els, "CRYSTAL NAME")
-items_summary(df, 'I', els, 'Crystals', recipe_rarity)
-gold_cost(df, 'I', 'CRYSTAL NAME', 'GOLD COST')
+tier = 'I'
+st.write(f''':level_slider: TIER {tier}''')
+tiers_plots(df, tier, els, "CRYSTAL NAME")
+spirit_df, fisi_df = required_items(df, tier, els, "CRYSTAL NAME")
+items_summary(spirit_df, fisi_df, tier, 'Crystals', recipe_rarity)
+batt = __battles_nedeed(spirit_df)
+st.write(f"Required to complete Spiritual elements: {batt}")
+gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
 
 
 st.write(f''':level_slider: :level_slider: TIER 2''')
