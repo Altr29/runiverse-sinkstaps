@@ -121,6 +121,7 @@ def collect_(df):
         logging.error('Error in _collection >>> ', e)
         return None
 
+
 def fun_enemy(df, Monster, Area_l, batt_times):
     a1 = df[(df['MONSTER'].str.contains(str(Monster)) == True) &
             (df['AREA'].str.contains(str(Area_l)) == True)]
@@ -179,13 +180,21 @@ def plot_enem_items(new):
     except Exception as e:
         logging.error('Error in plot_enem_items >>> ', e)
 
-def __filt(__dict):
-    for k, v in __dict.items():
-        for i in range(1, 7):
-            if bool(v['Area ' + str(i)]) == False:
-                __dict[k].pop('Area ' + str(i))
 
-    return __dict
+def __filt(__dict):
+    try:
+        for k, v in __dict.items():
+            for i in range(1, 7):
+                if bool(v['Area ' + str(i)]) == False:
+                    __dict[k].pop('Area ' + str(i))
+        if __dict:
+            return __dict
+        else:
+            return {}
+    except Exception as e:
+        logging.error('Here in __filt ', e)
+        return {}
+
 
 def __battles_nedeed(needed, monsters_dict, enemies_df):
     enough = {}
@@ -209,16 +218,19 @@ def __battles_nedeed(needed, monsters_dict, enemies_df):
                                     pass
                             else:
                                 enough[el][Area_l][Monster] = batt_times
-                            print(f">>>> Battle {batt_times} against Monster is OK")
+                            #print(f">>>> Battle {batt_times} against Monster is OK")
                         else:
                             if batt_times > 9:
                                 pass
                                 # print('Not enough drops of this element even when all battles were used')
                             else:
-                                print(f"Need more than {batt_times} battles agains {Monster}")
+                                pass
+                                #print(f"Need more than {batt_times} battles agains {Monster}")
                     else:
-                        print(f"No Feral Shard in {batt_times} battles agains {Monster}")
+                        pass
+                        #print(f"No Feral Shard in {batt_times} battles agains {Monster}")
+            print('HERE in ',Monster,'--->',enough)
 
-
+    print('HERE in ', enough, '--->', enou2)
     enou2 = __filt(enough)
     return enou2

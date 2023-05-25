@@ -311,7 +311,7 @@ def required_items(df, tier, els, title):
              'ExtractionsRequiredOnRecipe': [math.ceil(count_fis[el] / element_multiplier(d_type(el))) for el in
                                              list(count_fis.keys())]
              })
-        return spirit_df, fisi_df
+        return spirit_df, fisi_df, count_sp
 
     except Exception as e:
         logging.error('In --->', e)

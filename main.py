@@ -182,9 +182,9 @@ else:
 tier = 'I'
 st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "CRYSTAL NAME")
-spirit_df, fisi_df = required_items(df, tier, els, "CRYSTAL NAME")
-items_summary(spirit_df, fisi_df, tier, 'Crystals', recipe_rarity)
-batt = __battles_nedeed(spirit_df, monsters_dict, df)
+spirit_df, fisi_df, count_fis = required_items(df, tier, els, "CRYSTAL NAME")
+items_summary(count_fis, fisi_df, tier, 'Crystals', recipe_rarity)
+batt = __battles_nedeed(count_fis, monsters_dict, battles_ofile)
 st.write(f"Required to complete Spiritual elements: {batt}")
 gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
 
