@@ -181,20 +181,20 @@ tier = 'I'
 st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "CRYSTAL NAME")
 count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
+batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
+
 items_summary(count_fis, count_sp, tier, 'Crystals', recipe_rarity)
 
-batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
-#st.write('···········',batt)
 
-for key, val in batt.items():
+for key in count_sp.keys():
+    print('==================================================================> ', key, ' _____ ', batt[key])
     if batt[key] == {}:
-        pass
+        st.write(f"To complete :green[{key}] you need to battle in more than one area.")
     else:
-        print('---> ', key)
         st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
-        for k, v in val.items():
-            print(k,':  ___', str(v))
-            st.write(f":green[{str(k)}] : {v}")
+        for v in batt[key]:
+            print(key, ':  ___', str(v), batt[key][v])
+            st.write(f":green[{str(v)}] : {batt[key][v]}")
 
 print('Ok')
 gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
@@ -209,15 +209,16 @@ items_summary(count_fis, count_sp, tier, 'Crystals', recipe_rarity)
 
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
 
-for key, val in batt.items():
+for key in count_sp.keys():
+    print('==================================================================> ', key, ' _____ ', batt[key])
     if batt[key] == {}:
-        pass
+        st.write(f"To complete :green[{key}] you need to battle in more than one area.")
     else:
-        print('---> ', key)
+
         st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
-        for k, v in val.items():
-            print(k,':  ___', str(v))
-            st.write(f":green[{str(k)}] : {v}")
+        for v in batt[key]:
+            print(key, ':  ___', str(v), batt[key][v])
+            st.write(f":green[{str(v)}] : {batt[key][v]}")
 
 print('Ok')
 gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
@@ -233,15 +234,17 @@ items_summary(count_fis, count_sp, tier, 'Crystals', recipe_rarity)
 
 batt = __battles_nedeed(count_fis, monsters_dict, battles_ofile)
 
-for key, val in batt.items():
+for key in count_sp.keys():
+    print('====================================================================================================== ',
+          key, ' _____ ', batt[key])
     if batt[key] == {}:
-        pass
+        st.write(f"To complete :green[{key}] you need to battle in more than one area.")
     else:
-        print('---> ', key)
+
         st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
-        for k, v in val.items():
-            print(k,':  ___', str(v))
-            st.write(f":green[{str(k)}] : {v}")
+        for v in batt[key]:
+            print(key, ':  ___', str(v), batt[key][v])
+            st.write(f":green[{str(v)}] : {batt[key][v]}")
 
 print('Ok')
 gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
@@ -263,17 +266,18 @@ st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "NAME")
 count_fis, count_sp = required_items(df, tier, els, "NAME")
 items_summary(count_fis, count_sp, tier, 'Equipment', recipe_rarity)
-batt = __battles_nedeed(count_fis, monsters_dict, battles_ofile)
+batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
 
-for key, val in batt.items():
+for key in count_sp.keys():
+    print('==================================================================> ', key, ' _____ ', batt[key])
     if batt[key] == {}:
-        pass
+        st.write(f"To complete :green[{key}] you need to battle in more than one area.")
     else:
-        print('---> ', key)
-        st.write(f"To complete {key} amount required on this recipe, per area, is enough to have:")
-        for k, v in val.items():
-            print(k,':  ___', str(v))
-            st.write(f":green[{str(k)}] : {v}")
+
+        st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
+        for v in batt[key]:
+            print(key, ':  ___', str(v), batt[key][v])
+            st.write(f":green[{str(v)}] : {batt[key][v]}")
 
 print('Ok')
 gold_cost(df, 'I', 'NAME', 'Gold Cost')
@@ -284,17 +288,18 @@ st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "NAME")
 count_fis, count_sp = required_items(df, tier, els, "NAME")
 items_summary(count_fis, count_sp, tier, 'Equipment', recipe_rarity)
-batt = __battles_nedeed(count_fis, monsters_dict, battles_ofile)
+batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
 
-for key, val in batt.items():
+for key in count_sp.keys():
+    print('==================================================================> ', key, ' _____ ', batt[key])
     if batt[key] == {}:
-        pass
+        st.write(f"To complete :green[{key}] you need to battle in more than one area.")
     else:
-        print('---> ', key)
-        st.write(f"To complete {key} amount required on this recipe, per area, is enough to have:")
-        for k, v in val.items():
-            print(k,':  ___', str(v))
-            st.write(f":green[{str(k)}] : {v}")
+
+        st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
+        for v in batt[key]:
+            print(key, ':  ___', str(v), batt[key][v])
+            st.write(f":green[{str(v)}] : {batt[key][v]}")
 
 print('Ok')
 gold_cost(df, tier, 'NAME', 'Gold Cost')
@@ -307,17 +312,18 @@ st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "NAME")
 count_fis, count_sp = required_items(df, tier, els, "NAME")
 items_summary(count_fis, count_sp, tier, 'Equipment', recipe_rarity)
-batt = __battles_nedeed(count_fis, monsters_dict, battles_ofile)
+batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
 
-for key, val in batt.items():
+for key in count_sp.keys():
+    print('==================================================================> ', key, ' _____ ', batt[key])
     if batt[key] == {}:
-        pass
+        st.write(f"To complete :green[{key}] you need to battle in more than one area.")
     else:
-        print('---> ', key)
-        st.write(f"To complete {key} amount required on this recipe, per area, is enough to have:")
-        for k, v in val.items():
-            print(k,':  ___', str(v))
-            st.write(f":green[{str(k)}] : {v}")
+
+        st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
+        for v in batt[key]:
+            print(key, ':  ___', str(v), batt[key][v])
+            st.write(f":green[{str(v)}] : {batt[key][v]}")
 
 print('Ok')
 gold_cost(df, tier, 'NAME', 'Gold Cost')
