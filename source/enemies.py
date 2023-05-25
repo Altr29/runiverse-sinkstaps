@@ -134,3 +134,46 @@ def plot_enem_items(new):
 
     except Exception as e:
         logging.error('Error in plot_enem_items >>> ', e)
+
+def __filt(__dict):
+    for k, v in __dict.items():
+        for i in range(1, 7):
+            if bool(v['Area ' + str(i)]) == False:
+                __dict[k].pop('Area ' + str(i))
+
+    return __dict
+
+def __battles_nedeed(needed):
+    enough = {}
+    for el in needed.keys():
+        enough[el] = {}
+        print(f"=================> {el} <=================")
+
+        for Area_l in monsters_dict.keys():
+            enough[el][Area_l] = {}
+            for batt_times in range(0, 11):
+                print(f"******* {Area_l}: {batt_times} battles *******")
+                for Monster in monsters_dict[Area_l]:
+                    df_btt = __enemy(enemies_df, Monster, Area_l, batt_times)
+                    if el in df_btt.keys():
+                        if needed[el] <= df_btt[el]:
+                            if Monster in enough[el].keys():
+                                if batt_times <= enough[el][Area_l][Monster]:
+                                    enough[el][Area_l][Monster] = batt_times
+                                else:
+                                    pass
+                            else:
+                                enough[el][Area_l][Monster] = batt_times
+                            print(f">>>> Battle {batt_times} against Monster is OK")
+                        else:
+                            if batt_times > 9:
+                                pass
+                                # print('Not enough drops of this element even when all battles were used')
+                            else:
+                                print(f"Need more than {batt_times} battles agains {Monster}")
+                    else:
+                        print(f"No Feral Shard in {batt_times} battles agains {Monster}")
+
+
+    enou2 = __filt(enough)
+    return enou2
