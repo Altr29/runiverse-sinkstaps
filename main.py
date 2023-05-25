@@ -149,6 +149,7 @@ battles_ofile = pd.read_excel('source/ALPHA wild resources (1).xlsx', sheet_name
 battles_ofile.fillna(method='ffill', inplace=True)
 
 for Monster in monsters_dict[Area_l]:
+    print('---> ',Monster)
     df_btt = fun_enemy(battles_ofile, Monster, Area_l, batt_times)
     spiritual_elements = pd.DataFrame.from_dict(
         {'Items': list(df_btt.keys()),
