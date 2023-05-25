@@ -121,54 +121,58 @@ def collect_(df):
         logging.error('Error in _collection >>> ', e)
         return None
 
+def find_elements_in_text(bats1, bat_oorder):
+    for s in bats1:
+        nums = re.findall('\d+', s)
+        els = []
+        N = len(nums)
+        for i in range(0, N):
+            if 'No Drops' in s:
+                els = []
+                break
+            else:
+                if i < 1:
+                    els.append(s.split(nums[i])[0].replace(' - ', '').replace('\n', ''))
+                else:
+                    if i > N - 1:
+                        els.append(s.split(nums[i])[-1].replace(' - ', '').replace('\n', ''))
+                    else:
+                        x = find_between(s, nums[i - 1], nums[i])
+                        els.append(x.replace(' - ', '').replace('\n', ''))
+
+        if els:
+            for ele in els:
+                j = els.index(ele)
+                if ele not in bat_oorder.keys():
+                    bat_oorder[ele] = int(nums[j])
+                else:
+                    bat_oorder[ele] += int(nums[j])
+        else:
+            pass
+    return bat_oorder
 
 def fun_enemy(df, Monster, Area_l, batt_times):
-    a1 = df[(df['MONSTER'].str.contains(str(Monster)) == True) &
-            (df['AREA'].str.contains(str(Area_l)) == True)]
+    try:
+        a1 = df[(df['MONSTER'].str.contains(str(Monster)) == True) &
+                (df['AREA'].str.contains(str(Area_l)) == True)]
 
-    bats = []
-    if batt_times >= 10:
-        bats = [a1.iat[0, -1]]
-    else:
-        for i in range(0, batt_times):
-            bats.append(a1.iat[0, i + 2])
+        bats = []
+        if batt_times >= 10:
+            bats = [a1.iat[0, -1]]
+        else:
+            for i in range(0, batt_times):
+                bats.append(a1.iat[0, i + 2])
 
-    bat_oorder = {}
-    bats1 = [x for x in bats if "No Drop" not in x]
+        if len(bats1) < 1:
+            pass
+            #st.write('No enemies to encounter')
+        else:
+            bat_oorder = find_elements_in_text([x for x in bats if "No Drop" not in x], {})
 
-    if len(bats1) < 1:
-        pass
-        #st.write('No enemies to encounter')
-    else:
-        for s in bats1:
-            nums = re.findall('\d+', s)
-            els = []
-            N = len(nums)
-            for i in range(0, N):
-                if 'No Drops' in s:
-                    els = []
-                    break
-                else:
-                    if i < 1:
-                        els.append(s.split(nums[i])[0].replace(' - ', '').replace('\n', ''))
-                    else:
-                        if i > N - 1:
-                            els.append(s.split(nums[i])[-1].replace(' - ', '').replace('\n', ''))
-                        else:
-                            x = find_between(s, nums[i - 1], nums[i])
-                            els.append(x.replace(' - ', '').replace('\n', ''))
+        return bat_oorder
 
-            if els:
-                for ele in els:
-                    j = els.index(ele)
-                    if ele not in bat_oorder.keys():
-                        bat_oorder[ele] = int(nums[j])
-                    else:
-                        bat_oorder[ele] += int(nums[j])
-            else:
-                pass
-
-    return bat_oorder
+    except Exception as e:
+        return {}
 
 
 def plot_enem_items(new):

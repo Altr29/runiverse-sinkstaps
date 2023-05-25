@@ -194,6 +194,7 @@ def df_spiritual_items(count_sp, batt):
                 if 'Area 5' in v or 'Area 6' in v:
                     n1=3
                 dictio[str(v)][k] = str(sum(batt[key][v].values()))+'/'+str(n1)
+                #dictio[str(v)][k] = batt[key][v].values()
             k+=1
             print('***************', dictio)
 
