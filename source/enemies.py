@@ -185,7 +185,7 @@ def __filt(__dict):
     try:
         for k, v in __dict.items():
             for i in range(1, 7):
-                if bool(v['Area ' + str(i)]) == False:
+                if v['Area ' + str(i)] == {}:
                     __dict[k].pop('Area ' + str(i))
         if __dict:
             return __dict
@@ -207,7 +207,7 @@ def __battles_nedeed(needed, monsters_dict, enemies_df):
             for batt_times in range(1, 11):
 
                 for Monster in monsters_dict[Area_l]:
-                    print(f"******* {Area_l}: {batt_times} battles against {Monster} *******")
+                    #print(f"******* {Area_l}: {batt_times} battles against {Monster} *******")
                     df_btt = fun_enemy(enemies_df, Monster, Area_l, batt_times)
                     if el in df_btt.keys():
                         if needed[el] <= df_btt[el]:
@@ -231,6 +231,7 @@ def __battles_nedeed(needed, monsters_dict, enemies_df):
                         #print(f"No Feral Shard in {batt_times} battles agains {Monster}")
             #print('HERE in ',Monster,'--->',enough)
 
+        print(enough)
 
     enou2 = __filt(enough)
     print('HERE in ', enough, '--->', enou2)
