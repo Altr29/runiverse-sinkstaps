@@ -187,14 +187,16 @@ items_summary(count_fis, fisi_df, tier, 'Crystals', recipe_rarity)
 batt = __battles_nedeed(count_fis, monsters_dict, battles_ofile)
 
 for key, val in batt.items():
-    if val:
-        st.write(f"------> For {key} the combinations to complete it:")
-        for k, v in val.items():
-            st.write(f":green[{k}] : {str(v)}")
-    else:
+    print('HHH ', key)
+    if batt[key]== {}:
         pass
+    else:
+        print(f"------> For {key} the combinations to complete {val}:")
+        for k, v in val.items():
+            print(f":green[{str(k)}] : {v}")
 
-gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
+print('Ok')
+#gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
 
 
 st.write(f''':level_slider: :level_slider: TIER 2''')
