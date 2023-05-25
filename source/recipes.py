@@ -331,7 +331,8 @@ def items_summary(count_fis, count_sp, df_summ_si, tier, title, RARITY):
         r = pd.DataFrame.from_dict(df_summ_si)
         df_spi_fin = spirit_df.merge(r, on=['Items'], how='left')
 
-        st.write(f" :green[2) Spiritual Items] required and Avg Battles Needed to complete it (per area).")
+        st.write(f" :green[2) Spiritual Items] required and Avg Battles (INTRA area) Needed to complete it.")
+
         st.write(df_spi_fin)
 
     except Exception as e:
