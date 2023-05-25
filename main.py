@@ -157,6 +157,44 @@ for Monster in monsters_dict[Area_l]:
     st.write(f":green[Against {Monster}]")
     plot_enem_items(spiritual_elements)
 
+
+#'-------------------------------------- FUNCTIONS -----------------------------------------------'
+
+
+def df_spiritual_items(count_sp, batt):
+    dictio = {
+        'Items': [],
+        'Area 1': [],
+        'Area 2': [],
+        'Area 3': [],
+        'Area 4': [],
+        'Area 5': [],
+        'Area 6': []}
+
+    k=0
+    for key in count_sp.keys():
+        print('==================================================================> ', key, ' _____ ', batt[key])
+        if batt[key] == {}:
+            #st.write(f"To complete :green[{key}] you need to battle in more than one area.")
+            print('No ', key)
+        else:
+            #st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
+            dictio['Items'].append(key)
+            dictio['Area 1'].append('')
+            dictio['Area 2'].append('')
+            dictio['Area 3'].append('')
+            dictio['Area 4'].append('')
+            dictio['Area 5'].append('')
+            dictio['Area 6'].append('')
+
+            for v in batt[key]:
+                print('___', key, ':  ', str(v),'----', batt[key][v])
+                #st.write(f":green[{str(v)}] : {batt[key][v]}")
+                dictio[str(v)][k] = str(batt[key][v])
+            k+=1
+
+    return dictio
+
 print('-------------------------------------- Recipes Crystals -----------------------------------------------')
 st.markdown(f"<h1 style='text-align: center; color: red;'>3. Recipes Costs</h1>", unsafe_allow_html=True)
 
@@ -182,21 +220,8 @@ st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "CRYSTAL NAME")
 count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
-
-items_summary(count_fis, count_sp, tier, 'Crystals', recipe_rarity)
-
-
-for key in count_sp.keys():
-    print('==================================================================> ', key, ' _____ ', batt[key])
-    if batt[key] == {}:
-        st.write(f"To complete :green[{key}] you need to battle in more than one area.")
-    else:
-        st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
-        for v in batt[key]:
-            print(key, ':  ___', str(v), batt[key][v])
-            st.write(f":green[{str(v)}] : {batt[key][v]}")
-
-print('Ok')
+df_summ_si = df_spiritual_items(count_sp, batt)
+items_summary(count_fis, count_sp, df_summ_si, tier, 'Crystals', recipe_rarity)
 gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
 
 
@@ -205,21 +230,8 @@ st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "CRYSTAL NAME")
 count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
-
-items_summary(count_fis, count_sp, tier, 'Crystals', recipe_rarity)
-
-
-for key in count_sp.keys():
-    print('==================================================================> ', key, ' _____ ', batt[key])
-    if batt[key] == {}:
-        st.write(f"To complete :green[{key}] you need to battle in more than one area.")
-    else:
-        st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
-        for v in batt[key]:
-            print(key, ':  ___', str(v), batt[key][v])
-            st.write(f":green[{str(v)}] : {batt[key][v]}")
-
-print('Ok')
+df_summ_si = df_spiritual_items(count_sp, batt)
+items_summary(count_fis, count_sp, df_summ_si, tier, 'Crystals', recipe_rarity)
 gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
 
 
@@ -229,31 +241,16 @@ st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "CRYSTAL NAME")
 count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
-
-items_summary(count_fis, count_sp, tier, 'Crystals', recipe_rarity)
-
-
-for key in count_sp.keys():
-    print('==================================================================> ', key, ' _____ ', batt[key])
-    if batt[key] == {}:
-        st.write(f"To complete :green[{key}] you need to battle in more than one area.")
-    else:
-        st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
-        for v in batt[key]:
-            print(key, ':  ___', str(v), batt[key][v])
-            st.write(f":green[{str(v)}] : {batt[key][v]}")
-
-print('Ok')
+df_summ_si = df_spiritual_items(count_sp, batt)
+items_summary(count_fis, count_sp, df_summ_si, tier, 'Crystals', recipe_rarity)
 gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
+
 
 print('------------------------------------- Equipment ---------------------------------------------------------')
 recipe = 'ALPHA Equiment Recipes'
 st.header(f"{recipe}")
-
 st.write(f''':gear: :gear: :gear: :gear:''')
-
 df, els = recipes_type(recipe, 9, -11, 'NAME')
-
 df2 = totals(df, els)
 
 
@@ -263,20 +260,10 @@ st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "NAME")
 count_fis, count_sp = required_items(df, tier, els, "NAME")
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
-items_summary(count_fis, count_sp, tier, 'Equipment', recipe_rarity)
+df_summ_si = df_spiritual_items(count_sp, batt)
+items_summary(count_fis, count_sp, df_summ_si, tier, 'Equipment', recipe_rarity)
+gold_cost(df, tier, 'NAME', 'Gold Cost')
 
-for key in count_sp.keys():
-    print('==================================================================> ', key, ' _____ ', batt[key])
-    if batt[key] == {}:
-        st.write(f"To complete :green[{key}] you need to battle in more than one area.")
-    else:
-        st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
-        for v in batt[key]:
-            print(key, ':  ___', str(v), batt[key][v])
-            st.write(f":green[{str(v)}] : {batt[key][v]}")
-
-print('Ok')
-gold_cost(df, 'I', 'NAME', 'Gold Cost')
 
 
 tier = 'II'
@@ -284,19 +271,8 @@ st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "NAME")
 count_fis, count_sp = required_items(df, tier, els, "NAME")
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
-items_summary(count_fis, count_sp, tier, 'Equipment', recipe_rarity)
-
-for key in count_sp.keys():
-    print('==================================================================> ', key, ' _____ ', batt[key])
-    if batt[key] == {}:
-        st.write(f"To complete :green[{key}] you need to battle in more than one area.")
-    else:
-        st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
-        for v in batt[key]:
-            print(key, ':  ___', str(v), batt[key][v])
-            st.write(f":green[{str(v)}] : {batt[key][v]}")
-
-print('Ok')
+df_summ_si = df_spiritual_items(count_sp, batt)
+items_summary(count_fis, count_sp, df_summ_si, tier, 'Equipment', recipe_rarity)
 gold_cost(df, tier, 'NAME', 'Gold Cost')
 
 
@@ -307,19 +283,8 @@ st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "NAME")
 count_fis, count_sp = required_items(df, tier, els, "NAME")
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
-items_summary(count_fis, count_sp, tier, 'Equipment', recipe_rarity)
-
-for key in count_sp.keys():
-    print('==================================================================> ', key, ' _____ ', batt[key])
-    if batt[key] == {}:
-        st.write(f"To complete :green[{key}] you need to battle in more than one area.")
-    else:
-        st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
-        for v in batt[key]:
-            print(key, ':  ___', str(v), batt[key][v])
-            st.write(f":green[{str(v)}] : {batt[key][v]}")
-
-print('Ok')
+df_summ_si = df_spiritual_items(count_sp, batt)
+items_summary(count_fis, count_sp, df_summ_si, tier, 'Equipment', recipe_rarity)
 gold_cost(df, tier, 'NAME', 'Gold Cost')
 
 print('-------------------------------------BUILDINGS TBD-------------------------------------------------------')

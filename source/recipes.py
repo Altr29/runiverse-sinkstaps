@@ -307,14 +307,8 @@ def required_items(df, tier, els, title):
         return None, None
 
 
-def items_summary(count_fis, count_sp, tier, title, RARITY):
+def items_summary(count_fis, count_sp, df_summ_si, tier, title, RARITY):
     try:
-        spirit_df = pd.DataFrame.from_dict(
-            {'Items': list(count_sp.keys()),
-             'Type': [d_type(i) for i in list(count_sp.keys())],
-             'RequiredOnRecipe': list(count_sp.values())
-             })
-
         fisi_df = pd.DataFrame.from_dict(
             {'Items': list(count_fis.keys()),
              'Family': [d_type(i) for i in list(count_fis.keys())],
@@ -326,8 +320,16 @@ def items_summary(count_fis, count_sp, tier, title, RARITY):
             f":blue[1) Physical Items required] to complete -{RARITY} {title} Recipe tier {tier}-.")
         st.write(fisi_df)
 
+        spirit_df = pd.DataFrame.from_dict(
+            {'Items': list(count_sp.keys()),
+             'Type': [d_type(i) for i in list(count_sp.keys())],
+             'RequiredOnRecipe': list(count_sp.values())
+             })
+        r = pd.DataFrame.from_dict(df_summ_si)
+        df_spi_fin = spirit_df.merge(r, on=['Items'], how='left')
+
         st.write(f" :blue[2) Summary of Spiritual Items required by -{RARITY} {title} Recipe tier {tier}-.]")
-        st.write(spirit_df)
+        st.write(df_spi_fin)
 
     except Exception as e:
         logging.error('Error in items_summary ', e)
