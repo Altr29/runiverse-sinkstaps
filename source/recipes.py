@@ -332,7 +332,7 @@ def items_summary(count_fis, count_sp, df_summ_si, tier, title, RARITY):
         st.write(df_spi_fin)
 
     except Exception as e:
-        logging.error('Error in items_summary ', e)
+        logging.error('Error in items_summary function ', e)
 
 
 def gold_cost(df, tier, NAME, title):
