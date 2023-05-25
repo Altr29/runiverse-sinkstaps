@@ -1,10 +1,8 @@
 from source.recipes import *
 from source.recipes import recipes_type
-from source.enemies import __battles_nedeed
+from source.enemies import __battles_nedeed, fun_enemy
 from source.enemies import *
 from source.inputs import event
-
-from source.enemies import f_enemy
 
 
 
@@ -151,7 +149,7 @@ battles_ofile = pd.read_excel('source/ALPHA wild resources (1).xlsx', sheet_name
 battles_ofile.fillna(method='ffill', inplace=True)
 
 for Monster in monsters_dict[Area_l]:
-    df_btt = f_enemy(battles_ofile, Monster, Area_l, batt_times)
+    df_btt = fun_enemy(battles_ofile, Monster, Area_l, batt_times)
     spiritual_elements = pd.DataFrame.from_dict(
         {'Items': list(df_btt.keys()),
          'Amount': list(df_btt.values()),

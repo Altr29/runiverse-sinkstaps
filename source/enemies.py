@@ -1,5 +1,7 @@
 from source.inputs import d_type
 from source.functions import *
+import re
+
 
 def enemies_files(sheet):
     enemies0 = pd.read_excel('source/Alpha Enemies.xlsx', sheet_name=sheet)
@@ -119,7 +121,7 @@ def collect_(df):
         logging.error('Error in _collection >>> ', e)
         return None
 
-def f_enemy(df, Monster, Area_l, batt_times):
+def fun_enemy(df, Monster, Area_l, batt_times):
     a1 = df[(df['MONSTER'].str.contains(str(Monster)) == True) &
             (df['AREA'].str.contains(str(Area_l)) == True)]
 
