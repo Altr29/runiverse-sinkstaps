@@ -203,6 +203,7 @@ gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
 tier = 'II'
 st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "CRYSTAL NAME")
+count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
 
 items_summary(count_fis, count_sp, tier, 'Crystals', recipe_rarity)
@@ -226,6 +227,7 @@ gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
 tier = 'III'
 st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "CRYSTAL NAME")
+count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
 
 items_summary(count_fis, count_sp, tier, 'Crystals', recipe_rarity)
@@ -260,8 +262,8 @@ tier = 'I'
 st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "NAME")
 count_fis, count_sp = required_items(df, tier, els, "NAME")
-items_summary(count_fis, count_sp, tier, 'Equipment', recipe_rarity)
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
+items_summary(count_fis, count_sp, tier, 'Equipment', recipe_rarity)
 
 for key in count_sp.keys():
     print('==================================================================> ', key, ' _____ ', batt[key])
@@ -281,8 +283,8 @@ tier = 'II'
 st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "NAME")
 count_fis, count_sp = required_items(df, tier, els, "NAME")
-items_summary(count_fis, count_sp, tier, 'Equipment', recipe_rarity)
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
+items_summary(count_fis, count_sp, tier, 'Equipment', recipe_rarity)
 
 for key in count_sp.keys():
     print('==================================================================> ', key, ' _____ ', batt[key])
@@ -304,8 +306,8 @@ tier = 'III'
 st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "NAME")
 count_fis, count_sp = required_items(df, tier, els, "NAME")
-items_summary(count_fis, count_sp, tier, 'Equipment', recipe_rarity)
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
+items_summary(count_fis, count_sp, tier, 'Equipment', recipe_rarity)
 
 for key in count_sp.keys():
     print('==================================================================> ', key, ' _____ ', batt[key])
