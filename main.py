@@ -185,7 +185,15 @@ tiers_plots(df, tier, els, "CRYSTAL NAME")
 spirit_df, fisi_df, count_fis = required_items(df, tier, els, "CRYSTAL NAME")
 items_summary(count_fis, fisi_df, tier, 'Crystals', recipe_rarity)
 batt = __battles_nedeed(count_fis, monsters_dict, battles_ofile)
-st.write(f"Required to complete Spiritual elements: {batt}")
+
+for key, val in batt.items():
+    if val:
+        st.write(f"------> For {key} the combinations to complete it:")
+        for k, v in val.items():
+            st.write(f":green[{k}] : {str(v)}")
+    else:
+        pass
+
 gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
 
 

@@ -229,8 +229,10 @@ def __battles_nedeed(needed, monsters_dict, enemies_df):
                     else:
                         pass
                         #print(f"No Feral Shard in {batt_times} battles agains {Monster}")
-            print('HERE in ',Monster,'--->',enough)
+            #print('HERE in ',Monster,'--->',enough)
 
-    print('HERE in ', enough, '--->', enou2)
+
     enou2 = __filt(enough)
+    print('HERE in ', enough, '--->', enou2)
+
     return enou2
