@@ -198,7 +198,7 @@ def __battles_nedeed(needed, monsters_dict, enemies_df):
             for batt_times in range(0, 11):
                 print(f"******* {Area_l}: {batt_times} battles *******")
                 for Monster in monsters_dict[Area_l]:
-                    df_btt = f_enemy(enemies_df, Monster, Area_l, batt_times)
+                    df_btt = fun_enemy(enemies_df, Monster, Area_l, batt_times)
                     if el in df_btt.keys():
                         if needed[el] <= df_btt[el]:
                             if Monster in enough[el].keys():
