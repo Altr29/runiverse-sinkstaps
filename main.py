@@ -190,7 +190,7 @@ def df_spiritual_items(count_sp, batt):
             for v in batt[key]:
                 print('___', key, ':  ', str(v),'----', batt[key][v])
                 #st.write(f":green[{str(v)}] : {batt[key][v]}")
-                dictio[str(v)][k] = (sum(batt[key][v].values())/4)
+                dictio[str(v)][k] = (sum(batt[key][v].values())/len(count_sp.keys()))
             k+=1
             print('***************', dictio)
 
