@@ -199,7 +199,7 @@ def __filt(__dict):
 
 def __battles_nedeed(needed, monsters_dict, enemies_df):
     enough = {}
-    print(f"=================> {needed} <=================")
+    print(f"=================> {needed} ; {enemies_df.columns}<=================")
 
     for el in needed.keys():
         enough[el] = {}

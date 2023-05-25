@@ -274,7 +274,7 @@ def tiers_plots(df, tier, els, NAME):
 
 def required_items(df, tier, els, title):
     gc_list = ['GOLD COST']
-    if 'Equipment' in title:
+    if 'CRYSTAL' not in title:
         gc_list = ['Gold Cost']
 
     try:
