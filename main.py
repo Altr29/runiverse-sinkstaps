@@ -1,11 +1,14 @@
-from source.functions import *
 from source.recipes import *
 from source.recipes import recipes_type
 from source.enemies import __battles_nedeed
 from source.enemies import *
 from source.inputs import event
 
-from source.functions import __enemy
+from source.enemies import f_enemy
+
+
+
+
 
 SAMPLE_SPREADSHEET_ID_input = event['SAMPLE_SPREADSHEET_ID']
 SAMPLE_RANGE_NAME = event['SAMPLE_RANGE_NAME']
@@ -148,7 +151,7 @@ battles_ofile = pd.read_excel('source/ALPHA wild resources (1).xlsx', sheet_name
 battles_ofile.fillna(method='ffill', inplace=True)
 
 for Monster in monsters_dict[Area_l]:
-    df_btt = __enemy(battles_ofile, Monster, Area_l, batt_times)
+    df_btt = f_enemy(battles_ofile, Monster, Area_l, batt_times)
     spiritual_elements = pd.DataFrame.from_dict(
         {'Items': list(df_btt.keys()),
          'Amount': list(df_btt.values()),
@@ -182,7 +185,7 @@ st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "CRYSTAL NAME")
 spirit_df, fisi_df = required_items(df, tier, els, "CRYSTAL NAME")
 items_summary(spirit_df, fisi_df, tier, 'Crystals', recipe_rarity)
-batt = __battles_nedeed(spirit_df)
+batt = __battles_nedeed(spirit_df, monsters_dict, df)
 st.write(f"Required to complete Spiritual elements: {batt}")
 gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
 
