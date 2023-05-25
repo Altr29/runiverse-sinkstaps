@@ -299,6 +299,16 @@ def required_items(df, tier, els, title):
                 else:
                     pass
 
+
+        return count_fis, count_sp
+
+    except Exception as e:
+        logging.error('In --->', e)
+        return None, None
+
+
+def items_summary(count_fis, count_sp, tier, title, RARITY):
+    try:
         spirit_df = pd.DataFrame.from_dict(
             {'Items': list(count_sp.keys()),
              'Type': [d_type(i) for i in list(count_sp.keys())],
@@ -311,15 +321,6 @@ def required_items(df, tier, els, title):
              'ExtractionsRequiredOnRecipe': [math.ceil(count_fis[el] / element_multiplier(d_type(el))) for el in
                                              list(count_fis.keys())]
              })
-        return spirit_df, fisi_df, count_sp
-
-    except Exception as e:
-        logging.error('In --->', e)
-        return None, None
-
-
-def items_summary(fisi_df, spirit_df, tier, title, RARITY):
-    try:
 
         st.write(
             f":blue[1) Physical Items required] to complete -{RARITY} {title} Recipe tier {tier}-.")

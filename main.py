@@ -1,10 +1,8 @@
-from source.recipes import *
 from source.recipes import recipes_type
+from source.recipes import *
 from source.enemies import __battles_nedeed, fun_enemy
 from source.enemies import *
 from source.inputs import event
-
-
 
 
 
@@ -182,16 +180,18 @@ else:
 tier = 'I'
 st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "CRYSTAL NAME")
-spirit_df, fisi_df, count_fis = required_items(df, tier, els, "CRYSTAL NAME")
-items_summary(count_fis, fisi_df, tier, 'Crystals', recipe_rarity)
-batt = __battles_nedeed(count_fis, monsters_dict, battles_ofile)
+count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
+items_summary(count_fis, count_sp, tier, 'Crystals', recipe_rarity)
+
+batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
+#st.write('···········',batt)
 
 for key, val in batt.items():
     if batt[key] == {}:
         pass
     else:
         print('---> ', key)
-        st.write(f"To complete {key} amount required on this recipe, per area, is enough to have:")
+        st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
         for k, v in val.items():
             print(k,':  ___', str(v))
             st.write(f":green[{str(k)}] : {v}")
@@ -203,16 +203,18 @@ gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
 tier = 'II'
 st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "CRYSTAL NAME")
-spirit_df, fisi_df, count_fis = required_items(df, tier, els, "CRYSTAL NAME")
-items_summary(count_fis, fisi_df, tier, 'Crystals', recipe_rarity)
-batt = __battles_nedeed(count_fis, monsters_dict, battles_ofile)
+count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
+items_summary(count_fis, count_sp, tier, 'Crystals', recipe_rarity)
+#st.write('---->',count_fis)
+
+batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
 
 for key, val in batt.items():
     if batt[key] == {}:
         pass
     else:
         print('---> ', key)
-        st.write(f"To complete {key} amount required on this recipe, per area, is enough to have:")
+        st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
         for k, v in val.items():
             print(k,':  ___', str(v))
             st.write(f":green[{str(k)}] : {v}")
@@ -225,8 +227,10 @@ gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
 tier = 'III'
 st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "CRYSTAL NAME")
-spirit_df, fisi_df, count_fis = required_items(df, tier, els, "CRYSTAL NAME")
-items_summary(count_fis, fisi_df, tier, 'Crystals', recipe_rarity)
+count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
+items_summary(count_fis, count_sp, tier, 'Crystals', recipe_rarity)
+#st.write('---->',count_fis)
+
 batt = __battles_nedeed(count_fis, monsters_dict, battles_ofile)
 
 for key, val in batt.items():
@@ -234,7 +238,7 @@ for key, val in batt.items():
         pass
     else:
         print('---> ', key)
-        st.write(f"To complete {key} amount required on this recipe, per area, is enough to have:")
+        st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
         for k, v in val.items():
             print(k,':  ___', str(v))
             st.write(f":green[{str(k)}] : {v}")
@@ -257,8 +261,8 @@ df2 = totals(df, els)
 tier = 'I'
 st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "NAME")
-spirit_df, fisi_df, count_fis = required_items(df, tier, els, "NAME")
-items_summary(count_fis, fisi_df, tier, 'Equipment', recipe_rarity)
+count_fis, count_sp = required_items(df, tier, els, "NAME")
+items_summary(count_fis, count_sp, tier, 'Equipment', recipe_rarity)
 batt = __battles_nedeed(count_fis, monsters_dict, battles_ofile)
 
 for key, val in batt.items():
@@ -278,8 +282,8 @@ gold_cost(df, 'I', 'NAME', 'Gold Cost')
 tier = 'II'
 st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "NAME")
-spirit_df, fisi_df, count_fis = required_items(df, tier, els, "NAME")
-items_summary(count_fis, fisi_df, tier, 'Equipment', recipe_rarity)
+count_fis, count_sp = required_items(df, tier, els, "NAME")
+items_summary(count_fis, count_sp, tier, 'Equipment', recipe_rarity)
 batt = __battles_nedeed(count_fis, monsters_dict, battles_ofile)
 
 for key, val in batt.items():
@@ -301,8 +305,8 @@ gold_cost(df, tier, 'NAME', 'Gold Cost')
 tier = 'III'
 st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "NAME")
-spirit_df, fisi_df, count_fis = required_items(df, tier, els, "NAME")
-items_summary(count_fis, fisi_df, tier, 'Equipment', recipe_rarity)
+count_fis, count_sp = required_items(df, tier, els, "NAME")
+items_summary(count_fis, count_sp, tier, 'Equipment', recipe_rarity)
 batt = __battles_nedeed(count_fis, monsters_dict, battles_ofile)
 
 for key, val in batt.items():

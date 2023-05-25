@@ -137,7 +137,8 @@ def fun_enemy(df, Monster, Area_l, batt_times):
     bats1 = [x for x in bats if "No Drop" not in x]
 
     if len(bats1) < 1:
-        st.write('No enemies to encounter')
+        pass
+        #st.write('No enemies to encounter')
     else:
         for s in bats1:
             nums = re.findall('\d+', s)
@@ -198,9 +199,11 @@ def __filt(__dict):
 
 def __battles_nedeed(needed, monsters_dict, enemies_df):
     enough = {}
+    print(f"=================> {needed}: {needed.keys()} <=================")
+
     for el in needed.keys():
         enough[el] = {}
-        print(f"=================> {el} <=================")
+        print(f"................ {el} ................")
 
         for Area_l in monsters_dict.keys():
             enough[el][Area_l] = {}
