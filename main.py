@@ -235,7 +235,7 @@ def ___counting(resources_between_areas, count_sp):
     try:
 
         # initializing compare keys
-        comp_keys = [k in count_sp.keys() if 'Jiggly Shard' not in k]
+        comp_keys = [k for k in count_sp.keys() if 'Jiggly Shard' not in k]
 
         # Compare Dictionaries on certain Keys
         # Using all()
