@@ -232,31 +232,35 @@ items_summary(count_fis, count_sp, df_summ_si, tier, 'Crystals', recipe_rarity)
 print('----- ', count_sp, '----- ')
 
 def ___counting(resources_between_areas, count_sp):
-    N = len(resources_between_areas.values())
-    Battles = 1
-    for k, v in count_sp.items():
-        for key, value in resources_between_areas.items():
+    try:
+        N = len(resources_between_areas.values())
+        Battles = 1
+        for k, v in count_sp.items():
+            for key, value in resources_between_areas.items():
 
-            if N<=1:
-                Battles = key
-                break
+                if N<=1:
+                    Battles = key
+                    break
 
-            if 'Jiggly Shard' in k:
-                N-=1
-                pass
-            else:
-                if k in value.keys() and v<=value[k]:
-                    print('Required ',k, v,'. Having',k, value[k])
-                    print('Battle number ---->', key)
-                    N -= 1
-                else:
-                    N+=1
-                    print('OC Required ', k, v, '. Having', k, value[k])
+                if 'Jiggly Shard' in k:
+                    N-=1
                     pass
-    return Battles
+                else:
+                    if k in value.keys() and v<=value[k]:
+                        print('Required ',k, v,'. Having',k, value[k])
+                        print('Battle number ---->', key)
+                        N -= 1
+                    else:
+                        N+=1
+                        print('OC Required ', k, v, '. Having', k, value[k])
+                        pass
+        return Battles
+    except Exception as e:
+        logging.error('Exception in __counting ',e)
+        return -99
 
 Battles = ___counting(resources_between_areas, count_sp)
-st.write(f"At least :green[{Battles+1} Battles] on each Area are required to complete this recipe.")
+st.write(f"At least :green[{Battles+1} Battles on each Area] (all enemies) are required to complete this recipe.")
 
 
 gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
