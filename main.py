@@ -195,7 +195,7 @@ def df_spiritual_items(count_sp, batt):
                 n1=4
                 if 'Area 5' in v or 'Area 6' in v:
                     n1=3
-                dictio[str(v)][k] = str(sum(batt[key][v].values()))+'/'+str(n1)
+                dictio[str(v)][k] = (sum(batt[key][v].values())/n1)
                 #dictio[str(v)][k] = batt[key][v].values()
             k+=1
             print('***************', dictio)
@@ -229,7 +229,30 @@ count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
 df_summ_si = df_spiritual_items(count_sp, batt)
 items_summary(count_fis, count_sp, df_summ_si, tier, 'Crystals', recipe_rarity)
+print('----- ', count_sp, '----- ')
 
+N = len(resources_between_areas.values())
+Battles = 1
+for key, value in resources_between_areas.items():
+    for k, v in count_sp.items():
+        if N<1:
+            Battles = key
+            break
+
+        if 'Jiggly Shard' in k:
+            N-=1
+            pass
+        else:
+            if k in value.keys() and v>=value[k]:
+                print('Required ',k, v,'. Having',k, value[k])
+                print('Battle number ---->', key)
+                N -= 1
+            else:
+                print('OC Required ', k, v, '. Having', k, value[k])
+                pass
+
+print('------------>>>>>>>>>>> Battles Required ', Battles)
+st.write(f"At least :green[{Battles} Battles] on each Area are required to complete this recipe.")
 
 
 gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
