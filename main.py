@@ -42,7 +42,9 @@ st.markdown(f"<h1 style='text-align: center; color: red;'>1. Gathering Nodes in 
 df1 = read_wild_depositchances(alpha_reg, event)
 
 st.write(f":blue[Number of nodes in world, per family type and Sub-Biome.] "
-         f"{'ALPHA Numbers were taken from level design document [ALPHA](https://miro.com/app/board/uXjVMIR--ak=/)' if alpha_reg else 'Game Release Version numbers come from [(Wild)EssenceStrengthsandResources](https://docs.google.com/spreadsheets/d/1l_V71izAjkLguKZuaj43sGEYR-2bpSLxHFi7ORCcTWo/edit?usp=sharing).'}")
+         f"{'ALPHA Numbers were taken from level design document [ALPHA](https://miro.com/app/board/uXjVMIR--ak=/)'
+    if alpha_reg else 'Game Release Version numbers come from ' \
+            '[(Wild)EssenceStrengthsandResources](https://docs.google.com/spreadsheets/d/1l_V71izAjkLguKZuaj43sGEYR-2bpSLxHFi7ORCcTWo/edit?usp=sharing).'}")
 
 fig = px.bar(df1.sort_values('Sub-Biome'), x="Sub-Biome", y=['WoodsFrecuency', 'GemsFrecuency',
                                                              'FabricsFrecuency', 'MetalsFrecuency', 'StoneFrecuency',
@@ -174,13 +176,9 @@ def df_spiritual_items(count_sp, batt):
 
     k=0
     for key in count_sp.keys():
-        #print('==================================================================> ', key, ' _____ ', batt[key])
         if batt[key] == {}:
-            #st.write(f"To complete :green[{key}] you need to battle in more than one area.")
-            #print('No ', key)
             pass
         else:
-            #st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
             dictio['Items'].append(key)
             dictio['Area 1'].append('')
             dictio['Area 2'].append('')
@@ -190,15 +188,12 @@ def df_spiritual_items(count_sp, batt):
             dictio['Area 6'].append('')
 
             for v in batt[key]:
-                #print('___', key, ':  ', str(v),'----', batt[key][v])
-                #st.write(f":green[{str(v)}] : {batt[key][v]}")
                 n1=4
                 if 'Area 5' in v or 'Area 6' in v:
                     n1=3
-                dictio[str(v)][k] = (sum(batt[key][v].values())/n1)
+                dictio[str(v)][k] = "{:.2f}".format(sum(batt[key][v].values())/n1)
                 #dictio[str(v)][k] = batt[key][v].values()
             k+=1
-            #print('***************', dictio)
 
     return dictio
 
