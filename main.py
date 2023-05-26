@@ -227,8 +227,6 @@ st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "CRYSTAL NAME")
 count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
-st.write(count_sp)
-print('----',count_sp,'--', batt)
 df_summ_si = df_spiritual_items(count_sp, batt)
 items_summary(count_fis, count_sp, df_summ_si, tier, 'Crystals', recipe_rarity)
 
