@@ -216,10 +216,13 @@ def ___counting(resources_between_areas, count_sp, comp_keys):
                 pass
 
         if Battles>10:
-            for key, value in resources_between_areas.items():
-                for k in value:
-                    if value.get(k) < count_sp.get(k):
-                        items_f.append(key)
+            try:
+                for key, value in resources_between_areas.items():
+                    for k in value:
+                        if value.get(k) < count_sp.get(k):
+                            items_f.append(key)
+            except:
+                items_f=[]
 
         return Battles, items_f
 
@@ -229,7 +232,8 @@ def ___counting(resources_between_areas, count_sp, comp_keys):
 
 def conclusion_among_areas(a,b):
     try:
-        excluded = ['Jiggly Shard', 'Jiggly Ember', 'Siphoning Soul', 'Harpy Soul']
+        excluded = ['Jiggly Shard', 'Jiggly Ember', 'Siphoning Soul', 'Harpy Soul','Siphoning Soul','Vampyre Soul',
+                    'Cannon Soul','Chittering Ember']
         n_battles, items = ___counting(a,b, [k for k in count_sp.keys() if k not in excluded])
         if n_battles>10 or n_battles<0:
             st.write(f"No battles are enough to complete this recipe!! {f'''Fail to complete {items}''' if len(items)>0 else ''}.")
