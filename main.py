@@ -233,9 +233,10 @@ print('----- ', count_sp, '----- ')
 
 N = len(resources_between_areas.values())
 Battles = 1
-for key, value in resources_between_areas.items():
-    for k, v in count_sp.items():
-        if N<1:
+for k, v in count_sp.items():
+    for key, value in resources_between_areas.items():
+
+        if N<=1:
             Battles = key
             break
 
@@ -243,16 +244,17 @@ for key, value in resources_between_areas.items():
             N-=1
             pass
         else:
-            if k in value.keys() and v>=value[k]:
+            if k in value.keys() and v<=value[k]:
                 print('Required ',k, v,'. Having',k, value[k])
                 print('Battle number ---->', key)
                 N -= 1
             else:
+                N+=1
                 print('OC Required ', k, v, '. Having', k, value[k])
                 pass
 
 print('------------>>>>>>>>>>> Battles Required ', Battles)
-st.write(f"At least :green[{Battles} Battles] on each Area are required to complete this recipe.")
+st.write(f"At least :green[{Battles+1} Battles] on each Area are required to complete this recipe.")
 
 
 gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
