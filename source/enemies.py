@@ -134,9 +134,7 @@ def find_elements_in_text(bats1, bat_oorder):
                 if i < 1:
                     els.append(s.split(nums[i])[0].replace(' - ', '').replace('\n', ''))
                 else:
-                    if i > N - 1:
-                        els.append(s.split(nums[i])[-1].replace(' - ', '').replace('\n', ''))
-                    else:
+                    if i >= N - 1:
                         x = find_between(s, nums[i - 1], nums[i])
                         els.append(x.replace(' - ', '').replace('\n', ''))
 
