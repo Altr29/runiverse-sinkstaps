@@ -217,8 +217,8 @@ def ___counting(resources_between_areas, count_sp, comp_keys):
 
         if Battles>10:
             for key, value in resources_between_areas.items():
-                for key in comp_keys:
-                    if value.get(key) < count_sp.get(key):
+                for k in value:
+                    if value.get(k) < count_sp.get(k):
                         items_f.append(key)
 
         return Battles, items_f

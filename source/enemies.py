@@ -164,7 +164,7 @@ def fun_enemy(df, Monster, Area_l, batt_times):
         bats1 = [x for x in bats if "No Drop" not in x]
         if len(bats1) < 1:
             pass
-            print('No enemies to encounter')
+            #print('No enemies to encounter')
         else:
             bat_oorder = find_elements_in_text(bats1, {})
 
