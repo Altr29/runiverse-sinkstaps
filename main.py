@@ -225,9 +225,9 @@ def ___counting(resources_between_areas, count_sp):
 
 def conclusion_among_areas(a,b):
     try:
-        Battles = ___counting(a,b)
-        if Battles:
-            st.write(f"At least :green[{Battles} Battles on each Area] (vs all enemies) are required to complete this recipe.")
+        nbattles = ___counting(a,b)
+        if nbattles:
+            st.write(f"Get :green[{nbattles} times into battles (vs each enemies) per Area] are required to complete this recipe.")
         else:
             st.write('No battles are enough to complete this recipe!!')
     except Exception as e:
