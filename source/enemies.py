@@ -163,15 +163,17 @@ def fun_enemy(df, Monster, Area_l, batt_times):
             for i in range(0, batt_times):
                 bats.append(a1.iat[0, i + 2])
 
+        bats1 = [x for x in bats if "No Drop" not in x]
         if len(bats1) < 1:
             pass
-            #st.write('No enemies to encounter')
+            print('No enemies to encounter')
         else:
-            bat_oorder = find_elements_in_text([x for x in bats if "No Drop" not in x], {})
+            bat_oorder = find_elements_in_text(bats1, {})
 
         return bat_oorder
 
     except Exception as e:
+        logging.error('Exception in function enemy ', e)
         return {}
 
 
@@ -214,8 +216,9 @@ def __battles_nedeed(needed, monsters_dict, enemies_df):
             for batt_times in range(11, 1, -1):
 
                 for Monster in monsters_dict[Area_l]:
-                    #print(f"******* {Area_l}: {batt_times} battles against {Monster} *******")
+
                     df_btt = fun_enemy(enemies_df, Monster, Area_l, batt_times)
+                    print(f"******* {Area_l}: {batt_times} battles against {Monster} *******, {df_btt.keys()}")
                     if el in df_btt.keys():
                         if needed[el] <= df_btt[el]:
                             if Monster in enough[el].keys():
@@ -225,18 +228,18 @@ def __battles_nedeed(needed, monsters_dict, enemies_df):
                                     pass
                             else:
                                 enough[el][Area_l][Monster] = batt_times
-                            #print(f">>>> Battle {batt_times} against Monster is OK")
+                            print(f">>>> Battle {batt_times} against Monster is OK")
                         else:
                             if batt_times > 9:
                                 pass
-                                # print('Not enough drops of this element even when all battles were used')
+                                print('Not enough drops of this element even when all battles were used')
                             else:
                                 pass
-                                #print(f"Need more than {batt_times} battles agains {Monster}")
+                                print(f"Need more than {batt_times} battles agains {Monster}")
                     else:
                         pass
-                        #print(f"No Feral Shard in {batt_times} battles agains {Monster}")
-            #print('HERE in ',Monster,'--->',enough)
+                        print(f"No {el} in {batt_times} battles agains {Monster}")
+            print('HERE in ',Monster,'--->',enough)
 
         print(enough)
 

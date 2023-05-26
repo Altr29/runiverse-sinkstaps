@@ -3,6 +3,7 @@ from source.recipes import *
 from source.enemies import __battles_nedeed, fun_enemy
 from source.enemies import *
 from source.inputs import event
+from source.between_areas import resources_between_areas
 
 
 
@@ -147,7 +148,7 @@ battles_ofile = pd.read_excel('source/ALPHA wild resources (1).xlsx', sheet_name
 battles_ofile.fillna(method='ffill', inplace=True)
 
 for Monster in monsters_dict[Area_l]:
-    print('---> ',Monster)
+    #print('---> ',Monster)
     df_btt = fun_enemy(battles_ofile, Monster, Area_l, batt_times)
     spiritual_elements = pd.DataFrame.from_dict(
         {'Items': list(df_btt.keys()),
@@ -177,6 +178,7 @@ def df_spiritual_items(count_sp, batt):
         if batt[key] == {}:
             #st.write(f"To complete :green[{key}] you need to battle in more than one area.")
             print('No ', key)
+            pass
         else:
             #st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
             dictio['Items'].append(key)
@@ -225,8 +227,13 @@ st.write(f''':level_slider: TIER {tier}''')
 tiers_plots(df, tier, els, "CRYSTAL NAME")
 count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
+st.write(count_sp)
+print('----',count_sp,'--', batt)
 df_summ_si = df_spiritual_items(count_sp, batt)
 items_summary(count_fis, count_sp, df_summ_si, tier, 'Crystals', recipe_rarity)
+
+
+
 gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
 
 
