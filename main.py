@@ -174,10 +174,10 @@ def df_spiritual_items(count_sp, batt):
 
     k=0
     for key in count_sp.keys():
-        print('==================================================================> ', key, ' _____ ', batt[key])
+        #print('==================================================================> ', key, ' _____ ', batt[key])
         if batt[key] == {}:
             #st.write(f"To complete :green[{key}] you need to battle in more than one area.")
-            print('No ', key)
+            #print('No ', key)
             pass
         else:
             #st.write(f"To complete :green[{key}] amount required on this recipe, per area, is enough to have:")
@@ -190,7 +190,7 @@ def df_spiritual_items(count_sp, batt):
             dictio['Area 6'].append('')
 
             for v in batt[key]:
-                print('___', key, ':  ', str(v),'----', batt[key][v])
+                #print('___', key, ':  ', str(v),'----', batt[key][v])
                 #st.write(f":green[{str(v)}] : {batt[key][v]}")
                 n1=4
                 if 'Area 5' in v or 'Area 6' in v:
@@ -198,7 +198,7 @@ def df_spiritual_items(count_sp, batt):
                 dictio[str(v)][k] = (sum(batt[key][v].values())/n1)
                 #dictio[str(v)][k] = batt[key][v].values()
             k+=1
-            print('***************', dictio)
+            #print('***************', dictio)
 
     return dictio
 
