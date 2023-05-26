@@ -317,10 +317,10 @@ def items_summary(count_fis, count_sp, df_summ_si, tier, title, RARITY):
              })
 
         st.write(
-            f":blue[{RARITY} {title} Recipe tier {tier}].")
+            f"** :blue[{RARITY} {title} Recipe tier {tier}].**")
 
         st.write(
-            f":green[1) Physical Items] required to complete -{RARITY} {title} Recipe tier {tier}-.")
+            f":blue[1) Physical Items] required to complete -{RARITY} {title} Recipe tier {tier}-.")
         st.write(fisi_df)
 
         spirit_df = pd.DataFrame.from_dict(
@@ -331,7 +331,7 @@ def items_summary(count_fis, count_sp, df_summ_si, tier, title, RARITY):
         r = pd.DataFrame.from_dict(df_summ_si)
         df_spi_fin = spirit_df.merge(r, on=['Items'], how='left')
 
-        st.write(f" :green[2) Spiritual Items] required and Avg Battles (INTRA area) Needed to complete it.")
+        st.write(f" :blue[2) Spiritual Items] required and Avg Battles (INTRA area) Needed to complete it.")
 
         st.write(df_spi_fin)
 
