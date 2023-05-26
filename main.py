@@ -233,27 +233,20 @@ print('----- ', count_sp, '----- ')
 
 def ___counting(resources_between_areas, count_sp):
     try:
-        N = len(resources_between_areas.values())
+
+        # initializing compare keys
+        comp_keys = [k in count_sp.keys() if 'Jiggly Shard' not in k]
+
+        # Compare Dictionaries on certain Keys
+        # Using all()
         Battles = 1
-        for k, v in count_sp.items():
-            for key, value in resources_between_areas.items():
-
-                if N<=1:
-                    Battles = key
-                    break
-
-                if 'Jiggly Shard' in k:
-                    N-=1
-                    pass
-                else:
-                    if k in value.keys() and v<=value[k]:
-                        print('Required ',k, v,'. Having',k, value[k])
-                        print('Battle number ---->', key)
-                        N -= 1
-                    else:
-                        N+=1
-                        print('OC Required ', k, v, '. Having', k, value[k])
-                        pass
+        for key, value in resources_between_areas.items():
+            res = all(value.get(key) >= count_sp.get(key) for key in comp_keys)
+            if res:
+                Battles = key
+                break
+            else:
+                pass
         return Battles
     except Exception as e:
         logging.error('Exception in __counting ',e)
