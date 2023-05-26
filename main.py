@@ -202,35 +202,6 @@ def df_spiritual_items(count_sp, batt):
 
     return dictio
 
-print('-------------------------------------- Recipes Crystals -----------------------------------------------')
-st.markdown(f"<h1 style='text-align: center; color: red;'>3. Recipes Costs</h1>", unsafe_allow_html=True)
-
-st.write(f":blue[Recipes costs] "
-         f"Takes the numbers from Alpha Crystal Recipes "
-         f"[link here](https://docs.google.com/spreadsheets/d/12B1JZbqtY-0UaSpIeCUO28n2R7c17UD3yRieiL4NLRY/edit?usp=sharing).")
-
-recipe = 'AlphaCrystalRecipes'
-st.header(f"{recipe[:5].upper() + ' ' + recipe[5:12] + ' ' + recipe[12:]}")
-
-df1, els = recipes_type(recipe, 15, -8, 'CRYSTAL NAME')
-df2 = totals(df1, els)
-
-recipe_rarity = st.selectbox('Recipe rarity ', ['Common', 'Uncommon', 'Rare', 'ALL'])
-
-if 'ALL' in recipe_rarity:
-    df = df1
-else:
-    df = df1[df1['RARITY'] == recipe_rarity]
-
-tier = 'I'
-st.write(f''':level_slider: TIER {tier}''')
-tiers_plots(df, tier, els, "CRYSTAL NAME")
-count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
-batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
-df_summ_si = df_spiritual_items(count_sp, batt)
-items_summary(count_fis, count_sp, df_summ_si, tier, 'Crystals', recipe_rarity)
-print('----- ', count_sp, '----- ')
-
 def ___counting(resources_between_areas, count_sp):
     try:
         # initializing compare keys
@@ -263,6 +234,34 @@ def conclusion_among_areas(a,b):
         logging.error('Error ', e)
         pass
 
+print('-------------------------------------- Recipes Crystals -----------------------------------------------')
+st.markdown(f"<h1 style='text-align: center; color: red;'>3. Recipes Costs</h1>", unsafe_allow_html=True)
+
+st.write(f":blue[Recipes costs] "
+         f"Takes the numbers from Alpha Crystal Recipes "
+         f"[link here](https://docs.google.com/spreadsheets/d/12B1JZbqtY-0UaSpIeCUO28n2R7c17UD3yRieiL4NLRY/edit?usp=sharing).")
+
+recipe = 'AlphaCrystalRecipes'
+st.header(f"{recipe[:5].upper() + ' ' + recipe[5:12] + ' ' + recipe[12:]}")
+
+df1, els = recipes_type(recipe, 15, -8, 'CRYSTAL NAME')
+df2 = totals(df1, els)
+
+recipe_rarity = st.selectbox('Recipe rarity ', ['Common', 'Uncommon', 'Rare', 'ALL'])
+
+if 'ALL' in recipe_rarity:
+    df = df1
+else:
+    df = df1[df1['RARITY'] == recipe_rarity]
+
+tier = 'I'
+st.write(f''':level_slider: TIER {tier}''')
+tiers_plots(df, tier, els, "CRYSTAL NAME")
+count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
+batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
+df_summ_si = df_spiritual_items(count_sp, batt)
+items_summary(count_fis, count_sp, df_summ_si, tier, 'Crystals', recipe_rarity)
+conclusion_among_areas(resources_between_areas, count_sp)
 gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
 
 
