@@ -222,7 +222,7 @@ def ___counting(resources_between_areas, count_sp, comp_keys):
                         if value.get(k) < count_sp.get(k):
                             if k not in items_f:
                                 items_f.append(k)
-                                items_f_2.append((k, count_sp.get(k)))
+                                items_f_2.append((k, resources_between_areas[10][k]))
             except:
                 items_f_2=[]
 
