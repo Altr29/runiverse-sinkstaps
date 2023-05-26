@@ -221,9 +221,11 @@ def ___counting(resources_between_areas, count_sp, comp_keys):
                     for k in comp_keys:
                         if value.get(k) < count_sp.get(k):
                             if k not in items_f:
-                                items_f.append(k)
-                                items_f_2.append((k, resources_between_areas[10][k],
-                                                  count_sp.get(k)-resources_between_areas[10][k]))
+                                if count_sp.get(k)-resources_between_areas[10][k]>0:
+                                    items_f.append(k)
+
+                                    items_f_2.append((k, resources_between_areas[10][k],
+                                                      count_sp.get(k)-resources_between_areas[10][k]))
             except:
                 items_f_2=[]
 
@@ -239,8 +241,8 @@ def conclusion_among_areas(a,b):
                     'Cannon Soul','Chittering Ember']
         n_battles, items = ___counting(a,b, [k for k in count_sp.keys() if k not in excluded])
         if n_battles>10 or n_battles<0:
-            st.write(f":grey[No battles are enough to complete this recipe!!] "
-                     f"{f'''We have those in 10 battles among areas (item, in 10 battles, needed) {items}''' if len(items)>0 else ''}.")
+            st.write(f":yellow[No battles are enough to complete this recipe!!] "
+                     f"{f'''We have those in 10 battles among areas (item, in 10 battles, needed): {items}''' if len(items)>0 else ''}.")
         else:
             st.write(
                     f'Get :green[{n_battles} times into battles (vs each enemies) per Area] '
