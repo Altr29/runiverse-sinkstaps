@@ -238,11 +238,14 @@ def conclusion_among_areas(a,b):
                     'Cannon Soul','Chittering Ember']
         n_battles, items = ___counting(a,b, [k for k in count_sp.keys() if k not in excluded])
         if n_battles>10 or n_battles<0:
-            st.write(f"No battles are enough to complete this recipe!! {f'''Fail to complete {items}''' if len(items)>0 else ''}.")
+            st.write(f":grey[No battles are enough to complete this recipe!!] "
+                     f"{f'''We have those in 10 battles among areas {items}''' if len(items)>0 else ''}.")
         else:
             st.write(
                     f'Get :green[{n_battles} times into battles (vs each enemies) per Area] '
-                    f'are required to complete this recipe. Excluded {excluded}.')
+                    f'are required to complete this recipe. '
+                    f''
+                f'* Excluded {excluded}.')
 
     except Exception as e:
         logging.error('Error ', e)
