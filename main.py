@@ -231,29 +231,31 @@ df_summ_si = df_spiritual_items(count_sp, batt)
 items_summary(count_fis, count_sp, df_summ_si, tier, 'Crystals', recipe_rarity)
 print('----- ', count_sp, '----- ')
 
-N = len(resources_between_areas.values())
-Battles = 1
-for k, v in count_sp.items():
-    for key, value in resources_between_areas.items():
+def ___counting(resources_between_areas, count_sp):
+    N = len(resources_between_areas.values())
+    Battles = 1
+    for k, v in count_sp.items():
+        for key, value in resources_between_areas.items():
 
-        if N<=1:
-            Battles = key
-            break
+            if N<=1:
+                Battles = key
+                break
 
-        if 'Jiggly Shard' in k:
-            N-=1
-            pass
-        else:
-            if k in value.keys() and v<=value[k]:
-                print('Required ',k, v,'. Having',k, value[k])
-                print('Battle number ---->', key)
-                N -= 1
-            else:
-                N+=1
-                print('OC Required ', k, v, '. Having', k, value[k])
+            if 'Jiggly Shard' in k:
+                N-=1
                 pass
+            else:
+                if k in value.keys() and v<=value[k]:
+                    print('Required ',k, v,'. Having',k, value[k])
+                    print('Battle number ---->', key)
+                    N -= 1
+                else:
+                    N+=1
+                    print('OC Required ', k, v, '. Having', k, value[k])
+                    pass
+    return Battles
 
-print('------------>>>>>>>>>>> Battles Required ', Battles)
+Battles = ___counting(resources_between_areas, count_sp)
 st.write(f"At least :green[{Battles+1} Battles] on each Area are required to complete this recipe.")
 
 
@@ -267,6 +269,9 @@ count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
 df_summ_si = df_spiritual_items(count_sp, batt)
 items_summary(count_fis, count_sp, df_summ_si, tier, 'Crystals', recipe_rarity)
+Battles = ___counting(resources_between_areas, count_sp)
+st.write(f"At least :green[{Battles+1} Battles] on each Area are required to complete this recipe.")
+
 gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
 
 
@@ -278,6 +283,9 @@ count_fis, count_sp = required_items(df, tier, els, "CRYSTAL NAME")
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
 df_summ_si = df_spiritual_items(count_sp, batt)
 items_summary(count_fis, count_sp, df_summ_si, tier, 'Crystals', recipe_rarity)
+Battles = ___counting(resources_between_areas, count_sp)
+st.write(f"At least :green[{Battles+1} Battles] on each Area are required to complete this recipe.")
+
 gold_cost(df, tier, 'CRYSTAL NAME', 'GOLD COST')
 
 
@@ -297,6 +305,9 @@ count_fis, count_sp = required_items(df, tier, els, "NAME")
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
 df_summ_si = df_spiritual_items(count_sp, batt)
 items_summary(count_fis, count_sp, df_summ_si, tier, 'Equipment', recipe_rarity)
+Battles = ___counting(resources_between_areas, count_sp)
+st.write(f"At least :green[{Battles+1} Battles] on each Area are required to complete this recipe.")
+
 gold_cost(df, tier, 'NAME', 'Gold Cost')
 
 
@@ -308,6 +319,9 @@ count_fis, count_sp = required_items(df, tier, els, "NAME")
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
 df_summ_si = df_spiritual_items(count_sp, batt)
 items_summary(count_fis, count_sp, df_summ_si, tier, 'Equipment', recipe_rarity)
+Battles = ___counting(resources_between_areas, count_sp)
+st.write(f"At least :green[{Battles+1} Battles] on each Area are required to complete this recipe.")
+
 gold_cost(df, tier, 'NAME', 'Gold Cost')
 
 
@@ -320,6 +334,9 @@ count_fis, count_sp = required_items(df, tier, els, "NAME")
 batt = __battles_nedeed(count_sp, monsters_dict, battles_ofile)
 df_summ_si = df_spiritual_items(count_sp, batt)
 items_summary(count_fis, count_sp, df_summ_si, tier, 'Equipment', recipe_rarity)
+Battles = ___counting(resources_between_areas, count_sp)
+st.write(f"At least :green[{Battles+1} Battles] on each Area are required to complete this recipe.")
+
 gold_cost(df, tier, 'NAME', 'Gold Cost')
 
 print('-------------------------------------BUILDINGS TBD-------------------------------------------------------')
