@@ -202,15 +202,11 @@ def df_spiritual_items(count_sp, batt):
 
     return dictio
 
-def ___counting(resources_between_areas, count_sp):
+def ___counting(resources_between_areas, count_sp, comp_keys):
     try:
-        # initializing compare keys
-        excluded = ['Jiggly Shard','Jiggly Ember']
-        comp_keys = [k for k in count_sp.keys() if k not in excluded]
-
         # Compare Dictionaries on certain Keys
         # Using all()
-        Battles = 10
+        Battles = 99
         for key, value in resources_between_areas.items():
             res = all(value.get(key) >= count_sp.get(key) for key in comp_keys)
             if res:
@@ -225,11 +221,12 @@ def ___counting(resources_between_areas, count_sp):
 
 def conclusion_among_areas(a,b):
     try:
-        nbattles = ___counting(a,b)
-        if nbattles:
-            st.write(f"Get :green[{nbattles} times into battles (vs each enemies) per Area] are required to complete this recipe.")
-        else:
+        excluded = ['Jiggly Shard', 'Jiggly Ember', 'Siphoning Soul', 'Harpy S']
+        nbattles = ___counting(a,b, [k for k in count_sp.keys() if k not in excluded])
+        if nbattles>10:
             st.write('No battles are enough to complete this recipe!!')
+        else:
+            st.write(f"Get :green[{nbattles} times into battles (vs each enemies) per Area] are required to complete this recipe. Excluded {excluded}.")
     except Exception as e:
         logging.error('Error ', e)
         pass
