@@ -317,7 +317,7 @@ def items_summary(count_fis, count_sp, df_summ_si, tier, title, RARITY):
              })
 
         st.write(
-            f"** :blue[{RARITY} {title} Recipe tier {tier}].**")
+            f":receipt: :blue[{RARITY} {title} Recipe tier {tier}]. :receipt:")
 
         st.write(
             f":blue[1) Physical Items] required to complete -{RARITY} {title} Recipe tier {tier}-.")
