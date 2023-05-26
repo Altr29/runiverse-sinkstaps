@@ -206,7 +206,7 @@ def ___counting(resources_between_areas, count_sp, comp_keys):
     try:
         Battles = 99
         items_f = []
-
+        items_f_2 = []
         for key, value in resources_between_areas.items():
             res = all(value.get(k) >= count_sp.get(k) for k in comp_keys)
             if res:
@@ -222,10 +222,11 @@ def ___counting(resources_between_areas, count_sp, comp_keys):
                         if value.get(k) < count_sp.get(k):
                             if k not in items_f:
                                 items_f.append(k)
+                                items_f_2.append((k, count_sp.get(k)))
             except:
-                items_f=[]
+                items_f_2=[]
 
-        return Battles, items_f
+        return Battles, items_f_2
 
     except Exception as e:
         logging.error('Exception in __counting ',e)
