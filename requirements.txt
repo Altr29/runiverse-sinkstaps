@@ -1,5 +1,5 @@
 jinja2
-pandas==1.4.3
+pandas
 openpyxl==3.0.10
 plotly
 streamlit

@@ -6,14 +6,13 @@ import streamlit as st
 
 
 
-
-def reading_sheets(alpha,event):
+def reading_sheets(alpha, event):
     try:
         if alpha:
-            df = pd.read_excel('source/ALPHA wild resources (2).xlsx', sheet_name='Sheet2')
+            df = pd.read_excel('source/ALPHA wild resources (1).xlsx', sheet_name='W Resources')
         else:
-            SAMPLE_SPREADSHEET_ID=event['SAMPLE_SPREADSHEET_ID']
-            SAMPLE_RANGE_NAME=event['SAMPLE_RANGE_NAME']
+            SAMPLE_SPREADSHEET_ID = event['SAMPLE_SPREADSHEET_ID']
+            SAMPLE_RANGE_NAME = event['SAMPLE_RANGE_NAME']
             url = f'https://docs.google.com/spreadsheets/d/{SAMPLE_SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet={SAMPLE_RANGE_NAME}'
             df = pd.read_csv(url)
         return df
@@ -21,6 +20,7 @@ def reading_sheets(alpha,event):
     except Exception as e:
         return None
         logging.error('Exception ', e)
+
 
 def read_wild_depositchances(SAMPLE_SPREADSHEET_ID, SAMPLE_RANGE_NAME):
     try:
@@ -76,6 +76,7 @@ def nodes(el, df1, alpha):
     except Exception as e:
         logging.error('Error nodes ', e)
 
+
 def element_multiplier(el: object) -> object:
     try:
         if 'Gems' in el or 'Elemen' in el:
@@ -89,3 +90,11 @@ def element_multiplier(el: object) -> object:
     except Exception as e:
         logging.error('Error element_multiplier >> ', e)
 
+
+def find_between(s, first, last):
+    try:
+        start = s.index(first) + len(first)
+        end = s.index(last, start)
+        return s[start:end]
+    except ValueError:
+        return ""
