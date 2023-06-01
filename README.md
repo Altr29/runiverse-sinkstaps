@@ -10,6 +10,7 @@ The final dashboard output can be found on:
 
 *  [`streamlit dashboard`](https://mariaob1201-runiverse-sinkstaps-main-ls4sij.streamlit.app/).
 
+I totally agree with that
 
 ## Prerequisities
 
